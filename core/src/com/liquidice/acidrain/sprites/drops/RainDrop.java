@@ -1,18 +1,21 @@
 package com.liquidice.acidrain.sprites.drops;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+import com.liquidice.acidrain.controllers.assets.Textures;
 
 public class RainDrop extends Drop {
+
     public RainDrop(float x, int y, int size, float speed) {
+        Texture image = Textures.findRainDropTexture(size);
         super.setX(x);
         super.setY(y);
         super.setPoints(size == 7 ? 10 : size);
         super.setSpeed(speed);
-        super.setImage(new Texture("rain/drop/drop" + size + ".png"));
-        super.setSplash(new Texture("rain/splash/rainSplash.png"));
-        super.setLeftSplash(new Texture("rain/splash/rainSplashLeft.png"));
-        super.setRightSplash(new Texture("rain/splash/rainSplashRight.png"));
+        super.setImage(image);
+        super.setSplash(Textures.rainSplash);
+        super.setLeftSplash(Textures.rainSplashLeft);
+        super.setRightSplash(Textures.rainSplashRight);
+        super.setRect(new Rectangle(x, y, image.getWidth(), image.getHeight()));
     }
-
-
 }

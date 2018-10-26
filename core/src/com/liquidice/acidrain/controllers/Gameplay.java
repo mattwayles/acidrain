@@ -1,5 +1,6 @@
-package com.liquidice.acidrain.Controllers;
+package com.liquidice.acidrain.controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.liquidice.acidrain.AcidRain;
 
 /**
@@ -10,12 +11,12 @@ public class Gameplay {
     private static int levelBest = AcidRain.getPreferences().getInteger("levelBest", 0);
 
     //Drop speed; increase to increase difficulty
-    private static float maxSpeed = AcidRain.getPreferences().getFloat("maxSpeed", 12);
-    private static float minSpeed = AcidRain.getPreferences().getFloat("minSpeed", 8);
+    private static float maxSpeed = AcidRain.getPreferences().getFloat("maxSpeed", 5);
+    private static float minSpeed = AcidRain.getPreferences().getFloat("minSpeed", 2);
 
     //Drop frequency; increase to increase difficulty
-    private static float rainFreq = AcidRain.getPreferences().getFloat("rainFreq", 35);
-    private static float acidFreq = AcidRain.getPreferences().getFloat("acidFreq", 25);
+    private static float rainFreq = AcidRain.getPreferences().getFloat("rainFreq", 100);
+    private static float acidFreq = AcidRain.getPreferences().getFloat("acidFreq", 120);
 
     //Manage Level
     public static int getLevel() { return level; }
@@ -25,22 +26,49 @@ public class Gameplay {
         AcidRain.getPreferences().putInteger("levelBest", best);
     }
     public static void increaseLevel() {
-        level++;
-        increaseMaxSpeed(maxSpeed + level * .1f);
-        increaseMinSpeed(minSpeed + level * .1f);
+        // This is the creme-de-la-creme of the gameplay. The next level needs to slightly increase difficulty, in a way that is fun yet challenging
+        // Methods of increasing difficulty:
+        // 		Rain/Acid Drop speed
+        //		Rain/Acid drop frequency
+        //		Higher win score/ Lower lose score
+        //		(Future) less time to get winScore before storm clears
 
-        if (level % 4 == 0) {
+
+        //TODO: DEBUG, remove
+        int origLevel = level;
+        float origMaxSpeed = maxSpeed;
+        float origMinSpeed = minSpeed;
+        float origRainFreq = rainFreq;
+        float origAcidFreq = acidFreq;
+        float origWinScore = Score.getWinScore();
+        float origLoseScore = Score.getLoseScore();
+
+        level++;
+        increaseMaxSpeed(maxSpeed + level * .05f);
+        increaseMinSpeed(minSpeed + level * .05f);
+
+        if (level % 2 == 0) {
             decreaseRainFreq(rainFreq + 1);
         }
-        increaseAcidFreq(acidFreq - level * .1f);
+        increaseAcidFreq(acidFreq - level * 1f);
         Score.increaseWinScore();
+        Score.decreaseLoseScore();
         AcidRain.getPreferences().putInteger("level", level);
         AcidRain.getPreferences().putFloat("maxSpeed", maxSpeed);
         AcidRain.getPreferences().putFloat("minSpeed", minSpeed);
         AcidRain.getPreferences().putFloat("rainFreq", rainFreq);
         AcidRain.getPreferences().putFloat("acidFreq", acidFreq);
         AcidRain.getPreferences().putInteger("winScore", Score.getWinScore());
+        AcidRain.getPreferences().putInteger("loseScore", Score.getLoseScore());
         AcidRain.getPreferences().flush();
+
+        Gdx.app.log("STARTING LEVEL", String.valueOf(level));
+        Gdx.app.log("Max Speed Increased: ", origMaxSpeed + " -> " + maxSpeed);
+        Gdx.app.log("Min Speed Increased: ", origMinSpeed + " -> " + minSpeed);
+        Gdx.app.log("Rain Freq Decreased: ", origRainFreq + " -> " + rainFreq);
+        Gdx.app.log("Acid Freq Increased:", origAcidFreq + " -> " + acidFreq);
+        Gdx.app.log("Win Score Increased: ", origWinScore + " -> " + Score.getWinScore());
+
     }
 
     //Manage Max Speed variable

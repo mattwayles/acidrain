@@ -1,4 +1,4 @@
-package com.liquidice.acidrain.Controllers;
+package com.liquidice.acidrain.controllers;
 
 public class Counter {
     //Store time between raindrops
@@ -11,6 +11,8 @@ public class Counter {
     private static int splashCount;
     private final static int splashLength = 20;
 
+    //Store time before lightning strike
+    private static int backgroundCount;
 
     //Manage RainCount variable
     public static int getRainCount() { return rainCount; }
@@ -27,6 +29,11 @@ public class Counter {
     public static int getSplashLength() { return splashLength; }
     public static void increaseSplashCount() { splashCount++; }
     public static void resetSplashCount() { splashCount = 0; }
+
+    //Manage BackgroundCount variable
+    public static int getBackgroundCount() { return backgroundCount; }
+    public static void increaseBackgroundCount() { backgroundCount++; }
+    public static void resetBackgroundCount() { backgroundCount = 0; }
 
     public static void clear() {
         rainCount = 0;

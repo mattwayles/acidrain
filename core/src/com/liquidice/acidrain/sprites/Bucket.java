@@ -3,13 +3,14 @@ package com.liquidice.acidrain.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.liquidice.acidrain.controllers.assets.Textures;
 
 public class Bucket {
     private static final int BUCKET_SPEED = 20;
     private static final int BUCKET_HOVER = 200;
 
-    private static Texture image = new Texture("rain/bucket/bucket0.png");
-    private static float x = Gdx.graphics.getWidth() / 2 - image.getWidth() / 2;;
+    private static Texture image = Textures.rainBucket0;
+    private static float x = Gdx.graphics.getWidth() / 2 - image.getWidth() / 2;
     private static Rectangle topRect = new Rectangle(x, BUCKET_HOVER + image.getHeight(), image.getWidth(), 1);
     private static Rectangle leftRect = new Rectangle(x, BUCKET_HOVER, 1, image.getHeight());
     private static Rectangle rightRect= new Rectangle(x + image.getWidth(), BUCKET_HOVER, 1, image.getHeight());
@@ -20,9 +21,9 @@ public class Bucket {
 
     public static void setX(float bucketX) {
         x = bucketX;
-        topRect = new Rectangle(x, BUCKET_HOVER + image.getHeight(), image.getWidth(), 1);
-        leftRect = new Rectangle(x, BUCKET_HOVER, 1, image.getHeight());
-        rightRect= new Rectangle(x + image.getWidth(), BUCKET_HOVER, 1, image.getHeight());
+        leftRect.set(x - 6, BUCKET_HOVER, 1, image.getHeight() - 5);
+        rightRect.set(x + image.getWidth() + 6, BUCKET_HOVER, 5, image.getHeight() - 5);
+        topRect.set(x + 10, BUCKET_HOVER + image.getHeight()- 5, image.getWidth(), 1);
     }
 
     public static Texture getImage() {

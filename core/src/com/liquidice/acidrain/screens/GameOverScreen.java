@@ -6,22 +6,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.liquidice.acidrain.controllers.assets.Textures;
 
 public class GameOverScreen {
-    private final String GAME_OVER_TEXT = "Game Over!";
-    private final String START_OVER_TEXT = "Touch anywhere to Play Again";
+    private static final String START_OVER_TEXT = "Touch anywhere to Play Again";
+    private static BitmapFont startOverFont = setFont();
+    private static GlyphLayout startOverLayout = new GlyphLayout(startOverFont, START_OVER_TEXT);
 
-
-    public GameOverScreen(Batch batch) {
-        BitmapFont gameOverFont = setFont();
-        BitmapFont startOverFont = setFont();
-        GlyphLayout gameOverLayout = new GlyphLayout(gameOverFont, GAME_OVER_TEXT);
-        GlyphLayout startOverLayout = new GlyphLayout(startOverFont, START_OVER_TEXT);
-        gameOverFont.draw(batch, GAME_OVER_TEXT, Gdx.graphics.getWidth() / 2 - gameOverLayout.width / 2, Gdx.graphics.getHeight() / 2);
-        startOverFont.draw(batch, START_OVER_TEXT, Gdx.graphics.getWidth() / 2 - startOverLayout.width / 2, Gdx.graphics.getHeight() / 2 - 100);
+    public static void display(Batch batch) {
+        batch.draw(Textures.gameOver, Gdx.graphics.getWidth() / 2 - Textures.gameOver.getWidth() / 2, Gdx.graphics.getHeight() / 2 - Textures.gameOver.getHeight() / 2 + 50);
+        startOverFont.draw(batch, START_OVER_TEXT, Gdx.graphics.getWidth() / 2 - startOverLayout.width / 2, Gdx.graphics.getHeight() / 2 - Textures.gameOver.getHeight() / 2);
     }
 
-    private BitmapFont setFont() {
+    private static BitmapFont setFont() {
         BitmapFont font = new BitmapFont();
         font.setColor(Color.WHITE);
         font.getData().setScale(4);

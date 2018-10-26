@@ -1,4 +1,4 @@
-package com.liquidice.acidrain.Controllers;
+package com.liquidice.acidrain.controllers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
