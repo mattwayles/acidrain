@@ -28,14 +28,15 @@ import java.util.Random;
 
 
 //TODO:
+//Actual clouds, rainfall behind them
 //Better font rendering using actual BMFont files/images
-// Shared pref for "Top score on this level"
-//Gradual dissipation of storm ??? Maybe just a sunny day when level is complete
+//Gradual fall back to storm after Level Complete (?)
 //Perfect score! + badge
 //Power-ups
 //Badges
 //Smooth down the touch and drags
-//Find a way to make it fun
+// Shared pref for "Top score on this level"
+//Find a way to make it MORE fun
 //Clean N' Comment
 //Artist attribution
 
@@ -70,10 +71,7 @@ public class AcidRain extends ApplicationAdapter {
 	public void render () {
 		batch.begin();
 
-		//Draw background, city, bucket
-		drawCoreSprites();
-
-
+		drawBackground();
 
 		switch (gameState) {
 			case 0:
@@ -109,14 +107,33 @@ public class AcidRain extends ApplicationAdapter {
 				break;
             case 3:
                 /* Level Complete */
-				LevelCompleteScreen.display(batch);
-                if (Gdx.input.justTouched()) {
+				Audio.getBackgroundMusic().pause();
+				Audio.playBirds();
+
+				//TODO: Cleanup
+				if (Counter.getSunnyCount() < 100) {
+					int sunToRender = Integer.parseInt(String.valueOf(Counter.getSunnyCount()).substring(0, 1));
+					batch.draw(Textures.findSunnyBackgroundTexture(sunToRender), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+					Counter.increaseSunnyCount();
+				} else {
+					batch.draw(Textures.findSunnyBackgroundTexture(10), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				}
+
+
+
+				if (Gdx.input.justTouched()) {
 					gameState = 1;
+					Audio.getBirdsMusic().stop();
+					Audio.getBackgroundMusic().play();
 					Gameplay.increaseLevel();
                 	clearAll();
 				}
+				LevelCompleteScreen.display(batch);
 				break;
 		}
+
+		batch.draw(Textures.city, 0, 0, Gdx.graphics.getWidth(), Bucket.getBucketHover() - 20);
+		batch.draw(Bucket.getImage(), Bucket.getX(), Bucket.getBucketHover(), Bucket.getImage().getWidth(), Bucket.getImage().getHeight());
 
 		registerTouch();
 
@@ -126,7 +143,7 @@ public class AcidRain extends ApplicationAdapter {
 	public static Preferences getPreferences() { return prefs; }
 	public static void setGameState(int state) { gameState = state; }
 
-	private void drawCoreSprites() {
+	private void drawBackground() {
 		if (Counter.getBackgroundCount() < Background.LIGHTNING_FREQUENCY) {
 			Counter.increaseBackgroundCount();
 			Background.setBackground();
@@ -135,8 +152,6 @@ public class AcidRain extends ApplicationAdapter {
 			Background.setLightningBackground();
 		}
 		batch.draw(Background.getBackground(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		batch.draw(Textures.city, 0, 0, Gdx.graphics.getWidth(), Bucket.getBucketHover() - 20);
-		batch.draw(Bucket.getImage(), Bucket.getX(), Bucket.getBucketHover(), Bucket.getImage().getWidth(), Bucket.getImage().getHeight());
 	}
 
 	private void updateDropPositions() {

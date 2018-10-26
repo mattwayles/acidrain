@@ -14,6 +14,9 @@ public class Counter {
     //Store time before lightning strike
     private static int backgroundCount;
 
+    //Storm time between sun
+    private static int sunnyCount;
+
     //Manage RainCount variable
     public static int getRainCount() { return rainCount; }
     public static void increaseRainCount() { rainCount++; }
@@ -35,9 +38,16 @@ public class Counter {
     public static void increaseBackgroundCount() { backgroundCount++; }
     public static void resetBackgroundCount() { backgroundCount = 0; }
 
+    //Manage sunnyCount variable
+    public static int getSunnyCount() { return sunnyCount; }
+    public static void increaseSunnyCount() { sunnyCount++; }
+    public static void resetSunnyCount() { sunnyCount = 0; }
+
     public static void clear() {
         rainCount = 0;
         acidCount = 0;
         splashCount = 0;
+        sunnyCount = 0;
+        backgroundCount = 0;
     }
 }
