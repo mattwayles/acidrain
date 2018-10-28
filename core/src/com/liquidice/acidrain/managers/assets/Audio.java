@@ -1,4 +1,4 @@
-package com.liquidice.acidrain.controllers.assets;
+package com.liquidice.acidrain.managers.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -11,6 +11,8 @@ public class Audio {
     private static Sound acidDropSound = Gdx.audio.newSound(Gdx.files.internal("sounds/acidDrop.mp3"));
     private static Sound levelWinSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelWin.mp3"));
     private static Sound sideSplatSound = Gdx.audio.newSound(Gdx.files.internal("sounds/sideSplat.mp3"));
+    private static Sound sirenSound = Gdx.audio.newSound(Gdx.files.internal("sounds/siren.wav"));
+    private static Sound thunderSound = Gdx.audio.newSound(Gdx.files.internal("sounds/thunderCrack.wav"));
 
     public static Music getBackgroundMusic() { return backgroundMusic; }
     public static Music getBirdsMusic() { return birdsMusic; }
@@ -27,6 +29,8 @@ public class Audio {
     public static void playAcidDropSound() { acidDropSound.play(); }
     public static void playLevelWinSound() { levelWinSound.play(); }
     public static void playSideSplatSound() { sideSplatSound.play(); }
+    public static void playSirenSound() { sirenSound.play(); }
+    public static void playThunderSound() { thunderSound.play(); }
 
 
 

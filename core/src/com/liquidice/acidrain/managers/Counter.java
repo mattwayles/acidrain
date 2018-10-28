@@ -1,4 +1,4 @@
-package com.liquidice.acidrain.controllers;
+package com.liquidice.acidrain.managers;
 
 public class Counter {
     //Store time between raindrops
@@ -41,13 +41,12 @@ public class Counter {
     //Manage sunnyCount variable
     public static int getSunnyCount() { return sunnyCount; }
     public static void increaseSunnyCount() { sunnyCount++; }
-    public static void resetSunnyCount() { sunnyCount = 0; }
+    public static void decreaseSunnyCount() { sunnyCount--; }
 
     public static void clear() {
         rainCount = 0;
         acidCount = 0;
         splashCount = 0;
-        sunnyCount = 0;
         backgroundCount = 0;
     }
 }

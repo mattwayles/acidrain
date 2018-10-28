@@ -3,19 +3,27 @@ package com.liquidice.acidrain;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Intersector;
-import com.liquidice.acidrain.controllers.Background;
-import com.liquidice.acidrain.controllers.Counter;
-import com.liquidice.acidrain.controllers.Gameplay;
-import com.liquidice.acidrain.controllers.Gesture;
-import com.liquidice.acidrain.controllers.Score;
-import com.liquidice.acidrain.controllers.assets.Audio;
-import com.liquidice.acidrain.controllers.assets.Textures;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.liquidice.acidrain.managers.Background;
+import com.liquidice.acidrain.managers.Counter;
+import com.liquidice.acidrain.managers.Gameplay;
+import com.liquidice.acidrain.managers.Gesture;
+import com.liquidice.acidrain.managers.Score;
+import com.liquidice.acidrain.managers.assets.Audio;
+import com.liquidice.acidrain.managers.assets.Textures;
+import com.liquidice.acidrain.screens.unlockables.HealthPackScreen;
 import com.liquidice.acidrain.sprites.Bucket;
+import com.liquidice.acidrain.sprites.City;
+import com.liquidice.acidrain.sprites.Clouds;
 import com.liquidice.acidrain.sprites.drops.Drop;
+import com.liquidice.acidrain.sprites.drops.Powerup;
 import com.liquidice.acidrain.sprites.drops.RainDrop;
 import com.liquidice.acidrain.screens.GameOverScreen;
 import com.liquidice.acidrain.screens.LevelCompleteScreen;
@@ -28,15 +36,15 @@ import java.util.Random;
 
 
 //TODO:
-//Actual clouds, rainfall behind them
-//Better font rendering using actual BMFont files/images
-//Gradual fall back to storm after Level Complete (?)
-//Perfect score! + badge
-//Power-ups
-//Badges
+//Unlockables screen, unlockables button, "You've unlocked..." page
+//Power-ups: Umbrella, Shield, turn all blue, multiplier
+//Earn points to be used for upgrades
+//Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
+//Tutorial
+//Sound off / help buttons on main screen
 //Smooth down the touch and drags
 // Shared pref for "Top score on this level"
-//Find a way to make it MORE fun
+//Find a way to make it MORE /fun
 //Clean N' Comment
 //Artist attribution
 
@@ -46,7 +54,7 @@ public class AcidRain extends ApplicationAdapter {
 	private SpriteBatch batch;
 
 	// Management
-	private static int gameState;
+	private static int gameState = 0;
 	private List<Drop> drops = new ArrayList<Drop>();
 
 	//Misc
@@ -58,12 +66,8 @@ public class AcidRain extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		prefs = Gdx.app.getPreferences("MyPrefs");
 
-		//TODO: Remove DEBUG:
-		prefs.clear();
-		prefs.flush();
-
 		Gdx.input.setInputProcessor(new GestureDetector(new Gesture()));
-
+		Score.initialize();
 		Audio.playMusic();
 	}
 
@@ -72,69 +76,62 @@ public class AcidRain extends ApplicationAdapter {
 		batch.begin();
 
 		drawBackground();
+        batch.draw(City.getImage(), 0, 0, Gdx.graphics.getWidth(), Bucket.getBucketHover() - 20);
 
 		switch (gameState) {
 			case 0:
 				/* Waiting for Input */
 				StartScreen.display(batch);
+
+				//TODO: Unloackable window
+				//HealthPackScreen.display();
 				if (Gdx.input.justTouched()) {
 					gameState = 1;
 				}
 				break;
 			case 1:
 				/* Gameplay */
-				randomizeDrops();
+				if (Counter.getSunnyCount() == 0) {
+					randomizeDrops();
 
-				//Update raindrop positions
-				updateDropPositions();
 
-				//Check for collision
-                checkCollision();
+					//Update raindrop positions
+					updateDropPositions();
 
-				Score.display(batch);
+					//Check for collision
+					checkCollision();
+				}
 				break;
 			case 2:
 				/* Game Over */
 			    GameOverScreen.display(batch);
-				Bucket.setImage(Textures.acidBucket0);
+			    Bucket.setImage(Textures.rainBucket0);
 				if (Score.getCaughtPercentage() > Gameplay.getLevelBest()) {
 					Gameplay.setLevelBest(Score.getCaughtPercentage());
 				}
 				if (Gdx.input.justTouched()) {
-					gameState = 1;
 					clearAll();
+					gameState = 0;
 				}
 				break;
             case 3:
                 /* Level Complete */
 				Audio.getBackgroundMusic().pause();
 				Audio.playBirds();
-
-				//TODO: Cleanup
-				if (Counter.getSunnyCount() < 100) {
-					int sunToRender = Integer.parseInt(String.valueOf(Counter.getSunnyCount()).substring(0, 1));
-					batch.draw(Textures.findSunnyBackgroundTexture(sunToRender), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-					Counter.increaseSunnyCount();
-				} else {
-					batch.draw(Textures.findSunnyBackgroundTexture(10), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				}
-
-
-
+				City.setImage(Textures.city10);
 				if (Gdx.input.justTouched()) {
-					gameState = 1;
 					Audio.getBirdsMusic().stop();
 					Audio.getBackgroundMusic().play();
+					Audio.playThunderSound();
 					Gameplay.increaseLevel();
-                	clearAll();
+					clearAll();
+                	gameState = 1;
 				}
 				LevelCompleteScreen.display(batch);
 				break;
 		}
-
-		batch.draw(Textures.city, 0, 0, Gdx.graphics.getWidth(), Bucket.getBucketHover() - 20);
 		batch.draw(Bucket.getImage(), Bucket.getX(), Bucket.getBucketHover(), Bucket.getImage().getWidth(), Bucket.getImage().getHeight());
-
+		drawCloudsAndScore();
 		registerTouch();
 
 		batch.end();
@@ -142,6 +139,7 @@ public class AcidRain extends ApplicationAdapter {
 
 	public static Preferences getPreferences() { return prefs; }
 	public static void setGameState(int state) { gameState = state; }
+	public static int getGameState() { return gameState; }
 
 	private void drawBackground() {
 		if (Counter.getBackgroundCount() < Background.LIGHTNING_FREQUENCY) {
@@ -152,6 +150,37 @@ public class AcidRain extends ApplicationAdapter {
 			Background.setLightningBackground();
 		}
 		batch.draw(Background.getBackground(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		drawSunnyBackground(gameState == 3);
+	}
+
+	private void drawCloudsAndScore() {
+		if (gameState != 0) {
+			batch.draw(Clouds.getImage(), Clouds.getX(), Clouds.getY(),
+					Gdx.graphics.getWidth() + 200, Clouds.getImage().getHeight());
+
+			if (Counter.getSunnyCount() == 0 && gameState != 2) {
+				Score.display(batch);
+			}
+		}
+	}
+
+	private void drawSunnyBackground(boolean increase) {
+		if (Counter.getSunnyCount() < 100) {
+			int sunToRender = Integer.parseInt(String.valueOf(Counter.getSunnyCount()).substring(0, 1));
+			batch.draw(Textures.findSunnyBackgroundTexture(sunToRender), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			if (increase) {
+				Counter.increaseSunnyCount();
+				Clouds.setX(Clouds.getX() - 12);
+			} else if (Counter.getSunnyCount() > 0) {
+				Counter.decreaseSunnyCount();
+				Clouds.setX(Counter.getSunnyCount() == 0 ? Clouds.getX() + 24 : Clouds.getX() + 12);
+			}
+		} else {
+			batch.draw(Textures.findSunnyBackgroundTexture(10), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			if (!increase) {
+				Counter.decreaseSunnyCount();
+			}
+		}
 	}
 
 	private void updateDropPositions() {
@@ -174,34 +203,43 @@ public class AcidRain extends ApplicationAdapter {
         float x;
         float speed;
         int size;
-        int minSize = 1;
+        int minSize = 2;
         int maxSize = 7;
 
 	    if (Counter.getRainCount() < Gameplay.getRainFreq()) {
 			Counter.increaseRainCount();
 		} else {
 			Counter.resetRainCount();
-			x = random.nextFloat() * Gdx.graphics.getWidth();
-			//Catch corner drops
-			x = (x < 50 ? 50 : (x > Gdx.graphics.getWidth() - 50 ? Gdx.graphics.getWidth() - 50 : x));
 			speed = Gameplay.getMinSpeed() + random.nextFloat() * (Gameplay.getMaxSpeed() - Gameplay.getMinSpeed());
 			size = random.nextInt((maxSize - minSize) + 1) + minSize;
+			x = random.nextFloat() * Gdx.graphics.getWidth();
+			//Catch corner drops
+			int corner = Gdx.graphics.getWidth() -  Textures.findRainDropTexture(size).getWidth();
+			x = x > corner ? corner : x;
 			//Make the supersized drops more rare
 			if (size == 7) {
-				size = random.nextInt((maxSize - minSize) + 1) + minSize;
-			}
-			drops.add(new RainDrop(x, Gdx.graphics.getHeight(), size, speed));
+                size = random.nextInt((maxSize - minSize) + 1) + minSize;
+            }
+            //Powerups
+            if (Gameplay.getLevel() > 5 && size == 7 ) {
+                size = random.nextInt((maxSize - minSize) + 1) + minSize;
+                if (size == 7) {
+                    drops.add(new Powerup(0, x, Gdx.graphics.getHeight()));
+                }
+            }
+            drops.add(new RainDrop(x, Gdx.graphics.getHeight(), size, speed));
 		}
 
 		if (Counter.getAcidCount() < Gameplay.getAcidFreq()) {
 		    Counter.increaseAcidCount();
         } else {
 		    Counter.resetAcidCount();
-		    x = random.nextFloat() * Gdx.graphics.getWidth();
-			//Catch corner drops
-			x = (x < 50 ? 50 : (x > Gdx.graphics.getWidth() - 50 ? Gdx.graphics.getWidth() - 50 : x));
 			speed = Gameplay.getMinSpeed() + random.nextFloat() * (Gameplay.getMaxSpeed() - Gameplay.getMinSpeed());
 			size = random.nextInt((maxSize - minSize) + 1) + minSize;
+			x = random.nextFloat() * Gdx.graphics.getWidth();
+			//Catch corner drops
+			int corner = Gdx.graphics.getWidth() -  Textures.findAcidDropTexture(size).getWidth();
+			x = x > corner ? corner : x;
             drops.add(new AcidDrop(x, Gdx.graphics.getHeight(), size, speed));
         }
 	}
@@ -240,11 +278,19 @@ public class AcidRain extends ApplicationAdapter {
 					Gdx.input.vibrate(40);
 					drops.remove(i);
 				}
-				else {
+				else if (drops.get(i) instanceof AcidDrop) {
 					Bucket.setImage(Textures.rainBucket0);
 					Audio.playAcidDropSound();
 					Gdx.input.vibrate(250);
-					gameState = 2;
+					Score.resetScore();
+					drops.remove(i);
+				}
+				else {
+					//TODO: Powerup sound
+					Gdx.input.vibrate(100);
+					Powerup drop = (Powerup) drops.get(i);
+					drop.executePowerup();
+					drops.remove(i);
 				}
 
 				break;

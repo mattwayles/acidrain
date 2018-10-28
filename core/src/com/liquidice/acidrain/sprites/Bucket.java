@@ -3,7 +3,7 @@ package com.liquidice.acidrain.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.liquidice.acidrain.controllers.assets.Textures;
+import com.liquidice.acidrain.managers.assets.Textures;
 
 public class Bucket {
     private static final int BUCKET_SPEED = 20;
@@ -21,9 +21,9 @@ public class Bucket {
 
     public static void setX(float bucketX) {
         x = bucketX;
-        leftRect.set(x - 6, BUCKET_HOVER, 1, image.getHeight() - 5);
-        rightRect.set(x + image.getWidth() + 6, BUCKET_HOVER, 5, image.getHeight() - 5);
-        topRect.set(x + 10, BUCKET_HOVER + image.getHeight()- 5, image.getWidth(), 1);
+        leftRect.set(x, BUCKET_HOVER, 10, image.getHeight() - 2);
+        rightRect.set(x + image.getWidth() - 10, BUCKET_HOVER, 10, image.getHeight() - 5);
+        topRect.set(x + 2, BUCKET_HOVER + image.getHeight()- 5, image.getWidth() - 2, 1);
     }
 
     public static Texture getImage() {

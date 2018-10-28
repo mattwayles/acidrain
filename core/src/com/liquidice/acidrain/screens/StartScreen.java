@@ -6,8 +6,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.liquidice.acidrain.controllers.Gameplay;
-import com.liquidice.acidrain.controllers.assets.Textures;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.liquidice.acidrain.managers.Gameplay;
+import com.liquidice.acidrain.managers.assets.Font;
+import com.liquidice.acidrain.managers.assets.Textures;
 
 public class StartScreen {
     private static final Texture LOGO = Textures.logo;
@@ -16,11 +24,11 @@ public class StartScreen {
     private static final String AVOID_RED_TEXT = "Smash the ACID rain!";
     private static final String CATCH_BLUE_TEXT = "Catch the CLEAN raindrops,";
     private static final String TOUCH_ANYWHERE_TEXT = "Touch anywhere to begin";
-    private static BitmapFont avoidRedFont = setAvoidRedFont();
-    private static BitmapFont catchBlueFont = setCatchBlueFont();
-    private static BitmapFont bestScoreFont = setBestScoreFont();
-    private static BitmapFont currentLevelFont = setCurrentLevelFont();
-    private static BitmapFont touchAnywhereFont = setTouchAnywhereFont();
+    private static BitmapFont avoidRedFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
+    private static BitmapFont catchBlueFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
+    private static BitmapFont bestScoreFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
+    private static BitmapFont currentLevelFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
+    private static BitmapFont touchAnywhereFont = Font.generatePlayFont(56, Color.WHITE);
     private static GlyphLayout avoidRedLayout = new GlyphLayout(avoidRedFont, AVOID_RED_TEXT);
     private static GlyphLayout catchBlueLayout = new GlyphLayout(catchBlueFont, CATCH_BLUE_TEXT);
     private static GlyphLayout touchAnywhereLayout = new GlyphLayout(touchAnywhereFont, TOUCH_ANYWHERE_TEXT);
@@ -31,7 +39,6 @@ public class StartScreen {
     public static void display(Batch batch) {
         batch.draw(LOGO, Gdx.graphics.getWidth() / 2 - LOGO.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         touchAnywhereFont.draw(batch, TOUCH_ANYWHERE_TEXT, Gdx.graphics.getWidth() / 2 - touchAnywhereLayout.width / 2, Gdx.graphics.getHeight() / 2 - LOGO.getHeight() / 2 - 20);
-        
         if (Gameplay.getLevel() == 1 && Gameplay.getLevelBest() == 0) {
             catchBlueFont.draw(batch, CATCH_BLUE_TEXT, Gdx.graphics.getWidth() / 2 - catchBlueLayout.width / 2, Gdx.graphics.getHeight() / 2 - 50);
             avoidRedFont.draw(batch, AVOID_RED_TEXT, Gdx.graphics.getWidth() / 2 - avoidRedLayout.width / 2, Gdx.graphics.getHeight() / 2 - 150);
@@ -39,50 +46,5 @@ public class StartScreen {
             currentLevelFont.draw(batch, CURRENT_LEVEL_TEXT + Gameplay.getLevel(), Gdx.graphics.getWidth() / 2 - currentLevelLayout.width / 2, Gdx.graphics.getHeight() / 2 - 50);
             bestScoreFont.draw(batch, BEST_SCORE_TEXT + Gameplay.getLevelBest() + "%", Gdx.graphics.getWidth() / 2 - bestScoreLayout.width / 2, Gdx.graphics.getHeight() / 2 - 150);
         }
-    }
-
-    private static BitmapFont setTouchAnywhereFont() {
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.WHITE);
-        font.getData().setScale(4);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        return font;
-    }
-
-    private static BitmapFont setCurrentLevelFont() {
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.valueOf("#ff4646"));
-        font.getData().setScale(5);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        return font;
-    }
-
-    private static BitmapFont setBestScoreFont() {
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.valueOf("#99d9ea"));
-        font.getData().setScale(5);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        return font;
-    }
-
-    private static BitmapFont setAvoidRedFont() {
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.valueOf("#ff4646"));
-        font.getData().setScale(4);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        return font;
-    }
-
-    private static BitmapFont setCatchBlueFont() {
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.valueOf("#99d9ea"));
-        font.getData().setScale(4);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        return font;
     }
 }

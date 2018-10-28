@@ -1,4 +1,4 @@
-package com.liquidice.acidrain.controllers.assets;
+package com.liquidice.acidrain.managers.assets;
 
 import com.badlogic.gdx.graphics.Texture;
 
@@ -7,12 +7,25 @@ public class Textures {
     public static Texture logo = new Texture("text/logo.png");
     public static Texture gameOver = new Texture("text/gameOver.png");
     public static Texture levelComplete = new Texture("text/levelComplete.png");
+    public static Texture perfectLevel = new Texture("text/perfectLevel.png");
+
+    ///////////////////////////////// CLOUD TEXTURES ///////////////////////////////////////////////
+    public static Texture clouds = new Texture("clouds.png");
 
     ////////////////////////////////// CITY TEXTURES ///////////////////////////////////////////////
-    public static Texture city = new Texture("city/city.png");
+    public static Texture city10 = new Texture("city/city10.png");
+    public static Texture city9 = new Texture("city/city9.png");
+    public static Texture city8 = new Texture("city/city8.png");
+    public static Texture city7 = new Texture("city/city7.png");
+    public static Texture city6 = new Texture("city/city6.png");
+    public static Texture city5 = new Texture("city/city5.png");
+    public static Texture city4 = new Texture("city/city4.png");
+    public static Texture city3 = new Texture("city/city3.png");
+    public static Texture city2 = new Texture("city/city2.png");
+    public static Texture city1 = new Texture("city/city1.png");
 
     ////////////////////////////////// BACKGROUND TEXTURES /////////////////////////////////////////
-    public static Texture stormBackground = new Texture("backgrounds/stormBackground.jpg");
+    public static Texture stormBackground = new Texture("backgrounds/stormBackground.png");
     public static Texture lightningBackground = new Texture("backgrounds/lightningBackground.jpg");
     private static Texture sunnySkyBackground1 = new Texture("backgrounds/sunnySkyBackground1.png");
     private static Texture sunnySkyBackground2 = new Texture("backgrounds/sunnySkyBackground2.png");
@@ -26,7 +39,6 @@ public class Textures {
     private static Texture sunnySkyBackground10 = new Texture("backgrounds/sunnySkyBackground10.png");
 
     ////////////////////////////////// ACID TEXTURES ///////////////////////////////////////////////
-    public static Texture acidBucket0 = new Texture("acid/bucket/bucket0.png");
     private static Texture acidDrop1 = new Texture("acid/drop/acid1.png");
     private static Texture acidDrop2 = new Texture("acid/drop/acid2.png");
     private static Texture acidDrop3 = new Texture("acid/drop/acid3.png");
@@ -60,6 +72,12 @@ public class Textures {
     public static Texture rainSplashLeft = new Texture("rain/splash/rainSplashLeft.png");
     public static Texture rainSplashRight = new Texture("rain/splash/rainSplashRight.png");
 
+    /////////////////////////////////// SCREEN TEXTURES ////////////////////////////////////////////
+    public static Texture goldBorder = new Texture("screen/goldBorder.png");
+
+
+    /////////////////////////////////// POWERUP TEXTURES ///////////////////////////////////////////
+    public static Texture healthPack = new Texture("powerup/healthPack.png");
 
     public static Texture findRainDropTexture(int size) {
         switch (size) {
@@ -152,6 +170,31 @@ public class Textures {
                 return sunnySkyBackground10;
             default:
                 return sunnySkyBackground1;
+        }
+    }
+
+    public static Texture findCityTexture(int num) {
+        switch (num) {
+            case 1:
+                return city1;
+            case 2:
+                return city2;
+            case 3:
+                return city3;
+            case 4:
+                return city4;
+            case 5:
+                return city5;
+            case 6:
+                return city6;
+            case 7:
+                return city7;
+            case 8:
+                return city8;
+            case 9:
+                return city9;
+            default:
+                return city10;
         }
     }
 }

@@ -1,8 +1,9 @@
-package com.liquidice.acidrain.controllers;
+package com.liquidice.acidrain.managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.liquidice.acidrain.AcidRain;
 import com.liquidice.acidrain.sprites.Bucket;
 
 public class Gesture implements GestureDetector.GestureListener {
@@ -39,6 +40,11 @@ public class Gesture implements GestureDetector.GestureListener {
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
+
+        //TODO: Remove reset
+        Gdx.app.log("DEBUG: ", "Resetting Prefs");
+        AcidRain.getPreferences().clear();
+        AcidRain.getPreferences().flush();
         return false;
     }
 

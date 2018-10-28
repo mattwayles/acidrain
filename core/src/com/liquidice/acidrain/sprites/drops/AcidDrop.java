@@ -2,7 +2,7 @@ package com.liquidice.acidrain.sprites.drops;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.liquidice.acidrain.controllers.assets.Textures;
+import com.liquidice.acidrain.managers.assets.Textures;
 
 public class AcidDrop extends Drop {
     public AcidDrop(float x, int y, int size, float speed) {

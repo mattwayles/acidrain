@@ -1,7 +1,7 @@
-package com.liquidice.acidrain.controllers;
+package com.liquidice.acidrain.managers;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.liquidice.acidrain.controllers.assets.Textures;
+import com.liquidice.acidrain.managers.assets.Textures;
 
 public class Background {
     public static final int LIGHTNING_FREQUENCY = 500;
