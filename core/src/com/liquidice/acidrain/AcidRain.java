@@ -82,9 +82,6 @@ public class AcidRain extends ApplicationAdapter {
 			case 0:
 				/* Waiting for Input */
 				StartScreen.display(batch);
-
-				//TODO: Unlockable window
-				//HealthPackScreen.display();
 				if (Gdx.input.justTouched()) {
 					gameState = 1;
 				}
@@ -119,6 +116,10 @@ public class AcidRain extends ApplicationAdapter {
 				Audio.getBackgroundMusic().pause();
 				Audio.playBirds();
 				City.setImage(Textures.city10);
+				LevelCompleteScreen.display(batch);
+				if (Gameplay.getLevel() == 5) {
+					HealthPackScreen.display();
+				}
 				if (Gdx.input.justTouched()) {
 					Audio.getBirdsMusic().stop();
 					Audio.getBackgroundMusic().play();
@@ -127,7 +128,7 @@ public class AcidRain extends ApplicationAdapter {
 					clearAll();
                 	gameState = 1;
 				}
-				LevelCompleteScreen.display(batch);
+
 				break;
 		}
 		batch.draw(Bucket.getImage(), Bucket.getX(), Bucket.getBucketHover(), Bucket.getImage().getWidth(), Bucket.getImage().getHeight());
@@ -139,7 +140,6 @@ public class AcidRain extends ApplicationAdapter {
 
 	public static Preferences getPreferences() { return prefs; }
 	public static void setGameState(int state) { gameState = state; }
-	public static int getGameState() { return gameState; }
 
 	private void drawBackground() {
 		if (Counter.getBackgroundCount() < Background.LIGHTNING_FREQUENCY) {
@@ -219,17 +219,14 @@ public class AcidRain extends ApplicationAdapter {
 			//Make the supersized drops more rare
 			if (size == 7) {
                 size = random.nextInt((maxSize - minSize) + 1) + minSize;
-            }
-            //Powerups
-			//TODO: How often does a health pack come up?
-            if (Gameplay.getLevel() > 5 && size == 2 ) {
-				x = random.nextFloat() * Gdx.graphics.getWidth();
-				if (x > 4) {
-					drops.add(new Powerup(0, x, Gdx.graphics.getHeight()));
+				if (Gameplay.getLevel() > 5 && size == 2 ) {
+					x = random.nextFloat() * Gdx.graphics.getWidth();
+					if (x > 5) {
+						drops.add(new Powerup(0, x, Gdx.graphics.getHeight()));
+					}
 				}
-            } else {
-				drops.add(new RainDrop(x, Gdx.graphics.getHeight(), size, speed));
-			}
+            }
+			drops.add(new RainDrop(x, Gdx.graphics.getHeight(), size, speed));
 		}
 
 		if (Counter.getAcidCount() < Gameplay.getAcidFreq()) {

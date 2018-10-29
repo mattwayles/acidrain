@@ -22,7 +22,7 @@ public class Bucket {
     public static void setX(float bucketX) {
         x = bucketX;
         leftRect.set(x, BUCKET_HOVER, 10, image.getHeight() - 2);
-        rightRect.set(x + image.getWidth() - 10, BUCKET_HOVER, 10, image.getHeight() - 5);
+        rightRect.set(x + image.getWidth() - 10, BUCKET_HOVER, 10, image.getHeight() - 2);
         topRect.set(x + 2, BUCKET_HOVER + image.getHeight()- 5, image.getWidth() - 2, 1);
     }
 

@@ -14,14 +14,14 @@ public class Textures {
 
     ////////////////////////////////// CITY TEXTURES ///////////////////////////////////////////////
     public static Texture city10 = new Texture("city/city10.png");
-    public static Texture city9 = new Texture("city/city9.png");
-    public static Texture city8 = new Texture("city/city8.png");
-    public static Texture city7 = new Texture("city/city7.png");
-    public static Texture city6 = new Texture("city/city6.png");
-    public static Texture city5 = new Texture("city/city5.png");
-    public static Texture city4 = new Texture("city/city4.png");
-    public static Texture city3 = new Texture("city/city3.png");
-    public static Texture city2 = new Texture("city/city2.png");
+    private static Texture city9 = new Texture("city/city9.png");
+    private static Texture city8 = new Texture("city/city8.png");
+    private static Texture city7 = new Texture("city/city7.png");
+    private static Texture city6 = new Texture("city/city6.png");
+    private static Texture city5 = new Texture("city/city5.png");
+    private static Texture city4 = new Texture("city/city4.png");
+    private static Texture city3 = new Texture("city/city3.png");
+    private static Texture city2 = new Texture("city/city2.png");
     public static Texture city1 = new Texture("city/city1.png");
 
     ////////////////////////////////// BACKGROUND TEXTURES /////////////////////////////////////////
@@ -73,7 +73,7 @@ public class Textures {
     public static Texture rainSplashRight = new Texture("rain/splash/rainSplashRight.png");
 
     /////////////////////////////////// SCREEN TEXTURES ////////////////////////////////////////////
-    public static Texture goldBorder = new Texture("screen/goldBorder.png");
+    public static Texture unlocked = new Texture("screen/unlocked.jpg");
 
 
     /////////////////////////////////// POWERUP TEXTURES ///////////////////////////////////////////
