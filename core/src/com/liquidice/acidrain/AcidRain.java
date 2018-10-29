@@ -83,7 +83,7 @@ public class AcidRain extends ApplicationAdapter {
 				/* Waiting for Input */
 				StartScreen.display(batch);
 
-				//TODO: Unloackable window
+				//TODO: Unlockable window
 				//HealthPackScreen.display();
 				if (Gdx.input.justTouched()) {
 					gameState = 1;
@@ -221,13 +221,15 @@ public class AcidRain extends ApplicationAdapter {
                 size = random.nextInt((maxSize - minSize) + 1) + minSize;
             }
             //Powerups
-            if (Gameplay.getLevel() > 5 && size == 7 ) {
-                size = random.nextInt((maxSize - minSize) + 1) + minSize;
-                if (size == 7) {
-                    drops.add(new Powerup(0, x, Gdx.graphics.getHeight()));
-                }
-            }
-            drops.add(new RainDrop(x, Gdx.graphics.getHeight(), size, speed));
+			//TODO: How often does a health pack come up?
+            if (Gameplay.getLevel() > 5 && size == 2 ) {
+				x = random.nextFloat() * Gdx.graphics.getWidth();
+				if (x > 4) {
+					drops.add(new Powerup(0, x, Gdx.graphics.getHeight()));
+				}
+            } else {
+				drops.add(new RainDrop(x, Gdx.graphics.getHeight(), size, speed));
+			}
 		}
 
 		if (Counter.getAcidCount() < Gameplay.getAcidFreq()) {

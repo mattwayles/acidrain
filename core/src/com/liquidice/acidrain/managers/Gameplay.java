@@ -15,8 +15,8 @@ public class Gameplay {
     private static float minSpeed = AcidRain.getPreferences().getFloat("minSpeed", 2);
 
     //Drop frequency; increase to increase difficulty
-    private static float rainFreq = AcidRain.getPreferences().getFloat("rainFreq", 70);
-    private static float acidFreq = AcidRain.getPreferences().getFloat("acidFreq", 180);
+    private static float rainFreq = AcidRain.getPreferences().getFloat("rainFreq", 90);
+    private static float acidFreq = AcidRain.getPreferences().getFloat("acidFreq", 140);
 
     //Manage Level
     public static int getLevel() { return level; }
@@ -43,11 +43,11 @@ public class Gameplay {
         float origLoseScore = Score.getLoseScore();
 
         level++;
-        increaseMaxSpeed(level < 10 ? maxSpeed + .25f : maxSpeed + .1f);
-        increaseMinSpeed(level < 10 ? maxSpeed + .25f : minSpeed + .1f);
+        increaseMaxSpeed(level < 10 ? maxSpeed + .3f : maxSpeed + .1f);
+        increaseMinSpeed(level < 10 ? minSpeed + .3f : minSpeed + .1f);
 
         if (level % 2 == 0) {
-            decreaseRainFreq(level < 10 ? rainFreq + 5f : rainFreq + 2f);
+            decreaseRainFreq(level < 10 ? rainFreq - 5f : rainFreq + 1f);
         }
         increaseAcidFreq(level < 10 ? acidFreq - 10f : acidFreq - 2f);
         Score.increaseWinScore(level < 10 ? 10 : 1);
