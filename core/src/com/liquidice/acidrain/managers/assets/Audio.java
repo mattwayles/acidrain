@@ -3,6 +3,7 @@ package com.liquidice.acidrain.managers.assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.liquidice.acidrain.AcidRain;
 
 public class Audio {
     private static Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/thunderstorm.mp3"));
@@ -18,19 +19,37 @@ public class Audio {
     public static Music getBirdsMusic() { return birdsMusic; }
 
     public static void playMusic() {
-        backgroundMusic.play();
-        backgroundMusic.setLooping(true);
+        if (AcidRain.getPreferences().getBoolean("soundOn")) {
+            backgroundMusic.play();
+            backgroundMusic.setLooping(true);
+        }
     }
     public static void playBirds() {
-        birdsMusic.play();
-        birdsMusic.setLooping(true);
+        if (AcidRain.getPreferences().getBoolean("soundOn")) {
+            birdsMusic.play();
+            birdsMusic.setLooping(true);
+        }
     }
-    public static void playRainDropSound() { rainDropSound.play(); }
-    public static void playAcidDropSound() { acidDropSound.play(); }
-    public static void playLevelWinSound() { levelWinSound.play(); }
-    public static void playSideSplatSound() { sideSplatSound.play(); }
-    public static void playSirenSound() { sirenSound.play(); }
-    public static void playThunderSound() { thunderSound.play(); }
+    public static void playRainDropSound() {
+        if (AcidRain.getPreferences().getBoolean("soundOn")) {
+            rainDropSound.play();
+        } }
+    public static void playAcidDropSound() {
+        if (AcidRain.getPreferences().getBoolean("soundOn")) {
+            acidDropSound.play();
+        } }
+    public static void playLevelWinSound() {  if (AcidRain.getPreferences().getBoolean("soundOn")) {
+        levelWinSound.play();
+    } }
+    public static void playSideSplatSound() {  if (AcidRain.getPreferences().getBoolean("soundOn")) {
+        sideSplatSound.play();
+    } }
+    public static void playSirenSound() {  if (AcidRain.getPreferences().getBoolean("soundOn")) {
+        sirenSound.play();
+    } }
+    public static void playThunderSound() {  if (AcidRain.getPreferences().getBoolean("soundOn")) {
+        thunderSound.play();
+    } }
 
 
 

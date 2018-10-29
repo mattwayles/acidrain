@@ -83,7 +83,7 @@ public class AcidRain extends ApplicationAdapter {
 				/* Waiting for Input */
 				StartScreen.display(batch);
 				if (Gdx.input.justTouched()) {
-					gameState = 1;
+					//gameState = 1;
 				}
 				break;
 			case 1:
