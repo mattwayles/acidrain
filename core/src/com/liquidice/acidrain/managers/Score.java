@@ -22,22 +22,12 @@ public class Score {
     private static int strengthPercentage = 100;
     private static double caughtScore;
     private static double strengthScore = loseScore;
-    private static BitmapFont caughtLabelFont;
-    private static BitmapFont caughtScoreFont;
-    private static BitmapFont strengthLabelFont;
-    private static BitmapFont strengthScoreFont;
     private static GlyphLayout caughtLabelLayout = new GlyphLayout();
     private static GlyphLayout caughtScoreLayout = new GlyphLayout();
     private static GlyphLayout strengthLabelLayout  = new GlyphLayout();
     private static GlyphLayout strengthScoreLayout  = new GlyphLayout();
     private static boolean sirenPlayed = false;
 
-    public static void initialize() {
-        caughtLabelFont = Font.generatePlayFont(Properties.LABEL_FONT_SIZE, Properties.SCORE_BLUE_COLOR, 3, Color.BLACK);
-        caughtScoreFont = Font.generatePlayFont(Properties.SCORE_FONT_SIZE, Properties.SCORE_BLUE_COLOR, 3, Color.BLACK);
-        strengthLabelFont = Font.generatePlayFont(Properties.LABEL_FONT_SIZE, Properties.SCORE_RED_COLOR, 3, Color.BLACK);
-        strengthScoreFont = Font.generatePlayFont(Properties.SCORE_FONT_SIZE, Properties.SCORE_RED_COLOR, 3, Color.BLACK);
-    }
 
     public static void display(Batch batch) {
         calculateCaughtScore();
@@ -52,7 +42,8 @@ public class Score {
     public static int getLoseScore() { return (int) loseScore; }
     public static int getStrengthScore() { return (int) strengthScore; }
     public static void setStrengthScore(int score) { strengthScore = score; }
-    public static void increaseCaughtScore(int points) { caughtScore += points; }
+    public static void increaseCaughtScore(int points) {
+        caughtScore += points; }
     public static void decreaseStrengthScore(int points) { strengthScore -= points; }
     public static void resetStrength() {
         strengthScore = loseScore;
@@ -112,19 +103,19 @@ public class Score {
         String label = "Clean Water";
         String score = caughtPercentage + "%";
 
-        caughtLabelLayout.setText(caughtLabelFont, label);
-        caughtScoreLayout.setText(caughtScoreFont, score);
-        caughtLabelFont.draw(batch, label, Properties.CAUGHT_SCORE_X, Gdx.graphics.getHeight() - Properties.LABEL_Y);
-        caughtScoreFont.draw(batch, score, Properties.CAUGHT_SCORE_X + caughtLabelLayout.width / 2 - caughtScoreLayout.width / 2, Gdx.graphics.getHeight() - Properties.SCORE_Y);
+        caughtLabelLayout.setText(Font.caughtLabelFont, label);
+        caughtScoreLayout.setText(Font.caughtScoreFont, score);
+        Font.caughtLabelFont.draw(batch, label, Properties.CAUGHT_SCORE_X, Gdx.graphics.getHeight() - Properties.LABEL_Y);
+        Font.caughtScoreFont.draw(batch, score, Properties.CAUGHT_SCORE_X + caughtLabelLayout.width / 2 - caughtScoreLayout.width / 2, Gdx.graphics.getHeight() - Properties.SCORE_Y);
     }
 
     private static void drawStrengthScore(Batch batch) {
         String label = "City Strength";
         String score = strengthPercentage + "%";
 
-        strengthLabelLayout.setText(strengthLabelFont, label);
-        strengthScoreLayout.setText(strengthScoreFont, score);
-        strengthLabelFont.draw(batch, label, Properties.STRENGTH_SCORE_X, Gdx.graphics.getHeight() - Properties.LABEL_Y);
-        strengthScoreFont.draw(batch, score, Properties.STRENGTH_SCORE_X + strengthLabelLayout.width / 2 - strengthScoreLayout.width / 2, Gdx.graphics.getHeight() - Properties.SCORE_Y);
+        strengthLabelLayout.setText(Font.strengthLabelFont, label);
+        strengthScoreLayout.setText(Font.strengthScoreFont, score);
+        Font.strengthLabelFont.draw(batch, label, Properties.STRENGTH_SCORE_X, Gdx.graphics.getHeight() - Properties.LABEL_Y);
+        Font.strengthScoreFont.draw(batch, score, Properties.STRENGTH_SCORE_X + strengthLabelLayout.width / 2 - strengthScoreLayout.width / 2, Gdx.graphics.getHeight() - Properties.SCORE_Y);
     }
 }

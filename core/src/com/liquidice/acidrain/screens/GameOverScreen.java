@@ -11,11 +11,11 @@ import com.liquidice.acidrain.managers.assets.Textures;
 
 public class GameOverScreen {
     private static final String START_OVER_TEXT = "Touch anywhere for Main Screen";
-    private static BitmapFont startOverFont = Font.generatePlayFont(56, Color.WHITE);
-    private static GlyphLayout startOverLayout = new GlyphLayout(startOverFont, START_OVER_TEXT);
+
+    private static GlyphLayout startOverLayout = new GlyphLayout(Font.startOverFont, START_OVER_TEXT);
 
     public static void display(Batch batch) {
         batch.draw(Textures.gameOver, Gdx.graphics.getWidth() / 2 - Textures.gameOver.getWidth() / 2, Gdx.graphics.getHeight() / 2 - Textures.gameOver.getHeight() / 2 + 50);
-        startOverFont.draw(batch, START_OVER_TEXT, Gdx.graphics.getWidth() / 2 - startOverLayout.width / 2, Gdx.graphics.getHeight() / 2 - Textures.gameOver.getHeight() / 2);
+        Font.startOverFont.draw(batch, START_OVER_TEXT, Gdx.graphics.getWidth() / 2 - startOverLayout.width / 2, Gdx.graphics.getHeight() / 2 - Textures.gameOver.getHeight() / 2);
     }
 }

@@ -33,10 +33,10 @@ public class Properties {
     static final int SUNNY_COUNTER = 100;
 
     //SCORE PROPERTIES
-     static Color SCORE_BLUE_COLOR = Color.valueOf("#53c0e0");
-     static Color SCORE_RED_COLOR = Color.valueOf("#bf2020");
-     static int LABEL_FONT_SIZE = 56;
-     static int SCORE_FONT_SIZE = 82;
+     public static Color SCORE_BLUE_COLOR = Color.valueOf("#53c0e0");
+     public static Color SCORE_RED_COLOR = Color.valueOf("#bf2020");
+     public static int LABEL_FONT_SIZE = 56;
+     public static int SCORE_FONT_SIZE = 82;
      static int STRENGTH_WARNING_LEVEL = 10;
      static int CAUGHT_SCORE_X = 70;
      static int LABEL_Y = 30;
@@ -47,9 +47,12 @@ public class Properties {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// UNLOCKABLE PROPERTIES //////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public static int UNLOCK_1_LEVEL = 5;
-    public static int UNLOCK_2_LEVEL = 10;
-    public static int UNLOCK_3_LEVEL = 15;
+    public static int UNLOCKABLE_MULTIPLIERS = 0;
+    public static int UNLOCKABLE_HEALTHPACK = 1;
+    public static int UNLOCKABLE_UMBRELLA = 2;
+    public static int UNLOCK_1_LEVEL = 3;
+    public static int UNLOCK_2_LEVEL = 5;
+    public static int UNLOCK_3_LEVEL = 7;
     public static int UNLOCK_4_LEVEL = 20;
 
 

@@ -76,8 +76,8 @@ public class Textures {
     public static Texture rainSplashRight = new Texture("rain/splash/rainSplashRight.png");
 
     ////////////////////////////////// BUTTON TEXTURES ////////////////////////////////////////////
-    public static Drawable soundOffButtonStyleImage =  new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOffButton.png")));
-    public static Drawable soundOnButtonStyleImage =  new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOnButton.png")));
+    public static Drawable soundOffButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOffButton.png")));
+    public static Drawable soundOnButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOnButton.png")));
     public static Drawable unlockButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/unlockButton.png")));
     public static Drawable startButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton.png")));
     public static Drawable helpButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/helpButton.png")));
@@ -90,13 +90,20 @@ public class Textures {
     public static Texture unlocked = new Texture("screen/unlocked.jpg");
 
     //////////////////////////////// UNLOCKABLE TEXTURES ///////////////////////////////////////////
-    public static Texture unlockableHealthPack = new Texture("unlockables/unlockableHealthPack.png");
-    public static Texture unlockableUmbrella = new Texture("unlockables/unlockableUmbrella.png");
+    public static Texture unlockableHealthPack = new Texture("unlockables/healthPack/unlockableHealthPack.png");
+    public static Texture unlockableUmbrella = new Texture("unlockables/umbrella/unlockableUmbrella.png");
     public static Texture unlockableLocked = new Texture("unlockables/unlockableLocked.png");
-    public static Texture healthPack = new Texture("unlockables/healthPackDrop.png");
-    public static Texture umbrella = new Texture("unlockables/umbrellaDrop.png");
-    public static Texture umbrellaLeft = new Texture("unlockables/umbrellaLeft.png");
-    public static Texture umbrellaRight = new Texture("unlockables/umbrellaRight.png");
+    public static Texture healthPack = new Texture("unlockables/healthPack/healthPackDrop.png");
+    public static Texture umbrella = new Texture("unlockables/umbrella/umbrellaDrop.png");
+    public static Texture umbrellaLeft = new Texture("unlockables/umbrella/umbrellaLeft.png");
+    public static Texture umbrellaRight = new Texture("unlockables/umbrella/umbrellaRight.png");
+    public static Texture unlockableMultipliers = new Texture("unlockables/powerDrop/unlockableMultipliers.png");
+    public static Texture multipliers = new Texture("unlockables/powerDrop/multipliersDrop.png");
+    private static Texture powerDrop2 = new Texture("unlockables/powerDrop/powerDrop2.png");
+    private static Texture powerDrop3 = new Texture("unlockables/powerDrop/powerDrop3.png");
+    private static Texture powerDrop4 = new Texture("unlockables/powerDrop/powerDrop4.png");
+    private static Texture powerDrop5 = new Texture("unlockables/powerDrop/powerDrop5.png");
+    private static Texture powerDrop6 = new Texture("unlockables/powerDrop/powerDrop6.png");
 
     public static Texture placeholder = new Texture("dummy.png");
 
@@ -216,6 +223,23 @@ public class Textures {
                 return city9;
             default:
                 return city10;
+        }
+    }
+
+    public static Texture findPowerDropTexture(int num) {
+        switch (num) {
+            case 2:
+                return powerDrop2;
+            case 3:
+                return powerDrop3;
+            case 4:
+                return powerDrop4;
+            case 5:
+                return powerDrop5;
+            case 6:
+                return powerDrop6;
+            default:
+                return rainDrop7;
         }
     }
 }

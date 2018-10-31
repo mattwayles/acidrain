@@ -31,14 +31,11 @@ public class StartScreen {
     private static final String CURRENT_LEVEL_TEXT = "Level ";
     private static final String AVOID_RED_TEXT = "Smash the ACID rain!";
     private static final String CATCH_BLUE_TEXT = "Catch the CLEAN raindrops,";
-    private static BitmapFont catchBlueFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
-    private static BitmapFont avoidRedFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
-    private static BitmapFont bestScoreFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
-    private static BitmapFont currentLevelFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
-    private static GlyphLayout catchBlueLayout = new GlyphLayout(catchBlueFont, CATCH_BLUE_TEXT);
-    private static GlyphLayout avoidRedLayout = new GlyphLayout(avoidRedFont, AVOID_RED_TEXT);
-    private static GlyphLayout currentLevelLayout = new GlyphLayout(currentLevelFont, CURRENT_LEVEL_TEXT + Gameplay.getLevel());
-    private static GlyphLayout bestScoreLayout = new GlyphLayout(bestScoreFont, BEST_SCORE_TEXT + Gameplay.getLevelBest() + "%");
+
+    private static GlyphLayout catchBlueLayout = new GlyphLayout(Font.catchBlueFont, CATCH_BLUE_TEXT);
+    private static GlyphLayout avoidRedLayout = new GlyphLayout(Font.avoidRedFont, AVOID_RED_TEXT);
+    private static GlyphLayout currentLevelLayout = new GlyphLayout(Font.currentLevelFont, CURRENT_LEVEL_TEXT + Gameplay.getLevel());
+    private static GlyphLayout bestScoreLayout = new GlyphLayout(Font.bestScoreFont, BEST_SCORE_TEXT + Gameplay.getLevelBest() + "%");
 
     //BUTTONS & STYLES
     private static Stage stage = new Stage();
@@ -96,11 +93,11 @@ public class StartScreen {
             stage.getBatch().begin();
             stage.getBatch().draw(LOGO, Gdx.graphics.getWidth() / 2 - LOGO.getWidth() / 2, Gdx.graphics.getHeight() / 2);
             if (Gameplay.getLevel() == 1 && Gameplay.getLevelBest() == 0) {
-                catchBlueFont.draw(stage.getBatch(), CATCH_BLUE_TEXT, Gdx.graphics.getWidth() / 2 - catchBlueLayout.width / 2, Gdx.graphics.getHeight() / 2);
-                avoidRedFont.draw(stage.getBatch(), AVOID_RED_TEXT, Gdx.graphics.getWidth() / 2 - avoidRedLayout.width / 2, Gdx.graphics.getHeight() / 2 - 100);
+                Font.catchBlueFont.draw(stage.getBatch(), CATCH_BLUE_TEXT, Gdx.graphics.getWidth() / 2 - catchBlueLayout.width / 2, Gdx.graphics.getHeight() / 2);
+                Font.avoidRedFont.draw(stage.getBatch(), AVOID_RED_TEXT, Gdx.graphics.getWidth() / 2 - avoidRedLayout.width / 2, Gdx.graphics.getHeight() / 2 - 100);
             } else {
-                currentLevelFont.draw(stage.getBatch(), CURRENT_LEVEL_TEXT + Gameplay.getLevel(), Gdx.graphics.getWidth() / 2 - currentLevelLayout.width / 2, Gdx.graphics.getHeight() / 2 - 50);
-                bestScoreFont.draw(stage.getBatch(), BEST_SCORE_TEXT + Gameplay.getLevelBest() + "%", Gdx.graphics.getWidth() / 2 - bestScoreLayout.width / 2, Gdx.graphics.getHeight() / 2 - 150);
+                Font.currentLevelFont.draw(stage.getBatch(), CURRENT_LEVEL_TEXT + Gameplay.getLevel(), Gdx.graphics.getWidth() / 2 - currentLevelLayout.width / 2, Gdx.graphics.getHeight() / 2 - 50);
+                Font.bestScoreFont.draw(stage.getBatch(), BEST_SCORE_TEXT + Gameplay.getLevelBest() + "%", Gdx.graphics.getWidth() / 2 - bestScoreLayout.width / 2, Gdx.graphics.getHeight() / 2 - 150);
             }
             stage.getBatch().draw(City.getImage(), 0, 0, Gdx.graphics.getWidth(), Bucket.getBucketHover() - 20);
             stage.getBatch().end();
