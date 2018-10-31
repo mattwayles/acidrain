@@ -2,18 +2,23 @@ package com.liquidice.acidrain.sprites.drops;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.liquidice.acidrain.managers.Powerup;
 import com.liquidice.acidrain.managers.Score;
 import com.liquidice.acidrain.managers.assets.Textures;
 
-public class Powerup extends Drop {
+public class PowerupDrop extends Drop {
     private static Texture healthPack = Textures.healthPack;
     private int type;
-    public Powerup(int powerup, float x, int y) {
+    public PowerupDrop(int powerup, float x, int y) {
         Texture image;
         switch (powerup) {
             case 0:
                 type = 0;
-                image = healthPack;
+                image = Textures.healthPack;
+                break;
+            case 1:
+                type = 1;
+                image = Textures.umbrella;
                 break;
             default:
                 type = 0;
@@ -40,6 +45,9 @@ public class Powerup extends Drop {
                 } else {
                     Score.setStrengthScore(Score.getLoseScore());
                 }
+                break;
+            case 1:
+                Powerup.activateUmbrella();
                 break;
         }
     }

@@ -1,6 +1,9 @@
 package com.liquidice.acidrain.managers.assets;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Textures {
     ////////////////////////////////// TEXT TEXTURE ////////////////////////////////////////////////
@@ -72,12 +75,30 @@ public class Textures {
     public static Texture rainSplashLeft = new Texture("rain/splash/rainSplashLeft.png");
     public static Texture rainSplashRight = new Texture("rain/splash/rainSplashRight.png");
 
+    ////////////////////////////////// BUTTON TEXTURES ////////////////////////////////////////////
+    public static Drawable soundOffButtonStyleImage =  new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOffButton.png")));
+    public static Drawable soundOnButtonStyleImage =  new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOnButton.png")));
+    public static Drawable unlockButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/unlockButton.png")));
+    public static Drawable startButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton.png")));
+    public static Drawable helpButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/helpButton.png")));
+    public static Drawable pauseButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/pauseButton.png")));
+    public static Drawable playButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/playButton.png")));
+    public static Drawable stopButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/stopButton.png")));
+    public static Drawable closeButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/closeButton.png")));
+
     /////////////////////////////////// SCREEN TEXTURES ////////////////////////////////////////////
     public static Texture unlocked = new Texture("screen/unlocked.jpg");
 
+    //////////////////////////////// UNLOCKABLE TEXTURES ///////////////////////////////////////////
+    public static Texture unlockableHealthPack = new Texture("unlockables/unlockableHealthPack.png");
+    public static Texture unlockableUmbrella = new Texture("unlockables/unlockableUmbrella.png");
+    public static Texture unlockableLocked = new Texture("unlockables/unlockableLocked.png");
+    public static Texture healthPack = new Texture("unlockables/healthPackDrop.png");
+    public static Texture umbrella = new Texture("unlockables/umbrellaDrop.png");
+    public static Texture umbrellaLeft = new Texture("unlockables/umbrellaLeft.png");
+    public static Texture umbrellaRight = new Texture("unlockables/umbrellaRight.png");
 
-    /////////////////////////////////// POWERUP TEXTURES ///////////////////////////////////////////
-    public static Texture healthPack = new Texture("powerup/healthPack.png");
+    public static Texture placeholder = new Texture("dummy.png");
 
     public static Texture findRainDropTexture(int size) {
         switch (size) {

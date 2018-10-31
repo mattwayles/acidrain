@@ -2,45 +2,68 @@ package com.liquidice.acidrain.screens.unlockables;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.liquidice.acidrain.managers.Gameplay;
 import com.liquidice.acidrain.managers.assets.Font;
+import com.liquidice.acidrain.managers.assets.Textures;
 
 public class UnlockedScreen {
+    private static SpriteBatch batch = new SpriteBatch();
+    private static GlyphLayout youveUnlockedLayout = new GlyphLayout();
+    private static GlyphLayout layout = new GlyphLayout();
+    private static GlyphLayout powerupLayout = new GlyphLayout();
+    private static GlyphLayout holdLayout = new GlyphLayout();
+    private static BitmapFont youveUnlockedFont = Font.generatePlayFont(100, Color.GOLD, 6, Color.BLACK);
+    private static BitmapFont powerupTypeFont = Font.generatePlayFont(56, Color.GOLD, 6, Color.BLACK);
+    private static BitmapFont powerupFont = Font.generatePlayFont(48, Color.BLACK);
+    private static BitmapFont holdFont = Font.generatePlayFont(42, Color.WHITE, 3, Color.BLACK);
+    private static String youveUnlockedText = "You've Unlocked...";
+    private static int count;
+    private static boolean desc;
+    private static int bounceY = Gdx.graphics.getHeight() - 800 ;
 
-    public static void display() {
-       // Gdx.input.setInputProcessor(stage);
+    public static void display(Texture image, String title, String power) {
+        batch.begin();
+        batch.draw(Textures.unlocked, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        //You've Unlocked...
 
-        BitmapFont font = Font.generatePlayFont(56, Color.WHITE);
+        youveUnlockedLayout.setText(youveUnlockedFont, youveUnlockedText);
+        youveUnlockedFont.draw(batch, youveUnlockedText, Gdx.graphics.getWidth() / 2 - youveUnlockedLayout.width / 2, Gdx.graphics.getHeight() - 200);
 
-        TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
-        textFieldStyle.font = font;
-        textFieldStyle.fontColor = Color.WHITE;
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
+        layout.setText(powerupTypeFont, title);
+        powerupLayout.setText(powerupFont, power);
+        powerupTypeFont.draw(batch, title, Gdx.graphics.getWidth() / 2 - layout.width / 2, Gdx.graphics.getHeight() - 900);
+        powerupFont.draw(batch, power, Gdx.graphics.getWidth() / 2 - powerupLayout.width / 2, Gdx.graphics.getHeight() - 1150);
 
-        Label nameLabel = new Label("Name", labelStyle);
-        TextField nameText = new TextField("Foo", textFieldStyle);
-        Label addressLabel = new Label("Address:", labelStyle);
-        TextField addressText = new TextField("Bar", textFieldStyle);
+        //Hold touch to continue
+        String holdText = "Touch anywhere to play level " + (Gameplay.getLevel() + 1);
+        holdLayout.setText(holdFont, holdText);
+        holdFont.draw(batch, holdText, Gdx.graphics.getWidth() / 2 - holdLayout.width / 2, Gdx.graphics.getHeight() - 1450);
 
-        Table table = new Table();
-        table.setFillParent(true);
-        table.setColor(Color.WHITE);
-        table.add(nameLabel);              // Row 0, column 0.
-        table.add(nameText).width(100);    // Row 0, column 1.
-        table.row();                       // Move to next row.
-        table.add(addressLabel);           // Row 1, column 0.
-        table.add(addressText).width(100); // Row 1, column 1.
-        table.center();
-        table.debug();
-        Stage stage = new Stage();
-        stage.addActor(table);
-        stage.draw();
+        if (!desc) {
+            if (count < 10){
+                count++;
+                bounceY += 6;
+            } else {
+                desc = true;
+            }
+        }
+        else {
+            if (count > 0) {
+                count --;
+                bounceY -= 6;
+            } else {
+                desc = false;
+            }
+        }
+        //Health Pack Bouncing Image
+        batch.draw(image, (Gdx.graphics.getWidth() / 2) - ((image.getWidth() * 4) / 2), bounceY, image.getWidth() * 4, image.getHeight() * 4);
+
+        batch.end();
+
     }
 }

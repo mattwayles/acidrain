@@ -3,124 +3,201 @@ package com.liquidice.acidrain.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.liquidice.acidrain.AcidRain;
 import com.liquidice.acidrain.managers.Gameplay;
+import com.liquidice.acidrain.managers.assets.Audio;
 import com.liquidice.acidrain.managers.assets.Font;
 import com.liquidice.acidrain.managers.assets.Textures;
-
-import javax.swing.GroupLayout;
+import com.liquidice.acidrain.screens.unlockables.UnlockablesScreen;
+import com.liquidice.acidrain.sprites.Bucket;
+import com.liquidice.acidrain.sprites.City;
 
 public class StartScreen {
+
+    //LOGO and FONTS
     private static final Texture LOGO = Textures.logo;
     private static final String BEST_SCORE_TEXT = "Best ";
     private static final String CURRENT_LEVEL_TEXT = "Level ";
     private static final String AVOID_RED_TEXT = "Smash the ACID rain!";
     private static final String CATCH_BLUE_TEXT = "Catch the CLEAN raindrops,";
-    private static final String TOUCH_ANYWHERE_TEXT = "Touch anywhere to begin";
-    private static BitmapFont avoidRedFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
     private static BitmapFont catchBlueFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
+    private static BitmapFont avoidRedFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
     private static BitmapFont bestScoreFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
     private static BitmapFont currentLevelFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
-    private static BitmapFont touchAnywhereFont = Font.generatePlayFont(56, Color.WHITE);
-    private static GlyphLayout avoidRedLayout = new GlyphLayout(avoidRedFont, AVOID_RED_TEXT);
     private static GlyphLayout catchBlueLayout = new GlyphLayout(catchBlueFont, CATCH_BLUE_TEXT);
-    private static GlyphLayout touchAnywhereLayout = new GlyphLayout(touchAnywhereFont, TOUCH_ANYWHERE_TEXT);
+    private static GlyphLayout avoidRedLayout = new GlyphLayout(avoidRedFont, AVOID_RED_TEXT);
     private static GlyphLayout currentLevelLayout = new GlyphLayout(currentLevelFont, CURRENT_LEVEL_TEXT + Gameplay.getLevel());
     private static GlyphLayout bestScoreLayout = new GlyphLayout(bestScoreFont, BEST_SCORE_TEXT + Gameplay.getLevelBest() + "%");
 
-
-    static Stage stage = new Stage();
-    static ImageButton.ImageButtonStyle unlockButtonStyle = new ImageButton.ImageButtonStyle();
-    static Drawable unlockButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/unlockButton.png")));
-    static ImageButton unlockButton = new ImageButton(unlockButtonStyle);
-    static ImageButton.ImageButtonStyle soundOffButtonStyle = new ImageButton.ImageButtonStyle();
-    static Drawable soundOffButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOffButton.png")));
-    static ImageButton soundOffButton = new ImageButton(soundOffButtonStyle);
-    static ImageButton.ImageButtonStyle soundOnButtonStyle = new ImageButton.ImageButtonStyle();
-    static Drawable soundOnButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOnButton.png")));
-    static ImageButton soundOnButton = new ImageButton(soundOnButtonStyle);
+    //BUTTONS & STYLES
+    private static Stage stage = new Stage();
+    private static ImageButton.ImageButtonStyle unlockButtonStyle = new ImageButton.ImageButtonStyle();
+    private static ImageButton.ImageButtonStyle soundOffButtonStyle = new ImageButton.ImageButtonStyle();
+    private static ImageButton.ImageButtonStyle soundOnButtonStyle = new ImageButton.ImageButtonStyle();
+    private static ImageButton.ImageButtonStyle startButtonStyle = new ImageButton.ImageButtonStyle();
+    private static ImageButton.ImageButtonStyle helpButtonStyle = new ImageButton.ImageButtonStyle();
+    private static ImageButton soundOffButton = new ImageButton(soundOffButtonStyle);
+    private static ImageButton soundOnButton = new ImageButton(soundOnButtonStyle);
+    private static ImageButton soundButton = new ImageButton(soundOnButtonStyle);
+    private static ImageButton unlockButton = new ImageButton(unlockButtonStyle);
+    private static ImageButton startButton = new ImageButton(startButtonStyle);
+    private static ImageButton helpButton = new ImageButton(helpButtonStyle);
 
     private static boolean soundOn;
+    private static boolean unlockedScreenOpen;
 
-    public static void display(Batch batch) {
-        batch.draw(LOGO, Gdx.graphics.getWidth() / 2 - LOGO.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        touchAnywhereFont.draw(batch, TOUCH_ANYWHERE_TEXT, Gdx.graphics.getWidth() / 2 - touchAnywhereLayout.width / 2, Gdx.graphics.getHeight() / 2 - LOGO.getHeight() / 2 - 20);
-        if (Gameplay.getLevel() == 1 && Gameplay.getLevelBest() == 0) {
-            catchBlueFont.draw(batch, CATCH_BLUE_TEXT, Gdx.graphics.getWidth() / 2 - catchBlueLayout.width / 2, Gdx.graphics.getHeight() / 2 - 50);
-            avoidRedFont.draw(batch, AVOID_RED_TEXT, Gdx.graphics.getWidth() / 2 - avoidRedLayout.width / 2, Gdx.graphics.getHeight() / 2 - 150);
-        } else {
-            currentLevelFont.draw(batch, CURRENT_LEVEL_TEXT + Gameplay.getLevel(), Gdx.graphics.getWidth() / 2 - currentLevelLayout.width / 2, Gdx.graphics.getHeight() / 2 - 50);
-            bestScoreFont.draw(batch, BEST_SCORE_TEXT + Gameplay.getLevelBest() + "%", Gdx.graphics.getWidth() / 2 - bestScoreLayout.width / 2, Gdx.graphics.getHeight() / 2 - 150);
-        }
+    public static void setUnlockScreenOpen(boolean open) { unlockedScreenOpen = open; }
 
-        //TODO: Seriously, clean this up.
-        Gdx.input.setInputProcessor(stage);
-
-        //Unlockable button
-        unlockButtonStyle.up = unlockButtonStyleImage;
-
-        ImageButton soundButton;
-
-        //Sound on/off button
-        Gdx.app.log("Sound ON? ", String.valueOf(soundOn));
-        if (!soundOn) {
-            soundOn = AcidRain.getPreferences().getBoolean("soundOn");
-        }
-        if (!soundOn) {
-            soundOffButtonStyle.up = soundOffButtonStyleImage;
-            soundButton = soundOffButton;
-        } else {
-            soundOnButtonStyle.up = soundOnButtonStyleImage;
-            soundButton = soundOnButton;
-        }
-
-        Table table = new Table();
-        //table.debug();
-        table.padLeft(Gdx.graphics.getWidth() / 2);
-        table.padBottom(1300);
-        HorizontalGroup group = new HorizontalGroup();
-        group.debug();
-        group.clear();
-        group.setWidth(Gdx.graphics.getWidth() / 2);
-        group.center();
-        group.space(100);
-        group.addActor(unlockButton);
-        group.addActor(soundButton);
-        table.add(group).center();
-
-
-        stage.addActor(table);
-        stage.draw();
-
-        soundButton.addListener(new ChangeListener() {
+    //Touch listeners
+    static {
+        startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                soundOn = !soundOn;
-                AcidRain.getPreferences().putBoolean("soundOn", soundOn);
+                AcidRain.setGameState(1);
             }
         });
 
         unlockButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                UnlockablesScreen.display();
+                unlockedScreenOpen = true;
+            }
+        });
+        //TODO: Help button is functioning as reset for the time being, change this
+        helpButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                //TODO: Remove reset
+                Gdx.app.log("DEBUG: ", "Resetting Prefs");
+                AcidRain.getPreferences().clear();
+                AcidRain.getPreferences().flush();
+            }
+        });
+    }
 
-                //TODO: Open unlocked window
-                System.out.println("Button Pressed");
+    /**
+     * Display the StartScreen stage with all actors and batch elements
+     */
+    public static void display() {
+        //Draw batch elements
+        if (!unlockedScreenOpen) {
+            stage.getBatch().begin();
+            stage.getBatch().draw(LOGO, Gdx.graphics.getWidth() / 2 - LOGO.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+            if (Gameplay.getLevel() == 1 && Gameplay.getLevelBest() == 0) {
+                catchBlueFont.draw(stage.getBatch(), CATCH_BLUE_TEXT, Gdx.graphics.getWidth() / 2 - catchBlueLayout.width / 2, Gdx.graphics.getHeight() / 2);
+                avoidRedFont.draw(stage.getBatch(), AVOID_RED_TEXT, Gdx.graphics.getWidth() / 2 - avoidRedLayout.width / 2, Gdx.graphics.getHeight() / 2 - 100);
+            } else {
+                currentLevelFont.draw(stage.getBatch(), CURRENT_LEVEL_TEXT + Gameplay.getLevel(), Gdx.graphics.getWidth() / 2 - currentLevelLayout.width / 2, Gdx.graphics.getHeight() / 2 - 50);
+                bestScoreFont.draw(stage.getBatch(), BEST_SCORE_TEXT + Gameplay.getLevelBest() + "%", Gdx.graphics.getWidth() / 2 - bestScoreLayout.width / 2, Gdx.graphics.getHeight() / 2 - 150);
+            }
+            stage.getBatch().draw(City.getImage(), 0, 0, Gdx.graphics.getWidth(), Bucket.getBucketHover() - 20);
+            stage.getBatch().end();
+
+
+            Gdx.input.setInputProcessor(stage);
+
+            //Sound on/off button
+            displaySoundButton();
+
+            //Unlockable button
+            unlockButtonStyle.up = Textures.unlockButtonStyleImage;
+
+            //Help Button
+            helpButtonStyle.up = Textures.helpButtonStyleImage;
+
+            //Start Button
+            startButtonStyle.up = Textures.startButtonStyleImage;
+
+            //Create table, add to stage
+            Table table = createButtonTable();
+            stage.addActor(table);
+
+            //Draw stage
+            stage.draw();
+        }
+        else {
+            UnlockablesScreen.display();
+        }
+    }
+
+    private static void displaySoundButton() {
+        soundOn = AcidRain.getPreferences().getBoolean("soundOn");
+        if (!soundOn) {
+            soundOffButtonStyle.up = Textures.soundOffButtonStyleImage;
+            soundButton = soundOffButton;
+            soundOnButtonStyle.up = null;
+        } else {
+            soundOnButtonStyle.up = Textures.soundOnButtonStyleImage;
+            soundButton = soundOnButton;
+            soundOffButtonStyle.up = null;
+        }
+        addSoundButtonListener();
+    }
+
+    private static Table createButtonTable() {
+        //Create a new table
+    Table table = new Table();
+
+    //Span the whole parent
+        table.setFillParent(true);
+
+    //Center the elements
+        table.center();
+
+    //Space the elements appropriately
+        table.padTop(1050);
+
+    //Create a new vertical group
+    VerticalGroup group = new VerticalGroup();
+        group.space(100);
+
+    //Create a new horizontal group
+    HorizontalGroup settingsGroup = new HorizontalGroup();
+        settingsGroup.center();
+        settingsGroup.space(150);
+
+    //Add actors
+        settingsGroup.addActor(soundButton);
+        settingsGroup.addActor(unlockButton);
+        settingsGroup.addActor(helpButton);
+
+    //Add Horizontal group and start button to Vertical group
+        group.addActor(settingsGroup);
+        group.addActor(startButton);
+
+    //Add vertical group to table
+        table.add(group);
+
+        return table;
+}
+
+    private static void addSoundButtonListener() {
+        soundButton.clearListeners();
+        soundButton.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                soundOn = !soundOn;
+                AcidRain.getPreferences().putBoolean("soundOn", soundOn);
+                AcidRain.getPreferences().flush();
+
+                if (soundOn) {
+                    Audio.playMusic();
+                } else {
+                    Audio.stopMusic();
+                }
+                return false;
             }
         });
     }

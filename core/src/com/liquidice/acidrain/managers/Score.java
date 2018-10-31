@@ -33,10 +33,10 @@ public class Score {
     private static boolean sirenPlayed = false;
 
     public static void initialize() {
-        caughtLabelFont = Font.generatePlayFont(56, Color.valueOf("#53c0e0"), 3, Color.BLACK);
-        caughtScoreFont = Font.generatePlayFont(82, Color.valueOf("#53c0e0"), 3, Color.BLACK);
-        strengthLabelFont = Font.generatePlayFont(56, Color.valueOf("#bf2020"), 3, Color.BLACK);
-        strengthScoreFont = Font.generatePlayFont(82, Color.valueOf("#bf2020"), 3, Color.BLACK);
+        caughtLabelFont = Font.generatePlayFont(Properties.LABEL_FONT_SIZE, Properties.SCORE_BLUE_COLOR, 3, Color.BLACK);
+        caughtScoreFont = Font.generatePlayFont(Properties.SCORE_FONT_SIZE, Properties.SCORE_BLUE_COLOR, 3, Color.BLACK);
+        strengthLabelFont = Font.generatePlayFont(Properties.LABEL_FONT_SIZE, Properties.SCORE_RED_COLOR, 3, Color.BLACK);
+        strengthScoreFont = Font.generatePlayFont(Properties.SCORE_FONT_SIZE, Properties.SCORE_RED_COLOR, 3, Color.BLACK);
     }
 
     public static void display(Batch batch) {
@@ -48,7 +48,7 @@ public class Score {
     }
     public static int getCaughtPercentage() { return caughtPercentage; }
     public static int getStrengthPercentage() { return strengthPercentage; }
-    public static int getWinScore() { return (int) winScore; }
+    static int getWinScore() { return (int) winScore; }
     public static int getLoseScore() { return (int) loseScore; }
     public static int getStrengthScore() { return (int) strengthScore; }
     public static void setStrengthScore(int score) { strengthScore = score; }
@@ -57,8 +57,8 @@ public class Score {
     public static void resetStrength() {
         strengthScore = loseScore;
         calculateStrengthScore();}
-    public static void increaseWinScore(int num) { winScore += num; }
-    public static void increaseLoseScore(int num ) { loseScore += num; }
+    static void increaseWinScore(int num) { winScore += num; }
+    static void increaseLoseScore(int num ) { loseScore += num; }
     public static void resetScore() { caughtScore = 0; }
 
     private static void calculateCaughtScore() {
@@ -71,9 +71,9 @@ public class Score {
         strengthPercentage = (int) ((strengthScore / loseScore) * 100);
         if (strengthPercentage <= 0) {
             strengthPercentage = 0;
-            AcidRain.setGameState(2);
+            AcidRain.setGameState(Properties.GAME_OVER_STATE);
             sirenPlayed = false;
-        } else if (strengthPercentage < 10 && !sirenPlayed) {
+        } else if (strengthPercentage < Properties.STRENGTH_WARNING_LEVEL && !sirenPlayed) {
             Audio.playSirenSound();
             sirenPlayed = true;
         }
@@ -87,7 +87,7 @@ public class Score {
                 City.setImage(Textures.city10);
                 Bucket.setImage(Textures.rainBucket9);
                 Audio.playLevelWinSound();
-                AcidRain.setGameState(3);
+                AcidRain.setGameState(Properties.LEVEL_COMPLETE_STATE);
             } else {
                 int bucketToRender = Integer.parseInt(Integer.toString(percentage).substring(0, 1));
                 Bucket.setImage(Textures.findRainBucketTexture(bucketToRender));
@@ -114,8 +114,8 @@ public class Score {
 
         caughtLabelLayout.setText(caughtLabelFont, label);
         caughtScoreLayout.setText(caughtScoreFont, score);
-        caughtLabelFont.draw(batch, label, 70, Gdx.graphics.getHeight() - 30);
-        caughtScoreFont.draw(batch, score, 70 + caughtLabelLayout.width / 2 - caughtScoreLayout.width / 2, Gdx.graphics.getHeight() - 120);
+        caughtLabelFont.draw(batch, label, Properties.CAUGHT_SCORE_X, Gdx.graphics.getHeight() - Properties.LABEL_Y);
+        caughtScoreFont.draw(batch, score, Properties.CAUGHT_SCORE_X + caughtLabelLayout.width / 2 - caughtScoreLayout.width / 2, Gdx.graphics.getHeight() - Properties.SCORE_Y);
     }
 
     private static void drawStrengthScore(Batch batch) {
@@ -124,7 +124,7 @@ public class Score {
 
         strengthLabelLayout.setText(strengthLabelFont, label);
         strengthScoreLayout.setText(strengthScoreFont, score);
-        strengthLabelFont.draw(batch, label, Gdx.graphics.getWidth() - 425, Gdx.graphics.getHeight() - 30);
-        strengthScoreFont.draw(batch, score, Gdx.graphics.getWidth() - 425 + strengthLabelLayout.width / 2 - strengthScoreLayout.width / 2, Gdx.graphics.getHeight() - 120);
+        strengthLabelFont.draw(batch, label, Properties.STRENGTH_SCORE_X, Gdx.graphics.getHeight() - Properties.LABEL_Y);
+        strengthScoreFont.draw(batch, score, Properties.STRENGTH_SCORE_X + strengthLabelLayout.width / 2 - strengthScoreLayout.width / 2, Gdx.graphics.getHeight() - Properties.SCORE_Y);
     }
 }

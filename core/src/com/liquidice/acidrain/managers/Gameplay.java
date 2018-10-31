@@ -7,17 +7,19 @@ import com.liquidice.acidrain.AcidRain;
  * Gameplay Controller - increase difficulty as levels progress
  */
 public class Gameplay {
-    private static int level = AcidRain.getPreferences().getInteger("level", 1);
+    private static int level = AcidRain.getPreferences().getInteger("level", Properties.DEFAULT_START_LEVEL);
     private static int levelBest = AcidRain.getPreferences().getInteger("levelBest", 0);
 
     //Drop speed; increase to increase difficulty
-    private static float maxSpeed = AcidRain.getPreferences().getFloat("maxSpeed", 5);
-    private static float minSpeed = AcidRain.getPreferences().getFloat("minSpeed", 2);
+    private static float maxSpeed = AcidRain.getPreferences().getFloat("maxSpeed", Properties.DEFAULT_MAX_SPEED);
+    private static float minSpeed = AcidRain.getPreferences().getFloat("minSpeed", Properties.DEFAULT_MIN_SPEED);
 
     //Drop frequency; increase to increase difficulty
-    private static float rainFreq = AcidRain.getPreferences().getFloat("rainFreq", 90);
-    private static float acidFreq = AcidRain.getPreferences().getFloat("acidFreq", 140);
+    private static float rainFreq = AcidRain.getPreferences().getFloat("rainFreq", Properties.DEFAULT_RAIN_FREQUENCY);
+    private static float acidFreq = AcidRain.getPreferences().getFloat("acidFreq", Properties.DEFAULT_ACID_FREQUENCY);
 
+    //Manage gameplay
+    private static boolean paused;
     //Manage Level
     public static int getLevel() { return level; }
     public static int getLevelBest() { return levelBest; }
@@ -43,15 +45,15 @@ public class Gameplay {
         float origLoseScore = Score.getLoseScore();
 
         level++;
-        increaseMaxSpeed(level < 10 ? maxSpeed + .3f : maxSpeed + .1f);
-        increaseMinSpeed(level < 10 ? minSpeed + .3f : minSpeed + .1f);
+        increaseMaxSpeed(level < Properties.CUTOFF_LEVEL ? maxSpeed + Properties.SPEED_L1_9_INCREASE : maxSpeed + Properties.SPEED_L10_INCREASE);
+        increaseMinSpeed(level < Properties.CUTOFF_LEVEL ? minSpeed + Properties.SPEED_L1_9_INCREASE : minSpeed + Properties.SPEED_L10_INCREASE);
 
         if (level % 2 == 0) {
-            decreaseRainFreq(level < 10 ? rainFreq - 5f : rainFreq + 1f);
+            decreaseRainFreq(level < Properties.CUTOFF_LEVEL ? rainFreq - Properties.RAIN_L1_9_INCREASE : rainFreq + Properties.RAIN_L10_DECREASE);
         }
-        increaseAcidFreq(level < 10 ? acidFreq - 10f : acidFreq - 2f);
-        Score.increaseWinScore(level < 10 ? 10 : 1);
-        Score.increaseLoseScore(level < 10 ? 10 : 1);
+        increaseAcidFreq(level < Properties.CUTOFF_LEVEL ? acidFreq - Properties.ACID_L1_9_INCREASE : acidFreq - Properties.ACID_L10_INCREASE);
+        Score.increaseWinScore(level < Properties.CUTOFF_LEVEL ? Properties.SCORE_L1_9_INCREASE : Properties.SCORE_L10_INCREASE);
+        Score.increaseLoseScore(level < Properties.CUTOFF_LEVEL ? Properties.SCORE_L1_9_INCREASE : Properties.SCORE_L10_INCREASE);
         AcidRain.getPreferences().putInteger("levelBest", 0);
         AcidRain.getPreferences().putInteger("level", level);
         AcidRain.getPreferences().putFloat("maxSpeed", maxSpeed);
@@ -74,20 +76,25 @@ public class Gameplay {
 
     //Manage Max Speed variable
     public static float getMaxSpeed() { return maxSpeed; }
-    public static void increaseMaxSpeed(float speed) { maxSpeed = speed; }
+    private  static void increaseMaxSpeed(float speed) { maxSpeed = speed; }
 
     //Manage Min Speed variable
     public static float getMinSpeed() { return minSpeed; }
-    public static void increaseMinSpeed(float speed) { minSpeed = speed; }
+    private static void increaseMinSpeed(float speed) { minSpeed = speed; }
 
     //Manage Rain Frequency variable
     public static float getRainFreq() {
         return rainFreq;
     }
-    public static void decreaseRainFreq(float freq) { rainFreq = freq; }
+    private static void decreaseRainFreq(float freq) { rainFreq = freq; }
 
     //Manage Acid Frequency variable
     public static float getAcidFreq() { return acidFreq; }
-    public static void increaseAcidFreq(float freq) { acidFreq = freq; }
+    private static void increaseAcidFreq(float freq) { acidFreq = freq; }
+
+    //Manage paused state
+    public static boolean isPaused() { return paused; }
+    public static void pause() { paused = true; }
+    public static void resume() { paused = false; }
 
 }

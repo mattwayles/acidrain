@@ -2,11 +2,15 @@ package com.liquidice.acidrain.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
+import com.liquidice.acidrain.managers.Counter;
+import com.liquidice.acidrain.managers.Powerup;
+import com.liquidice.acidrain.managers.Properties;
 import com.liquidice.acidrain.managers.assets.Textures;
 
 public class Bucket {
-    private static final int BUCKET_SPEED = 20;
+    private static final int BUCKET_SPEED = 40;
     private static final int BUCKET_HOVER = 200;
 
     private static Texture image = Textures.rainBucket0;
@@ -53,5 +57,19 @@ public class Bucket {
 
     public static int getBucketHover() {
         return BUCKET_HOVER;
+    }
+
+    public static void draw(Batch batch) {
+        batch.draw(image, x, BUCKET_HOVER, image.getWidth(), image.getHeight());
+        if (Powerup.isUmbrellaActive()) {
+            if (Counter.getUmbrellaCount() <= Properties.UMBRELLA_ACTIVATION_TIME) {
+                Umbrella.draw(batch);
+                Counter.increaseUmbrellaCount();
+            }
+            else {
+                Powerup.deactivateUmbrella();
+                Counter.resetUmbrellaCount();
+            }
+        }
     }
 }

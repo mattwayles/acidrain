@@ -9,13 +9,15 @@ public class Counter {
 
     //Store time before removing splashes
     private static int splashCount;
-    private final static int splashLength = 20;
 
     //Store time before lightning strike
     private static int backgroundCount;
 
     //Storm time between sun
     private static int sunnyCount;
+
+    //Umbrella activation time
+    private static int umbrellaCount;
 
     //Manage RainCount variable
     public static int getRainCount() { return rainCount; }
@@ -29,24 +31,29 @@ public class Counter {
 
     //Manage SplashCount variable
     public static int getSplashCount() { return splashCount; }
-    public static int getSplashLength() { return splashLength; }
     public static void increaseSplashCount() { splashCount++; }
     public static void resetSplashCount() { splashCount = 0; }
 
     //Manage BackgroundCount variable
-    public static int getBackgroundCount() { return backgroundCount; }
-    public static void increaseBackgroundCount() { backgroundCount++; }
-    public static void resetBackgroundCount() { backgroundCount = 0; }
+    static int getBackgroundCount() { return backgroundCount; }
+    static void increaseBackgroundCount() { backgroundCount++; }
+    static void resetBackgroundCount() { backgroundCount = 0; }
 
     //Manage sunnyCount variable
     public static int getSunnyCount() { return sunnyCount; }
-    public static void increaseSunnyCount() { sunnyCount++; }
-    public static void decreaseSunnyCount() { sunnyCount--; }
+    static void increaseSunnyCount() { sunnyCount++; }
+    static void decreaseSunnyCount() { sunnyCount--; }
+
+    //Manage umbrellaCount variable
+    public static int getUmbrellaCount() { return umbrellaCount; }
+    public static void increaseUmbrellaCount() { umbrellaCount++; }
+    public static void resetUmbrellaCount() { umbrellaCount = 0; }
 
     public static void clear() {
         rainCount = 0;
         acidCount = 0;
         splashCount = 0;
         backgroundCount = 0;
+        umbrellaCount = 0;
     }
 }
