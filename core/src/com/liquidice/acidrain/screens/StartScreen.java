@@ -21,6 +21,7 @@ import com.liquidice.acidrain.managers.Gameplay;
 import com.liquidice.acidrain.managers.Properties;
 import com.liquidice.acidrain.managers.assets.Audio;
 import com.liquidice.acidrain.screens.unlockables.UnlockablesScreen;
+import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.City;
 
 /**
@@ -83,6 +84,8 @@ public class StartScreen {
         unlockButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/unlockButton.png", Texture.class)));
         helpButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/helpButton.png", Texture.class)));
         startButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/startButton.png", Texture.class)));
+        City.setImage(manager.get("city/city10.png", Texture.class));
+        Bucket.setImage(manager.get("rain/bucket/bucket0.png", Texture.class));
 
         //Listeners
         addButtonListeners();

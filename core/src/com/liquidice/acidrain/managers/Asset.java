@@ -24,6 +24,7 @@ public class Asset {
         manager.finishLoading();
     }
 
+    //TODO: Continue on with loading Assets
 
     private void loadFonts() {
         FileHandleResolver resolver = new InternalFileHandleResolver();
@@ -40,6 +41,8 @@ public class Asset {
         manager.load("unlockables/healthPack/unlockableHealthPack.png", Texture.class);
         manager.load("unlockables/umbrella/unlockableUmbrella.png", Texture.class);
         manager.load("unlockables/unlockableLocked.png", Texture.class);
+        manager.load("city/city10.png", Texture.class);
+        manager.load("rain/bucket/bucket0.png", Texture.class);
 
     }
 
