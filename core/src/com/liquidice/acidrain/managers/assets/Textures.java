@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Textures {
     ////////////////////////////////// TEXT TEXTURE ////////////////////////////////////////////////
-    public static Texture logo = new Texture("text/logo.png");
+    //public static Texture logo = new Texture("text/logo.png");
     public static Texture gameOver = new Texture("text/gameOver.png");
     public static Texture levelComplete = new Texture("text/levelComplete.png");
     public static Texture perfectLevel = new Texture("text/perfectLevel.png");
@@ -76,28 +76,28 @@ public class Textures {
     public static Texture rainSplashRight = new Texture("rain/splash/rainSplashRight.png");
 
     ////////////////////////////////// BUTTON TEXTURES ////////////////////////////////////////////
-    public static Drawable soundOffButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOffButton.png")));
-    public static Drawable soundOnButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOnButton.png")));
-    public static Drawable unlockButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/unlockButton.png")));
-    public static Drawable startButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton.png")));
-    public static Drawable helpButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/helpButton.png")));
+//    public static Drawable soundOffButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOffButton.png")));
+//    public static Drawable soundOnButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/soundOnButton.png")));
+//    public static Drawable unlockButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/unlockButton.png")));
+//    public static Drawable startButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton.png")));
+//    public static Drawable helpButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/helpButton.png")));
     public static Drawable pauseButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/pauseButton.png")));
     public static Drawable playButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/playButton.png")));
     public static Drawable stopButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/stopButton.png")));
-    public static Drawable closeButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/closeButton.png")));
+//    public static Drawable closeButtonStyleImage = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/closeButton.png")));
 
     /////////////////////////////////// SCREEN TEXTURES ////////////////////////////////////////////
     public static Texture unlocked = new Texture("screen/unlocked.jpg");
 
     //////////////////////////////// UNLOCKABLE TEXTURES ///////////////////////////////////////////
-    public static Texture unlockableHealthPack = new Texture("unlockables/healthPack/unlockableHealthPack.png");
-    public static Texture unlockableUmbrella = new Texture("unlockables/umbrella/unlockableUmbrella.png");
-    public static Texture unlockableLocked = new Texture("unlockables/unlockableLocked.png");
+//    public static Texture unlockableHealthPack = new Texture("unlockables/healthPack/unlockableHealthPack.png");
+//    public static Texture unlockableUmbrella = new Texture("unlockables/umbrella/unlockableUmbrella.png");
+//    public static Texture unlockableLocked = new Texture("unlockables/unlockableLocked.png");
     public static Texture healthPack = new Texture("unlockables/healthPack/healthPackDrop.png");
     public static Texture umbrella = new Texture("unlockables/umbrella/umbrellaDrop.png");
     public static Texture umbrellaLeft = new Texture("unlockables/umbrella/umbrellaLeft.png");
     public static Texture umbrellaRight = new Texture("unlockables/umbrella/umbrellaRight.png");
-    public static Texture unlockableMultipliers = new Texture("unlockables/powerDrop/unlockableMultipliers.png");
+//    public static Texture unlockableMultipliers = new Texture("unlockables/powerDrop/unlockableMultipliers.png");
     public static Texture multipliers = new Texture("unlockables/powerDrop/multipliersDrop.png");
     private static Texture powerDrop2 = new Texture("unlockables/powerDrop/powerDrop2.png");
     private static Texture powerDrop3 = new Texture("unlockables/powerDrop/powerDrop3.png");
@@ -241,10 +241,6 @@ public class Textures {
             default:
                 return rainDrop7;
         }
-    }
-
-    public static void dispose() {
-        logo.dispose();
     }
 }
 

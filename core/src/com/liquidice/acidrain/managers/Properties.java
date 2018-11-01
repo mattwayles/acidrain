@@ -2,6 +2,7 @@ package com.liquidice.acidrain.managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.liquidice.acidrain.sprites.Bucket;
 
 public class Properties {
 
@@ -59,12 +60,24 @@ public class Properties {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// SCREEN PROPERTIES //////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    //Start Screen
+    public static final String BEST_SCORE_TEXT = "Best ";
+    public static final String CURRENT_LEVEL_TEXT = "Level ";
+    public static final String AVOID_RED_TEXT = "Smash the ACID rain!";
+    public static final String CATCH_BLUE_TEXT = "Catch the CLEAN raindrops,";
+    public static final int START_SCREEN_TEXT_SIZE = 56;
+    public static final Color START_SCREEN_BLUE = Color.valueOf("#99d9ea");
+    public static final Color START_SCREEN_RED = Color.valueOf("#ff4646");
+    public static final int START_SCREEN_SPACING = 100;
+
+    //Unlockable items screen
     public static int UNLOCKED_ITEMS_FONT_SIZE = 100;
     public static int UNLOCKED_ITEMS_Y = Gdx.graphics.getHeight() - 200;
     public static int UNLOCK_1_Y = 400;
     public static int UNLOCK_2_Y = 710;
     public static int UNLOCK_3_Y = 1020;
     public static int UNLOCK_4_Y = 1330;
+    public static String UNLOCKED_ITEMS_TEXT = "Unlocked Items";
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// SPRITE PROPERTIES //////////////////////////////////////////
@@ -76,6 +89,12 @@ public class Properties {
     //DROP PROPERTIES
     public static final int SPLASH_LENGTH = 20;
 
+    //BUCKET PROPERTIES
+    public static final int BUCKET_HOVER = 200;
+
+    //CITY PROPERTIES
+    public static final int CITY_HEIGHT = BUCKET_HOVER - 20;
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// POWERUP PROPERTIES //////////////////////////////////////////
@@ -86,8 +105,15 @@ public class Properties {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// STATE PROPERTIES ////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    static int GAME_START_STATE = 0;
-    static int GAME_PLAY_STATE = 1;
-    static int GAME_OVER_STATE = 2;
-    static int LEVEL_COMPLETE_STATE =3;
+    public static int GAME_START_STATE = 0;
+    public static int GAME_PLAY_STATE = 1;
+    public static int GAME_OVER_STATE = 2;
+    public static int LEVEL_COMPLETE_STATE =3;
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////// SHARED PREF KEY PROPERTIES ///////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public static String SHARED_PREF_SOUND_ON = "soundOn";
+    
 }

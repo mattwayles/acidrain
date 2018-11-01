@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.liquidice.acidrain.managers.assets.Textures;
 
 public class City {
-    private static Texture image = Textures.city10;
+    private static Texture image;
 
     public static Texture getImage() { return image; }
     public static void setImage(Texture img) { image = img; }

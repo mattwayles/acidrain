@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.liquidice.acidrain.managers.Properties;
 
 public class FontGenerator {
-    private static final String MAIN_FONT = "font/play.ttf";
+    private static final String MAIN_FONT = "font/Play.ttf";
 
     public static FreetypeFontLoader.FreeTypeFontLoaderParameter generatePlayFont(int size, Color color) {
         FreetypeFontLoader.FreeTypeFontLoaderParameter font = new FreetypeFontLoader.FreeTypeFontLoaderParameter();

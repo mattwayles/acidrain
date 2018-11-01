@@ -3,10 +3,12 @@ package com.liquidice.acidrain;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Intersector;
+import com.liquidice.acidrain.managers.Asset;
 import com.liquidice.acidrain.managers.Background;
 import com.liquidice.acidrain.managers.Counter;
 import com.liquidice.acidrain.managers.Gameplay;
@@ -38,6 +40,7 @@ import java.util.Random;
 //TODO:
 //
 // BUG: Exiting the app and resuming doesn't render most of the page
+// BUG: Multipliers shows up even when not unlocked
 // BUG: Shared pref for "Top score on this level", update when paused or stopped
 // CLEANUP: Refactor stuff out of the Main AcidRain class.
 // CLEANUP: Magic numbers to Properties class
@@ -70,15 +73,27 @@ public class AcidRain extends ApplicationAdapter {
 	//Buttons
 	private GestureDetector inputProcessor;
 
+	//TODO: Testing non-static screens
+	private StartScreen startScreen;
+	private AssetManager assetManager;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		prefs = Gdx.app.getPreferences("MyPrefs");
+		prefs.clear();
+		prefs.flush();
 		inputProcessor = new GestureDetector(new Gesture());
 
 		//TODO: AssetManager
 		Audio.initialize();
 		Font.initialize();
+		Asset asset = new Asset();
+		assetManager = asset.getManager();
+		startScreen = new StartScreen(asset.getManager());
+
+
+		//Asset.getManager().finishLoading();
 		if (prefs.getBoolean("soundOn")) {
 			Audio.playMusic();
 		}
@@ -95,7 +110,7 @@ public class AcidRain extends ApplicationAdapter {
 		switch (gameState) {
 			case 0:
 				/* Waiting for Input */
-				StartScreen.display();
+				startScreen.display();
 				if (Gdx.input.justTouched()) {
 					clearAll();
 				}
@@ -330,7 +345,7 @@ public class AcidRain extends ApplicationAdapter {
 
 	@Override
 	public void pause() {
-		Textures.dispose();
+		assetManager.dispose();
 	}
 
 	@Override

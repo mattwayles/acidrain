@@ -10,10 +10,10 @@ public class Font {
     private static FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Play.ttf"));
 
     //StartScreen
-    public static BitmapFont catchBlueFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
-    public static BitmapFont avoidRedFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
-    public static BitmapFont bestScoreFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
-    public static BitmapFont currentLevelFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
+//    public static BitmapFont catchBlueFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
+//    public static BitmapFont avoidRedFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
+//    public static BitmapFont bestScoreFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
+//    public static BitmapFont currentLevelFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
 
     //Score
     public static BitmapFont caughtLabelFont;
@@ -40,10 +40,10 @@ public class Font {
 
     public static void initialize() {
         //StartScreen
-        catchBlueFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
-        avoidRedFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
-        bestScoreFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
-        currentLevelFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
+//        catchBlueFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
+//        avoidRedFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
+//        bestScoreFont = Font.generatePlayFont(56, Color.valueOf("#ff4646"));
+//        currentLevelFont = Font.generatePlayFont(56, Color.valueOf("#99d9ea"));
 
         //Score
         caughtLabelFont = Font.generatePlayFont(Properties.LABEL_FONT_SIZE, Properties.SCORE_BLUE_COLOR, 3, Color.BLACK);
