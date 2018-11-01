@@ -8,15 +8,7 @@ import com.liquidice.acidrain.sprites.Bucket;
 public class Gesture implements GestureDetector.GestureListener {
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        if (Gdx.input.isTouched() && Gdx.input.getX() != Bucket.getX()) {
-            if (Gdx.input.getX() > (Bucket.getX() + Bucket.getBucketSpeed() + Bucket.getImage().getWidth() / 2)) {
-                Bucket.setX(Bucket.getX() + Bucket.getBucketSpeed());
-            } else if (Gdx.input.getX() < (Bucket.getX() - Bucket.getBucketSpeed() + Bucket.getImage().getWidth() / 2)) {
-                Bucket.setX(Bucket.getX() - Bucket.getBucketSpeed());
-            }
-        }
-        return false;
-    }
+        return true; }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
@@ -35,9 +27,7 @@ public class Gesture implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        //if (x > Bucket.getImage().getWidth() && x < Gdx.graphics.getWidth() - Bucket.getImage().getWidth()) {
-            Bucket.setX(x - Bucket.getImage().getWidth() / 2);
-        //}
+        Bucket.setX(x - Bucket.getImage().getWidth() / 2);
         return false;
     }
 

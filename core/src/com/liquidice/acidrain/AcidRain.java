@@ -17,7 +17,6 @@ import com.liquidice.acidrain.managers.Score;
 import com.liquidice.acidrain.managers.assets.Audio;
 import com.liquidice.acidrain.managers.assets.Font;
 import com.liquidice.acidrain.managers.assets.Textures;
-import com.liquidice.acidrain.screens.unlockables.UnlockedScreen;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.City;
 import com.liquidice.acidrain.sprites.Clouds;
@@ -38,13 +37,12 @@ import java.util.Random;
 
 //TODO:
 //
-// BUG: Slight wait when first drop is consumed
-// BUG: Smooth down the touch and drags. Right now you can touch and teleport
 // BUG: Exiting the app and resuming doesn't render most of the page
 // BUG: Shared pref for "Top score on this level", update when paused or stopped
 // CLEANUP: Refactor stuff out of the Main AcidRain class.
 // CLEANUP: Magic numbers to Properties class
 // CLEANUP: Put some time into code cleanup and commenting, fool!
+// CLEANUP: Avoid long wait time by using AssetManager
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
 // FEATURE: Tutorial
@@ -77,6 +75,9 @@ public class AcidRain extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		prefs = Gdx.app.getPreferences("MyPrefs");
 		inputProcessor = new GestureDetector(new Gesture());
+
+		//TODO: AssetManager
+		Audio.initialize();
 		Font.initialize();
 		if (prefs.getBoolean("soundOn")) {
 			Audio.playMusic();
@@ -266,7 +267,7 @@ public class AcidRain extends ApplicationAdapter {
 
 			}
 			//Intersect with LEFT bucket rectangle
-			if (Intersector.overlaps(Bucket.getLeftRect(), drops.get(i).getRect())) {
+			else if (Intersector.overlaps(Bucket.getLeftRect(), drops.get(i).getRect())) {
 				batch.draw(drops.get(i).getLeftSplash(), drops.get(i).getX(), drops.get(i).getY());
 				drops.get(i).setSpeed(0);
 				Audio.playSideSplatSound();
@@ -284,7 +285,7 @@ public class AcidRain extends ApplicationAdapter {
 				//RainDrop - consume
 				if (drops.get(i) instanceof RainDrop) {
 					Score.increaseCaughtScore(drops.get(i).getPoints());
-					Audio.playRainDropSound();
+					//Audio.playRainDropSound();
 					Gdx.input.vibrate(40);
 					drops.remove(i);
 				}
@@ -327,6 +328,10 @@ public class AcidRain extends ApplicationAdapter {
 		Bucket.setImage(Textures.rainBucket0);
 	}
 
+	@Override
+	public void pause() {
+		Textures.dispose();
+	}
 
 	@Override
 	public void dispose () {

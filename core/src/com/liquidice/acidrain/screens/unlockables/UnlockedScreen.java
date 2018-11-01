@@ -1,9 +1,7 @@
 package com.liquidice.acidrain.screens.unlockables;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.liquidice.acidrain.managers.Gameplay;
@@ -12,11 +10,11 @@ import com.liquidice.acidrain.managers.assets.Textures;
 
 public class UnlockedScreen {
     private static SpriteBatch batch = new SpriteBatch();
-    private static GlyphLayout youveUnlockedLayout = new GlyphLayout();
+    private static String youveUnlockedText = "You've Unlocked...";
+    private static GlyphLayout youveUnlockedLayout = new GlyphLayout(Font.youveUnlockedFont, youveUnlockedText);
     private static GlyphLayout layout = new GlyphLayout();
     private static GlyphLayout powerupLayout = new GlyphLayout();
     private static GlyphLayout holdLayout = new GlyphLayout();
-    private static String youveUnlockedText = "You've Unlocked...";
     private static int count;
     private static boolean desc;
     private static int bounceY = Gdx.graphics.getHeight() - 800 ;
@@ -26,8 +24,6 @@ public class UnlockedScreen {
         batch.draw(Textures.unlocked, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         //You've Unlocked...
-
-        youveUnlockedLayout.setText(Font.youveUnlockedFont, youveUnlockedText);
         Font.youveUnlockedFont.draw(batch, youveUnlockedText, Gdx.graphics.getWidth() / 2 - youveUnlockedLayout.width / 2, Gdx.graphics.getHeight() - 200);
 
         layout.setText(Font.powerupTypeFont, title);

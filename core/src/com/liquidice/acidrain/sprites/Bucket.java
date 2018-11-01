@@ -10,7 +10,7 @@ import com.liquidice.acidrain.managers.Properties;
 import com.liquidice.acidrain.managers.assets.Textures;
 
 public class Bucket {
-    private static final int BUCKET_SPEED = 40;
+    private static final int BUCKET_SPEED = 25;
     private static final int BUCKET_HOVER = 200;
 
     private static Texture image = Textures.rainBucket0;

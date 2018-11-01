@@ -30,7 +30,7 @@ public class Properties {
     static final int LIGHTNING_FREQUENCY = 500;
 
     //COUNTER PROPERTIES
-    static final int SUNNY_COUNTER = 100;
+    public static final int SUNNY_COUNTER = 100;
 
     //SCORE PROPERTIES
      public static Color SCORE_BLUE_COLOR = Color.valueOf("#53c0e0");
@@ -50,7 +50,7 @@ public class Properties {
     public static int UNLOCKABLE_MULTIPLIERS = 0;
     public static int UNLOCKABLE_HEALTHPACK = 1;
     public static int UNLOCKABLE_UMBRELLA = 2;
-    public static int UNLOCK_1_LEVEL = 3;
+    public static int UNLOCK_1_LEVEL = 1;
     public static int UNLOCK_2_LEVEL = 5;
     public static int UNLOCK_3_LEVEL = 7;
     public static int UNLOCK_4_LEVEL = 20;

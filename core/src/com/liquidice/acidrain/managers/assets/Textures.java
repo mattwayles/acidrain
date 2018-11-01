@@ -242,5 +242,9 @@ public class Textures {
                 return rainDrop7;
         }
     }
+
+    public static void dispose() {
+        logo.dispose();
+    }
 }
 

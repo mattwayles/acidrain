@@ -6,16 +6,29 @@ import com.badlogic.gdx.audio.Sound;
 import com.liquidice.acidrain.AcidRain;
 
 public class Audio {
-    private static Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/thunderstorm.mp3"));
-    private static Music birdsMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/birds.wav"));
-    private static Sound rainDropSound = Gdx.audio.newSound(Gdx.files.internal("sounds/rainDrop.mp3"));
-    private static Sound acidDropSound = Gdx.audio.newSound(Gdx.files.internal("sounds/acidDrop.mp3"));
-    private static Sound levelWinSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelWin.mp3"));
-    private static Sound sideSplatSound = Gdx.audio.newSound(Gdx.files.internal("sounds/sideSplat.mp3"));
-    private static Sound sirenSound = Gdx.audio.newSound(Gdx.files.internal("sounds/siren.wav"));
-    private static Sound thunderSound = Gdx.audio.newSound(Gdx.files.internal("sounds/thunderCrack.wav"));
-    private static Sound powerupSound = Gdx.audio.newSound(Gdx.files.internal("sounds/powerup.wav"));
+    private static Music backgroundMusic;
+    private static Music birdsMusic;
+    private static Sound rainDropSound;
+    private static Sound acidDropSound;
+    private static Sound levelWinSound;
+    private static Sound sideSplatSound;
+    private static Sound sirenSound;
+    private static Sound thunderSound;
+    private static Sound powerupSound;
 
+    public static void initialize() {
+         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/thunderstorm.mp3"));
+         birdsMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/birds.wav"));
+         rainDropSound = Gdx.audio.newSound(Gdx.files.internal("sounds/rainDrop.mp3"));
+         acidDropSound = Gdx.audio.newSound(Gdx.files.internal("sounds/acidDrop.mp3"));
+         levelWinSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelWin.mp3"));
+         sideSplatSound = Gdx.audio.newSound(Gdx.files.internal("sounds/sideSplat.mp3"));
+         sirenSound = Gdx.audio.newSound(Gdx.files.internal("sounds/siren.wav"));
+         thunderSound = Gdx.audio.newSound(Gdx.files.internal("sounds/thunderCrack.wav"));
+         powerupSound = Gdx.audio.newSound(Gdx.files.internal("sounds/powerup.wav"));
+    }
+    
+    
     public static Music getBackgroundMusic() { return backgroundMusic; }
     public static Music getBirdsMusic() { return birdsMusic; }
 

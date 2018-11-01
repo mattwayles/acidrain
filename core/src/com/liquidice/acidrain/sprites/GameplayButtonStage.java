@@ -42,30 +42,16 @@ public class GameplayButtonStage {
         }
         else {
             stage.clear();
-            stopButton.setX(Gdx.graphics.getWidth() / 2 - stopButton.getWidth() / 2);
-            playButton.setX(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2);
+            playButton.setX(Gdx.graphics.getWidth() / 2 - playButton.getWidth());
+            stopButton.setX(Gdx.graphics.getWidth() / 2);
 
-            stopButton.setY(Gdx.graphics.getHeight() - playButton.getHeight() - 20);
-            playButton.setY(Gdx.graphics.getHeight() - playButton.getHeight() - stopButton.getHeight() - 60);
-            stage.addActor(stopButton);
+            playButton.setY(Gdx.graphics.getHeight() - playButton.getHeight() - 50);
+            stopButton.setY(Gdx.graphics.getHeight() - stopButton.getHeight() - 50);
             stage.addActor(playButton);
+            stage.addActor(stopButton);
         }
         stage.draw();
 
-        InputListener listener = new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("TOUCH", "DOWN");
-                return true;
-            }
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                Gdx.app.log("DRAGGED: ", String.valueOf(x));
-                if (x > Bucket.getImage().getWidth() && x < Gdx.graphics.getWidth() - Bucket.getImage().getWidth()) {
-                    Bucket.setX(x - Bucket.getImage().getWidth() / 2);
-                }
-            }};
-
-        stage.addListener(listener);
         pauseButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
