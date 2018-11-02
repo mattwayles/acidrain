@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.liquidice.acidrain.AcidRain;
-import com.liquidice.acidrain.managers.CounterMgr;
-import com.liquidice.acidrain.managers.PropertiesMgr;
-import com.liquidice.acidrain.managers.ScoreMgr;
+import com.liquidice.acidrain.managers.AudioManager;
+import com.liquidice.acidrain.managers.CountManager;
+import com.liquidice.acidrain.managers.GameplayManager;
+import com.liquidice.acidrain.managers.PropManager;
+import com.liquidice.acidrain.managers.ScoreManager;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.City;
 import com.liquidice.acidrain.sprites.Clouds;
@@ -34,8 +36,8 @@ public class GameplayOverlay {
     private boolean sirenPlayed;
 
     /**
-     * Create a new GameplayMgr Overlay
-     * @param manager   The AssetMgr containing fonts and textures used in this overlay
+     * Create a new GameplayManager Overlay
+     * @param manager   The AssetLoader containing fonts and textures used in this overlay
      */
     public GameplayOverlay(AssetManager manager) {
         this.manager = manager;
@@ -54,51 +56,51 @@ public class GameplayOverlay {
     public void display(Batch batch) {
 
         //Set layouts with latest data
-        caughtLabelLayout.setText(caughtLabelFont, PropertiesMgr.CLEAN_WATER_TEXT);
-        caughtScoreLayout.setText(caughtScoreFont, PropertiesMgr.CLEAN_WATER_PERCENT);
-        strengthLabelLayout.setText(strengthLabelFont, PropertiesMgr.CITY_STRENGTH_TEXT);
-        strengthScoreLayout.setText(strengthScoreFont, PropertiesMgr.CITY_STRENGTH_PERCENT);
+        caughtLabelLayout.setText(caughtLabelFont, PropManager.CLEAN_WATER_TEXT);
+        caughtScoreLayout.setText(caughtScoreFont, PropManager.CLEAN_WATER_PERCENT);
+        strengthLabelLayout.setText(strengthLabelFont, PropManager.CITY_STRENGTH_TEXT);
+        strengthScoreLayout.setText(strengthScoreFont, PropManager.CITY_STRENGTH_PERCENT);
 
         //Draw clouds
         batch.draw(
                 Clouds.getImage(),
                 Clouds.getX(),
                 Clouds.getY(),
-                Gdx.graphics.getWidth() + PropertiesMgr.CLOUD_EXTRA_WIDTH,
+                Gdx.graphics.getWidth() + PropManager.CLOUD_EXTRA_WIDTH,
                 Clouds.getImage().getHeight());
 
-        //Draw ScoreMgr if not on LevelComplete/GameOver screens
-        if (CounterMgr.getSunnyCount() == 0 && AcidRain.getGameState() != 2) {
+        //Draw ScoreManager if not on LevelComplete/GameOver screens
+        if (CountManager.getSunnyCount() == 0 && GameplayManager.getGameState() != 2) {
             //Draw "Clean Water" label
             caughtLabelFont.draw(
                     batch,
-                    PropertiesMgr.CLEAN_WATER_TEXT,
-                    PropertiesMgr.CAUGHT_SCORE_X,
-                    Gdx.graphics.getHeight() - PropertiesMgr.LABEL_Y);
+                    PropManager.CLEAN_WATER_TEXT,
+                    PropManager.CAUGHT_SCORE_X,
+                    Gdx.graphics.getHeight() - PropManager.LABEL_Y);
 
             //Draw current clean water percentage
             caughtScoreFont.draw(
                     batch,
-                    PropertiesMgr.CLEAN_WATER_PERCENT,
-                    PropertiesMgr.CAUGHT_SCORE_X + SpriteUtil.middleOf(caughtLabelLayout.width) - SpriteUtil.middleOf(caughtScoreLayout.width),
-                    Gdx.graphics.getHeight() - PropertiesMgr.SCORE_Y);
+                    ScoreManager.getCaughtPercentage() + "%",
+                    PropManager.CAUGHT_SCORE_X + SpriteUtil.middleOf(caughtLabelLayout.width) - SpriteUtil.middleOf(caughtScoreLayout.width),
+                    Gdx.graphics.getHeight() - PropManager.SCORE_Y);
 
             //Draw "City Strength" label
             strengthLabelFont.draw(
                     batch,
-                    PropertiesMgr.CITY_STRENGTH_TEXT,
-                    PropertiesMgr.STRENGTH_SCORE_X,
-                    Gdx.graphics.getHeight() - PropertiesMgr.LABEL_Y);
+                    PropManager.CITY_STRENGTH_TEXT,
+                    PropManager.STRENGTH_SCORE_X,
+                    Gdx.graphics.getHeight() - PropManager.LABEL_Y);
 
             //Draw current city strength percentage
             strengthScoreFont.draw(
                     batch,
-                    PropertiesMgr.CITY_STRENGTH_PERCENT,
-                    PropertiesMgr.STRENGTH_SCORE_X + SpriteUtil.middleOf(strengthLabelLayout.width) - SpriteUtil.middleOf(strengthScoreLayout.width),
-                    Gdx.graphics.getHeight() - PropertiesMgr.SCORE_Y);
+                    ScoreManager.getStrengthPercentage() + "%",
+                    PropManager.STRENGTH_SCORE_X + SpriteUtil.middleOf(strengthLabelLayout.width) - SpriteUtil.middleOf(strengthScoreLayout.width),
+                    Gdx.graphics.getHeight() - PropManager.SCORE_Y);
 
             //Draw gameplay buttons
-            if (AcidRain.getGameState() != 3) {
+            if (GameplayManager.getGameState() != 3) {
                 //Placeholder required because button stage overwrites last batch draw
                 batch.draw(manager.get("placeholder.png", Texture.class), 0, 0, 0, 0);
                 gameplayButtonOverlay.display();
@@ -107,9 +109,9 @@ public class GameplayOverlay {
 
 
         //Update Bucket & City based on current percentages
-        if (checkLevelAlive(ScoreMgr.getCaughtPercentage(), ScoreMgr.getStrengthPercentage())) {
-            updateBucketImage(ScoreMgr.getCaughtPercentage());
-            updateCityImage(ScoreMgr.getStrengthPercentage());
+        if (checkLevelAlive(ScoreManager.getCaughtPercentage(), ScoreManager.getStrengthPercentage())) {
+            updateBucketImage(ScoreManager.getCaughtPercentage());
+            updateCityImage(ScoreManager.getStrengthPercentage());
         }
     }
 
@@ -124,21 +126,23 @@ public class GameplayOverlay {
 
         if (score >= 100) { //Check if game won
             //Initiate level complete
-            manager.get("sounds/levelWin.mp3", Sound.class).play();
-            AcidRain.setGameState(PropertiesMgr.LEVEL_COMPLETE_STATE);
+            if (GameplayManager.getGameState() == PropManager.GAME_PLAY_STATE) {
+                AudioManager.playLevelWin();
+                GameplayManager.setGameState(PropManager.LEVEL_COMPLETE_STATE);
+            }
 
             //Reset for next level
             sirenPlayed = false;
             City.setImage(manager.get("city/city10.png", Texture.class));
-            Bucket.setImage(manager.get("bucket.bucket9.png", Texture.class));
+            Bucket.setImage(manager.get("bucket/bucket9.png", Texture.class));
         }
         else if (strength <= 0) { //Check if game lost
             sirenPlayed = false;
-            AcidRain.setGameState(PropertiesMgr.GAME_OVER_STATE);
+            GameplayManager.setGameState(PropManager.GAME_OVER_STATE);
         }
-        else if (strength <= PropertiesMgr.STRENGTH_WARNING_LEVEL && !sirenPlayed) { //Check if game is in 'warning mode' and sound siren (once!)
+        else if (strength <= PropManager.STRENGTH_WARNING_LEVEL && !sirenPlayed) { //Check if game is in 'warning mode' and sound siren (once!)
             sirenPlayed = true;
-            manager.get("sounds/siren.wav", Sound.class).play();
+            AudioManager.playSiren();
 
             isAlive = true;
         }
@@ -158,23 +162,9 @@ public class GameplayOverlay {
     private void updateBucketImage(int percentage) {
         //We use the tens digit to render images, so ignore 0-9
         if (percentage > 9) {
-
-            //If caught percentage = 100, level is complete
-            if (percentage >= 100) {
-
-                //Initiate level complete
-                manager.get("sounds/levelWin.mp3", Sound.class).play();
-                AcidRain.setGameState(PropertiesMgr.LEVEL_COMPLETE_STATE);
-
-                //Reset for next level
-                sirenPlayed = false;
-                City.setImage(manager.get("city/city10.png", Texture.class));
-                Bucket.setImage(manager.get("bucket.bucket9.png", Texture.class));
-            } else {
-                //Render a bucket texture based on the tens digit of the caught percentage
-                int bucketToRender = Integer.parseInt(Integer.toString(percentage).substring(0, 1));
-                Bucket.setImage(manager.get("bucket/bucket" + bucketToRender + ".png", Texture.class));
-            }
+            //Render a bucket texture based on the tens digit of the caught percentage
+            int bucketToRender = Integer.parseInt(Integer.toString(percentage).substring(0, 1));
+            Bucket.setImage(manager.get("bucket/bucket" + bucketToRender + ".png", Texture.class));
         }
     }
 
@@ -189,7 +179,7 @@ public class GameplayOverlay {
                 City.setImage(manager.get("city/city10.png", Texture.class));
             } else {
                 //Render a City texture based on the tens digit of the strength percentage
-                int cityToRender = Integer.parseInt(String.valueOf(ScoreMgr.getStrengthPercentage()).substring(0, 1));
+                int cityToRender = Integer.parseInt(String.valueOf(ScoreManager.getStrengthPercentage()).substring(0, 1));
                 City.setImage(manager.get("city/city" + cityToRender + ".png", Texture.class));
             }
         } else {

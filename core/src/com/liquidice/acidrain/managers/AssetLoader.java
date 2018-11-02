@@ -16,7 +16,7 @@ import com.liquidice.acidrain.utilities.FontGenerator;
 /**
  * Asset Manager - Manage and asynchronously load all application assets
  */
-public class AssetMgr {
+public class AssetLoader {
     private AssetManager manager;
 
     /**
@@ -26,18 +26,19 @@ public class AssetMgr {
     public AssetManager getManager() { return manager; }
 
     /**
-     * Create a new AssetMgr and load all assets
+     * Create a new AssetLoader and load all assets
      */
-    public AssetMgr() {
+    public AssetLoader() {
         manager  = new AssetManager();
         loadButtons();
-        loadSounds();
         loadTextures();
         loadFonts();
+        loadSounds();
         manager.finishLoading();
+        AudioManager.init(manager);
     }
 
-    //TODO: Replace hard-corded file paths with PropertiesMgr strings
+    //TODO: Replace hard-corded file paths with PropManager strings
 
     /**
      * Load Font Assets
@@ -46,15 +47,15 @@ public class AssetMgr {
         FileHandleResolver resolver = new InternalFileHandleResolver();
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
-        manager.load("blue56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropertiesMgr.START_SCREEN_TEXT_SIZE, PropertiesMgr.SCORE_BLUE_COLOR, 3, Color.BLACK ));
-        manager.load("red56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropertiesMgr.START_SCREEN_TEXT_SIZE, PropertiesMgr.SCORE_RED_COLOR, 3, Color.BLACK));
+        manager.load("blue56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.START_SCREEN_TEXT_SIZE, PropManager.SCORE_BLUE_COLOR, 3, Color.BLACK ));
+        manager.load("red56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.START_SCREEN_TEXT_SIZE, PropManager.SCORE_RED_COLOR, 3, Color.BLACK));
 
-        manager.load("gold56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropertiesMgr.START_SCREEN_TEXT_SIZE, Color.GOLD, 6, Color.BLACK));
-        manager.load("white56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropertiesMgr.UNLOCKED_HOLD_FONT_SIZE, Color.WHITE, 3, Color.BLACK));
-        manager.load("unlockables.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropertiesMgr.UNLOCKED_ITEMS_FONT_SIZE, Color.GOLD, 6, Color.BLACK));
-        manager.load("powerup.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropertiesMgr.UNLOCKED_FONT_SIZE, Color.BLACK));
-        manager.load("caughtScore.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropertiesMgr.SCORE_FONT_SIZE, PropertiesMgr.SCORE_BLUE_COLOR, 3, Color.BLACK));
-        manager.load("strengthScore.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropertiesMgr.SCORE_FONT_SIZE, PropertiesMgr.SCORE_RED_COLOR, 3, Color.BLACK));
+        manager.load("gold56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.START_SCREEN_TEXT_SIZE, Color.GOLD, 6, Color.BLACK));
+        manager.load("white56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.UNLOCKED_HOLD_FONT_SIZE, Color.WHITE, 3, Color.BLACK));
+        manager.load("unlockables.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.UNLOCKED_ITEMS_FONT_SIZE, Color.GOLD, 6, Color.BLACK));
+        manager.load("powerup.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.UNLOCKED_FONT_SIZE, Color.BLACK));
+        manager.load("caughtScore.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.SCORE_FONT_SIZE, PropManager.SCORE_BLUE_COLOR, 3, Color.BLACK));
+        manager.load("strengthScore.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.SCORE_FONT_SIZE, PropManager.SCORE_RED_COLOR, 3, Color.BLACK));
     }
 
     /**

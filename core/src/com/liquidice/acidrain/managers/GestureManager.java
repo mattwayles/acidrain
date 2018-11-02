@@ -5,7 +5,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.liquidice.acidrain.sprites.Bucket;
 
-public class GestureMgr implements GestureDetector.GestureListener {
+public class GestureManager implements GestureDetector.GestureListener {
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
         return true; }
@@ -27,7 +27,9 @@ public class GestureMgr implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        Bucket.setX(x - Bucket.getImage().getWidth() / 2);
+        if (!GameplayManager.isPaused()) {
+            Bucket.setX(x - Bucket.getImage().getWidth() / 2);
+        }
         return false;
     }
 

@@ -11,8 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.liquidice.acidrain.AcidRain;
-import com.liquidice.acidrain.managers.GameplayMgr;
-import com.liquidice.acidrain.managers.PropertiesMgr;
+import com.liquidice.acidrain.managers.GameplayManager;
+import com.liquidice.acidrain.managers.PreferenceManager;
+import com.liquidice.acidrain.managers.PropManager;
+import com.liquidice.acidrain.managers.ScoreManager;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
@@ -26,23 +28,24 @@ public class GameplayButtonOverlay {
 
     /**
      * Create a GameplayButtonOverlay
-     * @param manager   The AssetMgr containing the Textures used in this overlay
+     * @param manager   The AssetLoader containing the Textures used in this overlay
      */
     public GameplayButtonOverlay(AssetManager manager) {
-        //Create GameplayMgr Overlay Button styles
+        //Create GameplayManager Overlay Button styles
         ImageButton.ImageButtonStyle playButtonStyle = new ImageButton.ImageButtonStyle();
         ImageButton.ImageButtonStyle stopButtonStyle = new ImageButton.ImageButtonStyle();
         ImageButton.ImageButtonStyle pauseButtonStyle = new ImageButton.ImageButtonStyle();
 
-        //Create GameplayMgr Overlay Buttons
+        //Set GameplayManager Overlay Button images
+        playButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/playButton.png", Texture.class)));
+        stopButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/stopButton.png", Texture.class)));
+        pauseButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/pauseButton.png", Texture.class)));
+
+        //Create GameplayManager Overlay Buttons
         playButton  = new ImageButton(playButtonStyle);
         stopButton  = new ImageButton(stopButtonStyle);
         pauseButton  = new ImageButton(pauseButtonStyle);
 
-        //Set GameplayMgr Overlay Button images
-        playButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/playButton.png", Texture.class)));
-        stopButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/stopButton.png", Texture.class)));
-        pauseButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/pauseButton.png", Texture.class)));
     }
 
     /**
@@ -57,11 +60,11 @@ public class GameplayButtonOverlay {
         multiplexer.addProcessor(AcidRain.getInputProcessor());
 
         //Create and display the overlay
-        if (!GameplayMgr.isPaused()) {
+        if (!GameplayManager.isPaused()) {
             //Game is playing: Create pause button
             stage.clear();
-            pauseButton.setX(SpriteUtil.middleOf(Gdx.graphics.getWidth() - SpriteUtil.middleOf(pauseButton.getWidth())));
-            pauseButton.setY(Gdx.graphics.getHeight() - pauseButton.getHeight() - PropertiesMgr.PAUSE_BUTTON_HEIGHT);
+            pauseButton.setX(SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(pauseButton.getWidth()));
+            pauseButton.setY(Gdx.graphics.getHeight() - pauseButton.getHeight() - PropManager.PAUSE_BUTTON_HEIGHT);
             stage.addActor(pauseButton);
         }
         else {
@@ -70,8 +73,8 @@ public class GameplayButtonOverlay {
             playButton.setX(SpriteUtil.middleOf(Gdx.graphics.getWidth()) - playButton.getWidth());
             stopButton.setX(SpriteUtil.middleOf(Gdx.graphics.getWidth()));
 
-            playButton.setY(Gdx.graphics.getHeight() - playButton.getHeight() - PropertiesMgr.PLAY_STOP_BUTTON_HEIGHT);
-            stopButton.setY(Gdx.graphics.getHeight() - stopButton.getHeight() - PropertiesMgr.PLAY_STOP_BUTTON_HEIGHT);
+            playButton.setY(Gdx.graphics.getHeight() - playButton.getHeight() - PropManager.PLAY_STOP_BUTTON_HEIGHT);
+            stopButton.setY(Gdx.graphics.getHeight() - stopButton.getHeight() - PropManager.PLAY_STOP_BUTTON_HEIGHT);
             stage.addActor(playButton);
             stage.addActor(stopButton);
         }
@@ -88,7 +91,7 @@ public class GameplayButtonOverlay {
         pauseButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                GameplayMgr.pause();
+                GameplayManager.pause();
                 return false;
             }});
 
@@ -96,7 +99,7 @@ public class GameplayButtonOverlay {
         playButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                GameplayMgr.resume();
+                GameplayManager.resume();
                 return false;
             }});
 
@@ -104,8 +107,11 @@ public class GameplayButtonOverlay {
         stopButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                GameplayMgr.resume();
-                AcidRain.setGameState(PropertiesMgr.GAME_START_STATE);
+                if (ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
+                    PreferenceManager.putInt("levelBest", ScoreManager.getCaughtPercentage());
+                }
+                GameplayManager.resume();
+                GameplayManager.setGameState(PropManager.GAME_START_STATE);
                 return false;
             }});
     }

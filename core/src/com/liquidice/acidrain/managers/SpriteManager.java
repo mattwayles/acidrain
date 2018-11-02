@@ -9,7 +9,7 @@ import com.liquidice.acidrain.sprites.City;
 import com.liquidice.acidrain.sprites.Clouds;
 import com.liquidice.acidrain.sprites.Umbrella;
 
-public class SpriteMgr {
+public class SpriteManager {
     public static void init(AssetManager manager) {
         Background.setManager(manager);
         Clouds.init(manager.get("clouds.png", Texture.class));

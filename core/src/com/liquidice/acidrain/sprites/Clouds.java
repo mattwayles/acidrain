@@ -2,14 +2,14 @@ package com.liquidice.acidrain.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.liquidice.acidrain.managers.PropertiesMgr;
+import com.liquidice.acidrain.managers.PropManager;
 
 /**
  * Render Clouds at the top of the screen that dissipate when level is complete
  */
 public class Clouds {
     private static Texture image;
-    private static int x = PropertiesMgr.DEFAULT_CLOUD_X;
+    private static int x = PropManager.DEFAULT_CLOUD_X;
     private static int y;
 
     public static void init(Texture texture) {

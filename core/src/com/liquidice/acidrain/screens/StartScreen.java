@@ -18,13 +18,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.liquidice.acidrain.AcidRain;
-import com.liquidice.acidrain.managers.GameplayMgr;
-import com.liquidice.acidrain.managers.PropertiesMgr;
+import com.liquidice.acidrain.managers.AudioManager;
+import com.liquidice.acidrain.managers.GameplayManager;
+import com.liquidice.acidrain.managers.PreferenceManager;
+import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.screens.unlockables.UnlockablesScreen;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
- * Render a Start ScreenMgr containing the logo, session information, and buttons
+ * Render a Start ScreenManager containing the logo, session information, and buttons
  */
 public class StartScreen {
     private Texture logo;
@@ -51,18 +53,18 @@ public class StartScreen {
     private AssetManager manager;
 
     /**
-     * Create the Start ScreenMgr
-     * @param manager   AssetMgr containing the assets required for this screen
+     * Create the Start ScreenManager
+     * @param manager   AssetLoader containing the assets required for this screen
      */
     public StartScreen(AssetManager manager) {
         //Logo and Text
         logo = manager.get("text/logo.png", Texture.class);
         blueFont = manager.get("blue56.ttf", BitmapFont.class);
         redFont = manager.get("red56.ttf");
-        catchCleanLayout = new GlyphLayout(blueFont, PropertiesMgr.CATCH_BLUE_TEXT);
-        currentLevelLayout = new GlyphLayout(blueFont, PropertiesMgr.CURRENT_LEVEL_TEXT + GameplayMgr.getLevel());
-        avoidRedLayout = new GlyphLayout(redFont, PropertiesMgr.AVOID_RED_TEXT);
-        bestScoreLayout = new GlyphLayout(redFont, PropertiesMgr.BEST_SCORE_TEXT + GameplayMgr.getLevelBest() + "%");
+        catchCleanLayout = new GlyphLayout(blueFont, PropManager.CATCH_BLUE_TEXT);
+        currentLevelLayout = new GlyphLayout(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
+        avoidRedLayout = new GlyphLayout(redFont, PropManager.AVOID_RED_TEXT);
+        bestScoreLayout = new GlyphLayout(redFont, PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%");
         unlockablesScreen = new UnlockablesScreen(manager, this);
 
         //Buttons
@@ -106,12 +108,12 @@ public class StartScreen {
         if (!unlockedScreenOpen) {
             stage.getBatch().begin();
             stage.getBatch().draw(logo, Gdx.graphics.getWidth() / 2 - logo.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-            if (GameplayMgr.getLevel() == 1 && GameplayMgr.getLevelBest() == 0) {
-                blueFont.draw(stage.getBatch(), PropertiesMgr.CATCH_BLUE_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(catchCleanLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()));
-                redFont.draw(stage.getBatch(), PropertiesMgr.AVOID_RED_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(avoidRedLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropertiesMgr.START_SCREEN_SPACING);
+            if (GameplayManager.getLevel() == 1 && GameplayManager.getLevelBest() == 0) {
+                blueFont.draw(stage.getBatch(), PropManager.CATCH_BLUE_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(catchCleanLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()));
+                redFont.draw(stage.getBatch(), PropManager.AVOID_RED_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(avoidRedLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
             } else {
-                blueFont.draw(stage.getBatch(), PropertiesMgr.CURRENT_LEVEL_TEXT + GameplayMgr.getLevel(), SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(currentLevelLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()));
-                redFont.draw(stage.getBatch(), PropertiesMgr.BEST_SCORE_TEXT + GameplayMgr.getLevelBest() + "%", SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(bestScoreLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropertiesMgr.START_SCREEN_SPACING);
+                blueFont.draw(stage.getBatch(), PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel(), SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(currentLevelLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()));
+                redFont.draw(stage.getBatch(), PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%", SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(bestScoreLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
             }
             stage.getBatch().end();
 
@@ -133,7 +135,7 @@ public class StartScreen {
      * Toggle the sound button based on user sound preferences
      */
     private void displaySoundButton() {
-        soundOn = AcidRain.getPreferences().getBoolean(PropertiesMgr.SHARED_PREF_SOUND_ON);
+        soundOn = PreferenceManager.getBoolean(PropManager.SHARED_PREF_SOUND_ON);
         if (!soundOn) {
             soundOffButtonStyle.up = soundOffButtonStyleUp;
             soundOnButtonStyle.up = null;
@@ -148,7 +150,7 @@ public class StartScreen {
 
     /**
      * Create a table of properly-spaced buttons
-     * @return  A table of all buttons needed for the Start ScreenMgr
+     * @return  A table of all buttons needed for the Start ScreenManager
      */
     private Table createButtonTable() {
         //Create a new table
@@ -195,7 +197,7 @@ public class StartScreen {
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                AcidRain.setGameState(PropertiesMgr.GAME_PLAY_STATE);
+                GameplayManager.setGameState(PropManager.GAME_PLAY_STATE);
             }
         });
 
@@ -214,13 +216,12 @@ public class StartScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 soundOn = !soundOn;
-                AcidRain.getPreferences().putBoolean(PropertiesMgr.SHARED_PREF_SOUND_ON, soundOn);
-                AcidRain.getPreferences().flush();
+                PreferenceManager.putBoolean(PropManager.SHARED_PREF_SOUND_ON, soundOn);
 
                 if (soundOn) {
-                    manager.get("sounds/thunderstorm.mp3", Music.class).play();
+                    AudioManager.playThunderstorm();
                 } else {
-                    manager.get("sounds/thunderstorm.mp3", Music.class).stop();
+                    AudioManager.stopThunderstorm();
                 }
                 return false;
             }
@@ -232,8 +233,7 @@ public class StartScreen {
             public void changed(ChangeEvent event, Actor actor) {
                 //TODO: Remove reset
                 Gdx.app.log("DEBUG: ", "Resetting Prefs");
-                AcidRain.getPreferences().clear();
-                AcidRain.getPreferences().flush();
+                PreferenceManager.clear();
             }
         });
     }

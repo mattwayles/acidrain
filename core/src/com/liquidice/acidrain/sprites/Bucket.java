@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
-import com.liquidice.acidrain.managers.CounterMgr;
-import com.liquidice.acidrain.managers.PowerupMgr;
-import com.liquidice.acidrain.managers.PropertiesMgr;
+import com.liquidice.acidrain.managers.CountManager;
+import com.liquidice.acidrain.managers.PowerupManager;
+import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
@@ -22,9 +22,9 @@ public class Bucket {
     public static void init(Texture texture) {
         image = texture;
         x = SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(image.getWidth());
-        topRect = new Rectangle(x, PropertiesMgr.BUCKET_HOVER + image.getHeight(), image.getWidth(), PropertiesMgr.BUCKET_RECT_TOP_HEIGHT);
-        leftRect = new Rectangle(x, PropertiesMgr.BUCKET_HOVER, PropertiesMgr.BUCKET_RECT_LEFT_WIDTH, image.getHeight());
-        rightRect= new Rectangle(x + image.getWidth(), PropertiesMgr.BUCKET_HOVER, PropertiesMgr.BUCKET_RECT_RIGHT_WIDTH, image.getHeight());
+        topRect = new Rectangle(x, PropManager.BUCKET_HOVER + image.getHeight(), image.getWidth(), PropManager.BUCKET_RECT_TOP_HEIGHT);
+        leftRect = new Rectangle(x, PropManager.BUCKET_HOVER, PropManager.BUCKET_RECT_LEFT_WIDTH, image.getHeight());
+        rightRect= new Rectangle(x + image.getWidth(), PropManager.BUCKET_HOVER, PropManager.BUCKET_RECT_RIGHT_WIDTH, image.getHeight());
     }
 
     /**
@@ -41,9 +41,9 @@ public class Bucket {
      */
     public static void setX(float bucketX) {
         x = bucketX;
-        leftRect.set(x, PropertiesMgr.BUCKET_HOVER, PropertiesMgr.BUCKET_RECT_LEFT_WIDTH, image.getHeight() - 2);
-        rightRect.set(x + image.getWidth() - PropertiesMgr.BUCKET_RECT_RIGHT_WIDTH, PropertiesMgr.BUCKET_HOVER, PropertiesMgr.BUCKET_RECT_RIGHT_WIDTH, image.getHeight() - 2);
-        topRect.set(x + 2, PropertiesMgr.BUCKET_HOVER + image.getHeight()- 5, image.getWidth() - 2, 1);
+        leftRect.set(x, PropManager.BUCKET_HOVER, PropManager.BUCKET_RECT_LEFT_WIDTH, image.getHeight() - 2);
+        rightRect.set(x + image.getWidth() - PropManager.BUCKET_RECT_RIGHT_WIDTH, PropManager.BUCKET_HOVER, PropManager.BUCKET_RECT_RIGHT_WIDTH, image.getHeight() - 2);
+        topRect.set(x + 2, PropManager.BUCKET_HOVER + image.getHeight()- 5, image.getWidth() - 2, 1);
     }
 
     /**
@@ -85,19 +85,19 @@ public class Bucket {
      * @param batch The active sprite batch to include the bucket in
      */
     public static void draw(Batch batch) {
-        batch.draw(image, x, PropertiesMgr.BUCKET_HOVER, image.getWidth(), image.getHeight());
+        batch.draw(image, x, PropManager.BUCKET_HOVER, image.getWidth(), image.getHeight());
 
         //Check umbreall powerup activity
-        if (PowerupMgr.isUmbrellaActive()) {
+        if (PowerupManager.isUmbrellaActive()) {
 
             //Add umbrella if powerup is active
-            if (CounterMgr.getUmbrellaCount() <= PropertiesMgr.UMBRELLA_ACTIVATION_TIME) {
+            if (CountManager.getUmbrellaCount() <= PropManager.UMBRELLA_ACTIVATION_TIME) {
                 Umbrella.draw(batch);
-                CounterMgr.increaseUmbrellaCount();
+                CountManager.increaseUmbrellaCount();
             }
             else { //Remove umbrella if powerup expired
-                PowerupMgr.deactivateUmbrella();
-                CounterMgr.resetUmbrellaCount();
+                PowerupManager.deactivateUmbrella();
+                CountManager.resetUmbrellaCount();
             }
         }
     }

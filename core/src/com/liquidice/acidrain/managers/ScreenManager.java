@@ -11,7 +11,7 @@ import com.liquidice.acidrain.screens.StartScreen;
 /**
  * Manage the various screesn that need to be rendered in the application, and intialize default textures
  */
-public class ScreenMgr {
+public class ScreenManager {
     private StartScreen startScreen;
     private GameplayScreen gameplayScreen;
     private GameOverScreen gameOverScreen;
@@ -23,7 +23,7 @@ public class ScreenMgr {
      * Create a Screen Manager instance
      * @param manager   The AssetManager used by this Screen Manager
      */
-    public ScreenMgr(AssetManager manager) {
+    public ScreenManager(AssetManager manager) {
         startScreen = new StartScreen(manager);
         gameplayScreen = new GameplayScreen(manager);
         gameOverScreen = new GameOverScreen(manager);

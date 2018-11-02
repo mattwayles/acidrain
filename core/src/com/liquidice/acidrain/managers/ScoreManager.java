@@ -3,19 +3,19 @@ package com.liquidice.acidrain.managers;
 import com.liquidice.acidrain.AcidRain;
 
 /**
- * ScoreMgr Manager - Keeps track of the current clean water & city strength scores
+ * ScoreManager Manager - Keeps track of the current clean water & city strength scores
  */
-public class ScoreMgr {
+public class ScoreManager {
 
-    private static double winScore = AcidRain.getPreferences().getInteger("winScore", 100);
-    private static double loseScore = AcidRain.getPreferences().getInteger("loseScore", 150);
+    private static double winScore = PreferenceManager.getInt("winScore", 100);
+    private static double loseScore = PreferenceManager.getInt("loseScore", 150);
     private static double caughtScore;
     private static double strengthScore = loseScore;
     private static int caughtPercentage;
     private static int strengthPercentage = 100;
 
     /**
-     * Calculate the Caught ScoreMgr percentage
+     * Calculate the Caught ScoreManager percentage
      */
     private static void calculateCaughtPercentage() {
         caughtPercentage = (int) ((caughtScore / winScore) * 100);
@@ -91,8 +91,8 @@ public class ScoreMgr {
     }
 
     /**
-     * Increase the Caught ScoreMgr by a specified number of points (not percentage)
-     * @param points    The number of points to increase Caught ScoreMgr
+     * Increase the Caught ScoreManager by a specified number of points (not percentage)
+     * @param points    The number of points to increase Caught ScoreManager
      */
     public static void increaseCaughtScore(int points) {
         caughtScore += points;
@@ -100,8 +100,8 @@ public class ScoreMgr {
     }
 
     /**
-     * Decrease the Caught ScoreMgr by a specified number of points (not percentage)
-     * @param points    The number of points to decrease Caught ScoreMgr
+     * Decrease the Caught ScoreManager by a specified number of points (not percentage)
+     * @param points    The number of points to decrease Caught ScoreManager
      */
     public static void decreaseStrengthScore(int points) {
         strengthScore -= points;

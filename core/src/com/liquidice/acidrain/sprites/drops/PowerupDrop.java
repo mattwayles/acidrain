@@ -3,10 +3,10 @@ package com.liquidice.acidrain.sprites.drops;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.liquidice.acidrain.managers.CounterMgr;
-import com.liquidice.acidrain.managers.PowerupMgr;
-import com.liquidice.acidrain.managers.PropertiesMgr;
-import com.liquidice.acidrain.managers.ScoreMgr;
+import com.liquidice.acidrain.managers.CountManager;
+import com.liquidice.acidrain.managers.PowerupManager;
+import com.liquidice.acidrain.managers.PropManager;
+import com.liquidice.acidrain.managers.ScoreManager;
 
 /**
  * Render a new Powerup drop
@@ -76,19 +76,19 @@ public class PowerupDrop extends Drop {
         //Execute a different power based on powerup type
         switch (type) {
             case 0: //Multipliers - Add drop.size * multiplier to score
-                ScoreMgr.increaseCaughtScore(size * PropertiesMgr.UNLOCKABLE_SCORE_MULTIPLIER);
+                ScoreManager.increaseCaughtScore(size * PropManager.UNLOCKABLE_SCORE_MULTIPLIER);
                 break;
             case 1: // HealthPack - Add healthpack_multiplier to city strength percentage
-                double strengthRestorePercent = ScoreMgr.getLoseScore() * PropertiesMgr.UNLOCKABLE_HEALTHPACK_MULTIPLIER;
-                if (ScoreMgr.getStrengthScore() + strengthRestorePercent < ScoreMgr.getLoseScore()) {
-                    ScoreMgr.setStrengthScore(ScoreMgr.getStrengthScore() + (int) strengthRestorePercent);
+                double strengthRestorePercent = ScoreManager.getLoseScore() * PropManager.UNLOCKABLE_HEALTHPACK_MULTIPLIER;
+                if (ScoreManager.getStrengthScore() + strengthRestorePercent < ScoreManager.getLoseScore()) {
+                    ScoreManager.setStrengthScore(ScoreManager.getStrengthScore() + (int) strengthRestorePercent);
                 } else {
-                    ScoreMgr.setStrengthScore(ScoreMgr.getLoseScore());
+                    ScoreManager.setStrengthScore(ScoreManager.getLoseScore());
                 }
                 break;
             case 2: //Umbrella - Activate umbrella and draw around bucket
-                CounterMgr.resetUmbrellaCount();
-                PowerupMgr.activateUmbrella();
+                CountManager.resetUmbrellaCount();
+                PowerupManager.activateUmbrella();
                 break;
         }
     }

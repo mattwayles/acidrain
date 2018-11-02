@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.liquidice.acidrain.managers.GameplayMgr;
-import com.liquidice.acidrain.managers.PropertiesMgr;
-import com.liquidice.acidrain.managers.ScoreMgr;
+import com.liquidice.acidrain.managers.GameplayManager;
+import com.liquidice.acidrain.managers.PropManager;
+import com.liquidice.acidrain.managers.ScoreManager;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
@@ -22,12 +22,12 @@ public class GameOverScreen {
 
     /**
      * Create a new Game Over screen
-     * @param manager   An AssetMgr Manager containing the fonts and textures used by this screen
+     * @param manager   An AssetLoader Manager containing the fonts and textures used by this screen
      */
     public GameOverScreen(AssetManager manager) {
         this.manager = manager;
         gameOverFont = manager.get("white56.ttf", BitmapFont.class);
-        gameOverLayout.setText(gameOverFont, PropertiesMgr.GAME_OVER_TEXT);
+        gameOverLayout.setText(gameOverFont, PropManager.GAME_OVER_TEXT);
     }
 
     /**
@@ -45,18 +45,18 @@ public class GameOverScreen {
         batch.draw(
                 gameOverImage,
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(gameOverImage.getWidth()),
-                SpriteUtil.middleOf(Gdx.graphics.getHeight()) - SpriteUtil.middleOf(gameOverImage.getHeight()) + PropertiesMgr.NORTH_OF_CENTER);
+                SpriteUtil.middleOf(Gdx.graphics.getHeight()) - SpriteUtil.middleOf(gameOverImage.getHeight()) + PropManager.NORTH_OF_CENTER);
 
         //Draw the "Touch Anywhere" font
         gameOverFont.draw(
                 batch,
-                PropertiesMgr.GAME_OVER_TEXT,
+                PropManager.GAME_OVER_TEXT,
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(gameOverLayout.width),
                 SpriteUtil.middleOf(Gdx.graphics.getHeight()) - SpriteUtil.middleOf(gameOverImage.getHeight()));
 
         //Update Level Best, if applicable
-        if (ScoreMgr.getCaughtPercentage() > GameplayMgr.getLevelBest()) {
-            GameplayMgr.setLevelBest(ScoreMgr.getCaughtPercentage());
+        if (ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
+            GameplayManager.setLevelBest(ScoreManager.getCaughtPercentage());
         }
     }
 }

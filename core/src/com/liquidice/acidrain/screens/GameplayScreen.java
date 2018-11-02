@@ -6,11 +6,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Intersector;
-import com.liquidice.acidrain.managers.CounterMgr;
-import com.liquidice.acidrain.managers.GameplayMgr;
-import com.liquidice.acidrain.managers.PowerupMgr;
-import com.liquidice.acidrain.managers.PropertiesMgr;
-import com.liquidice.acidrain.managers.ScoreMgr;
+import com.liquidice.acidrain.managers.AudioManager;
+import com.liquidice.acidrain.managers.CountManager;
+import com.liquidice.acidrain.managers.GameplayManager;
+import com.liquidice.acidrain.managers.PowerupManager;
+import com.liquidice.acidrain.managers.PropManager;
+import com.liquidice.acidrain.managers.ScoreManager;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.Umbrella;
 import com.liquidice.acidrain.sprites.drops.AcidDrop;
@@ -45,16 +46,16 @@ public class GameplayScreen {
      */
     public void randomizeDrops() {
         //Continue counting until it is time to release a RainDrop
-        if (CounterMgr.getRainCount() < GameplayMgr.getRainFreq()) {
-            CounterMgr.increaseRainCount();
+        if (CountManager.getRainCount() < GameplayManager.getRainFreq()) {
+            CountManager.increaseRainCount();
         }
         else { //Time to release a RainDrop
             releaseDrop(true);
         }
 
         //Continue counting until it is time to release an AcidDrop
-        if (CounterMgr.getAcidCount() < GameplayMgr.getAcidFreq()) {
-            CounterMgr.increaseAcidCount();
+        if (CountManager.getAcidCount() < GameplayManager.getAcidFreq()) {
+            CountManager.increaseAcidCount();
         } else { //Time to release an AcidDrop
            releaseDrop(false);
         }
@@ -70,13 +71,13 @@ public class GameplayScreen {
             Drop drop = drops.get(i);
 
             //If drop has landed in the city
-            if (drop.getY() <= SpriteUtil.middleOf(PropertiesMgr.CITY_HEIGHT)) {
+            if (drop.getY() <= SpriteUtil.middleOf(PropManager.CITY_HEIGHT)) {
                 renderSplash(batch, drop);
             }
             //Drop is actively falling
             else if (drop.getSpeed() > 0) {
                 batch.draw(drop.getImage(), drop.getX(), drop.getY());
-                drop.setY(GameplayMgr.isPaused() ?  drop.getY() : drop.getY() - drop.getSpeed());
+                drop.setY(GameplayManager.isPaused() ?  drop.getY() : drop.getY() - drop.getSpeed());
                 drop.getRect().setY(drop.getY());
             }
 
@@ -94,7 +95,7 @@ public class GameplayScreen {
     public void checkCollision(Batch batch) {
         for (int i = 0; i < drops.size(); i++) {
             //Intersect with umbrella
-            if(PowerupMgr.isUmbrellaActive() && (Intersector.overlaps(Umbrella.getLeftRect(), drops.get(i).getRect()) ||
+            if(PowerupManager.isUmbrellaActive() && (Intersector.overlaps(Umbrella.getLeftRect(), drops.get(i).getRect()) ||
                     Intersector.overlaps(Umbrella.getRightRect(), drops.get(i).getRect()))) {
                 batch.draw(drops.get(i).getSplash(),  drops.get(i).getX(), drops.get(i).getY());
                 drops.get(i).setSpeed(0);
@@ -104,36 +105,36 @@ public class GameplayScreen {
             else if (Intersector.overlaps(Bucket.getLeftRect(), drops.get(i).getRect())) {
                 batch.draw(drops.get(i).getLeftSplash(), drops.get(i).getX(), drops.get(i).getY());
                 drops.get(i).setSpeed(0);
-                manager.get("sounds/sideSplat.mp3", Sound.class).play();
+                AudioManager.playSideSplat();
                 Gdx.input.vibrate(15);
             }
             //Intersect with RIGHT bucket rectangle
             else if (Intersector.overlaps(Bucket.getRightRect(), drops.get(i).getRect())) {
                 batch.draw(drops.get(i).getRightSplash(), drops.get(i).getX(), drops.get(i).getY());
                 drops.get(i).setSpeed(0);
-                manager.get("sounds/sideSplat.mp3", Sound.class).play();
+                AudioManager.playSideSplat();
                 Gdx.input.vibrate(15);
             }
             //Intersect with TOP bucket rectangle
             else if (Intersector.overlaps(Bucket.getTopRect(), drops.get(i).getRect())) {
                 //RainDrop - consume
                 if (drops.get(i) instanceof RainDrop) {
-                    ScoreMgr.increaseCaughtScore(drops.get(i).getPoints());
-                    manager.get("sounds/rainDrop.mp3", Sound.class).play();
+                    ScoreManager.increaseCaughtScore(drops.get(i).getPoints());
+                    AudioManager.playRainDrop();
                     Gdx.input.vibrate(40);
                     drops.remove(i);
                 }
                 //AcidDrop - clear bucket
                 else if (drops.get(i) instanceof AcidDrop) {
                     Bucket.setImage(manager.get("bucket/bucket0.png", Texture.class));
-                    manager.get("sounds/acidDrop.mp3", Sound.class).play();
+                    AudioManager.playAcidDrop();
                     Gdx.input.vibrate(250);
-                    ScoreMgr.resetScore();
+                    ScoreManager.resetScore();
                     drops.remove(i);
                 }
                 //PowerupDrop - execute powerup
                 else {
-                    manager.get("sounds/powerup.wav", Sound.class).play();
+                    AudioManager.playPowerup();
                     Gdx.input.vibrate(100);
                     PowerupDrop drop = (PowerupDrop) drops.get(i);
                     drop.executePowerup();
@@ -149,9 +150,9 @@ public class GameplayScreen {
      */
     public void clearAll() {
         drops.clear();
-        CounterMgr.clear();
-        ScoreMgr.resetScore();
-        ScoreMgr.resetStrength();
+        CountManager.clear();
+        ScoreManager.resetScore();
+        ScoreManager.resetStrength();
         Bucket.setImage(manager.get("bucket/bucket0.png", Texture.class));
     }
 
@@ -164,16 +165,16 @@ public class GameplayScreen {
         int size;
 
         if (isRain) {
-            CounterMgr.resetRainCount();
+            CountManager.resetRainCount();
         } else {
-            CounterMgr.resetAcidCount();
+            CountManager.resetAcidCount();
         }
 
         //Set drop speed (randomly within bounds)
-        speed = GameplayMgr.getMinSpeed() + random.nextFloat() * (GameplayMgr.getMaxSpeed() - GameplayMgr.getMinSpeed());
+        speed = GameplayManager.getMinSpeed() + random.nextFloat() * (GameplayManager.getMaxSpeed() - GameplayManager.getMinSpeed());
 
         //Set drop size (randomly within bounds)
-        size = random.nextInt((PropertiesMgr.DROP_SIZE_MAX - PropertiesMgr.DROP_SIZE_MIN) + 1) +PropertiesMgr.DROP_SIZE_MIN;
+        size = random.nextInt((PropManager.DROP_SIZE_MAX - PropManager.DROP_SIZE_MIN) + 1) +PropManager.DROP_SIZE_MIN;
 
         //Set drop X position (randomly within screen width)
         x = random.nextFloat() * Gdx.graphics.getWidth();
@@ -198,28 +199,28 @@ public class GameplayScreen {
      * @param speed The speed of the drop
      */
     private void renderDrop(int size, float x, float speed) {
-        if (size == 7 && !GameplayMgr.isPaused()) { // 17% chance of hitting a 7 and entering powerup mode
-            int rand = random.nextInt((PropertiesMgr.POWERUP_CHANCE - 1) + 1) + 1; //Retrieve random int 1-25
+        if (size == 7 && !GameplayManager.isPaused()) { // 17% chance of hitting a 7 and entering powerup mode
+            int rand = random.nextInt((PropManager.POWERUP_CHANCE - 1) + 1) + 1; //Retrieve random int 1-25
             if (rand <= 15) { //10.2% total chance of some sort of special drop
-                if (GameplayMgr.getLevel() > PropertiesMgr.UNLOCK_1_LEVEL && (rand > 1 && rand < 7)) { // MULTIPLIER - 2% total chance
-                    drops.add(new PowerupDrop(manager, PropertiesMgr.UNLOCKABLE_MULTIPLIERS, x, Gdx.graphics.getHeight(), rand));
+                if (GameplayManager.getLevel() > PropManager.UNLOCK_1_LEVEL && (rand > 1 && rand < 7)) { // MULTIPLIER - 2% total chance
+                    drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_MULTIPLIERS, x, Gdx.graphics.getHeight(), rand));
                 }
                 else { // LARGE DROP - 4% total chance
                     drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
                 }
             }
-            else if (GameplayMgr.getLevel() > PropertiesMgr.UNLOCK_2_LEVEL && (rand == 16)) { //HEALTHPACK - 0.2% total chance
-                drops.add(new PowerupDrop(manager, PropertiesMgr.UNLOCKABLE_HEALTHPACK, x, Gdx.graphics.getHeight()));
+            else if (GameplayManager.getLevel() > PropManager.UNLOCK_2_LEVEL && (rand == 16)) { //HEALTHPACK - 0.2% total chance
+                drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_HEALTHPACK, x, Gdx.graphics.getHeight()));
             }
-            else if (GameplayMgr.getLevel() > PropertiesMgr.UNLOCK_3_LEVEL && (rand == 17)) { //UMBRELLA - 0.2% total chance
-                drops.add(new PowerupDrop(manager, PropertiesMgr.UNLOCKABLE_UMBRELLA, x, Gdx.graphics.getHeight()));
+            else if (GameplayManager.getLevel() > PropManager.UNLOCK_3_LEVEL && (rand == 17)) { //UMBRELLA - 0.2% total chance
+                drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_UMBRELLA, x, Gdx.graphics.getHeight()));
             }
             else { // No luck this time, render random rain drop
-                size = random.nextInt((PropertiesMgr.DROP_SIZE_MAX - PropertiesMgr.DROP_SIZE_MIN) + 1) +PropertiesMgr.DROP_SIZE_MIN;
+                size = random.nextInt((PropManager.DROP_SIZE_MAX - PropManager.DROP_SIZE_MIN) + 1) +PropManager.DROP_SIZE_MIN;
                 drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
             }
         }
-        else if (!GameplayMgr.isPaused()) { //Render raindrop size 2-6
+        else if (!GameplayManager.isPaused()) { //Render raindrop size 2-6
             drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
         }
     }
@@ -234,18 +235,18 @@ public class GameplayScreen {
         batch.draw(drop.getSplash(), drop.getX(), drop.getY());
 
         //If splash is acid, decrease strength
-        if (CounterMgr.getSplashCount() == 0 && drop instanceof AcidDrop) {
-            ScoreMgr.decreaseStrengthScore(drop.getPoints());
+        if (CountManager.getSplashCount() == 0 && drop instanceof AcidDrop) {
+            ScoreManager.decreaseStrengthScore(drop.getPoints());
         }
 
         //Continue rendering splash until counter hits max
-        if (CounterMgr.getSplashCount() < PropertiesMgr.SPLASH_LENGTH) {
-            CounterMgr.increaseSplashCount();
+        if (CountManager.getSplashCount() < PropManager.SPLASH_LENGTH) {
+            CountManager.increaseSplashCount();
         }
 
         //Remove drop from array, stop rendering it
         else {
-            CounterMgr.resetSplashCount();
+            CountManager.resetSplashCount();
             drops.remove(drop);
         }
     }

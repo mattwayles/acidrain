@@ -1,6 +1,6 @@
 package com.liquidice.acidrain.managers;
 
-public class CounterMgr {
+public class CountManager {
     //Store time between raindrops
     private static int rainCount;
 

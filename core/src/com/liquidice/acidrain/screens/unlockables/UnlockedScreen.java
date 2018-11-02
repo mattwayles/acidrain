@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.liquidice.acidrain.managers.PropertiesMgr;
+import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
@@ -29,7 +29,7 @@ public class UnlockedScreen {
 
     /**
      * Create a new UnlockedScreen for the specific powerup that has been unlocked
-     * @param manager   The AssetMgr Manager containing fonts and textures used in this screen
+     * @param manager   The AssetLoader Manager containing fonts and textures used in this screen
      */
     public UnlockedScreen(AssetManager manager) {
         this.manager = manager;
@@ -39,9 +39,9 @@ public class UnlockedScreen {
         powerupTypeFont = manager.get("gold56.ttf", BitmapFont.class);
         unlockedItemFont = manager.get("unlockables.ttf", BitmapFont.class);
 
-        holdLayout.setText(holdFont, PropertiesMgr.UNLOCKED_HOLD_TEXT);
-        unlockedItemLayout.setText(unlockedItemFont, PropertiesMgr.ITEM_UNLOCKED_TEXT);
-        bounceY = Gdx.graphics.getHeight() - PropertiesMgr.UNLOCKED_ITEM_ANIMATION_HEIGHT;
+        holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT);
+        unlockedItemLayout.setText(unlockedItemFont, PropManager.ITEM_UNLOCKED_TEXT);
+        bounceY = Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_ANIMATION_HEIGHT;
     }
 
     /**
@@ -61,60 +61,60 @@ public class UnlockedScreen {
                 Gdx.graphics.getWidth(),
                 Gdx.graphics.getHeight());
 
-        //Draw PowerupMgr Unlocked header
+        //Draw PowerupManager Unlocked header
         unlockedItemFont.draw(
                 batch,
-                PropertiesMgr.ITEM_UNLOCKED_TEXT,
+                PropManager.ITEM_UNLOCKED_TEXT,
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(unlockedItemLayout.width),
-                Gdx.graphics.getHeight() - PropertiesMgr.UNLOCKED_ITEM_HEADER_HEIGHT);
+                Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_HEADER_HEIGHT);
 
         //Set powerup information
         powerupTypeLayout.setText(powerupTypeFont, title);
         powerupLayout.setText(powerupFont, power);
 
-        //Draw PowerupMgr Title
+        //Draw PowerupManager Title
         powerupTypeFont.draw(
                 batch,
                 title,
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(powerupTypeLayout.width),
-                Gdx.graphics.getHeight() - PropertiesMgr.UNLOCKED_ITEM_TITLE_HEIGHT);
+                Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_TITLE_HEIGHT);
 
-        //Draw PowerupMgr power
+        //Draw PowerupManager power
         powerupFont.draw(
                 batch,
                 power,
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(powerupLayout.width),
-                Gdx.graphics.getHeight() - PropertiesMgr.UNLOCKED_ITEM_POWER_HEIGHT);
+                Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_POWER_HEIGHT);
 
         //Draw "Hold to Continue"
         holdFont.draw(
                 batch,
-                PropertiesMgr.UNLOCKED_HOLD_TEXT,
+                PropManager.UNLOCKED_HOLD_TEXT,
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(holdLayout.width),
-                Gdx.graphics.getHeight() - PropertiesMgr.UNLOCKED_ITEM_HOLD_HEIGHT);
+                Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_HOLD_HEIGHT);
 
         animatePowerup();
 
-        //Draw Bouncing PowerupMgr Image
+        //Draw Bouncing PowerupManager Image
         batch.draw(
                 image,
-                (SpriteUtil.middleOf(Gdx.graphics.getWidth())) - (SpriteUtil.middleOf((image.getWidth() * PropertiesMgr.UNLOCKED_ITEM_SIZE_MULTIPLIER))),
+                (SpriteUtil.middleOf(Gdx.graphics.getWidth())) - (SpriteUtil.middleOf((image.getWidth() * PropManager.UNLOCKED_ITEM_SIZE_MULTIPLIER))),
                 bounceY,
-                image.getWidth() * PropertiesMgr.UNLOCKED_ITEM_SIZE_MULTIPLIER,
-                image.getHeight() * PropertiesMgr.UNLOCKED_ITEM_SIZE_MULTIPLIER);
+                image.getWidth() * PropManager.UNLOCKED_ITEM_SIZE_MULTIPLIER,
+                image.getHeight() * PropManager.UNLOCKED_ITEM_SIZE_MULTIPLIER);
 
         batch.end();
     }
 
     /**
-     * Animate the PowerupMgr image by bouncing up and down
+     * Animate the PowerupManager image by bouncing up and down
      */
     private void animatePowerup() {
         //Bounce Up
         if (!desc) {
             if (count < 10){
                 count++;
-                bounceY += PropertiesMgr.UNLOCKED_ITEM_BOUNCE;
+                bounceY += PropManager.UNLOCKED_ITEM_BOUNCE;
             } else {
                 desc = true;
             }
@@ -123,7 +123,7 @@ public class UnlockedScreen {
         else {
             if (count > 0) {
                 count --;
-                bounceY -= PropertiesMgr.UNLOCKED_ITEM_BOUNCE;
+                bounceY -= PropManager.UNLOCKED_ITEM_BOUNCE;
             } else {
                 desc = false;
             }

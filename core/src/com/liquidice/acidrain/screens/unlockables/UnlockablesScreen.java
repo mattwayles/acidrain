@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.liquidice.acidrain.managers.GameplayMgr;
-import com.liquidice.acidrain.managers.PropertiesMgr;
+import com.liquidice.acidrain.managers.GameplayManager;
+import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.screens.StartScreen;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
@@ -35,7 +35,7 @@ public class UnlockablesScreen {
     public UnlockablesScreen(AssetManager manager, StartScreen parent) {
         //Text
         unlockedItemFont = manager.get("unlockables.ttf", BitmapFont.class);
-        unlockedItemLayout.setText(unlockedItemFont, PropertiesMgr.UNLOCKED_ITEMS_TEXT);
+        unlockedItemLayout.setText(unlockedItemFont, PropManager.UNLOCKED_ITEMS_TEXT);
 
         //Close Button
         ImageButton.ImageButtonStyle closeButtonStyle = new ImageButton.ImageButtonStyle();
@@ -53,7 +53,7 @@ public class UnlockablesScreen {
     public void display() {
         //Draw the unlockable list
         stage.getBatch().begin();
-        unlockedItemFont.draw(stage.getBatch(), PropertiesMgr.UNLOCKED_ITEMS_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(unlockedItemLayout.width), PropertiesMgr.UNLOCKED_ITEMS_Y);
+        unlockedItemFont.draw(stage.getBatch(), PropManager.UNLOCKED_ITEMS_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(unlockedItemLayout.width), PropManager.UNLOCKED_ITEMS_Y);
 
         //Unknown Unlockable
         Texture unlockableUnknown = manager.get("unlockables/unlockableLocked.png", Texture.class);
@@ -61,18 +61,18 @@ public class UnlockablesScreen {
 
         //UNLOCK_1 - Multipliers
         Texture unlockableMultipliers = manager.get("unlockables/powerDrop/unlockableMultipliers.png", Texture.class);
-        drawUnlockable(GameplayMgr.getLevel() >= PropertiesMgr.UNLOCK_1_LEVEL ? unlockableMultipliers : unlockableUnknown, PropertiesMgr.UNLOCK_1_Y);
+        drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_1_LEVEL ? unlockableMultipliers : unlockableUnknown, PropManager.UNLOCK_1_Y);
 
         //UNLOCK_2 - Health Pack
         Texture unlockableHealthPack = manager.get("unlockables/healthPack/unlockableHealthPack.png", Texture.class);
-        drawUnlockable(GameplayMgr.getLevel() >= PropertiesMgr.UNLOCK_2_LEVEL ? unlockableHealthPack : unlockableUnknown,PropertiesMgr.UNLOCK_2_Y);
+        drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_2_LEVEL ? unlockableHealthPack : unlockableUnknown,PropManager.UNLOCK_2_Y);
 
         //UNLOCK_3 - Umbrella
         Texture unlockableUmbrella = manager.get("unlockables/umbrella/unlockableUmbrella.png", Texture.class);
-        drawUnlockable(GameplayMgr.getLevel() >= PropertiesMgr.UNLOCK_3_LEVEL ? unlockableUmbrella : unlockableUnknown,PropertiesMgr.UNLOCK_3_Y);
+        drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_3_LEVEL ? unlockableUmbrella : unlockableUnknown,PropManager.UNLOCK_3_Y);
 
         //UNLOCK_4 - ????
-        drawUnlockable(GameplayMgr.getLevel() >= PropertiesMgr.UNLOCK_4_LEVEL ? unlockableUnknown : unlockableUnknown,PropertiesMgr.UNLOCK_4_Y);
+        drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_4_LEVEL ? unlockableUnknown : unlockableUnknown,PropManager.UNLOCK_4_Y);
         stage.getBatch().end();
 
         drawCloseButton();

@@ -3,7 +3,7 @@ package com.liquidice.acidrain.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
-import com.liquidice.acidrain.managers.PropertiesMgr;
+import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
@@ -20,10 +20,10 @@ public class Umbrella {
     public static void init(Texture left, Texture right) {
         leftImage = left;
         rightImage = right;
-        leftX = Bucket.getX() - leftImage.getWidth() + PropertiesMgr.UMBRELLA_OFFSET;
-        rightX = Bucket.getX() + Bucket.getImage().getWidth() - PropertiesMgr.UMBRELLA_OFFSET;
-        leftRect = new Rectangle(leftX, PropertiesMgr.BUCKET_HOVER + SpriteUtil.middleOf(leftImage.getHeight()), leftImage.getWidth(), PropertiesMgr.UMBRELLA_HEIGHT);
-        rightRect = new Rectangle(rightX, PropertiesMgr.BUCKET_HOVER + SpriteUtil.middleOf(rightImage.getHeight()), rightImage.getWidth(), PropertiesMgr.UMBRELLA_HEIGHT);
+        leftX = Bucket.getX() - leftImage.getWidth() + PropManager.UMBRELLA_OFFSET;
+        rightX = Bucket.getX() + Bucket.getImage().getWidth() - PropManager.UMBRELLA_OFFSET;
+        leftRect = new Rectangle(leftX, PropManager.BUCKET_HOVER + SpriteUtil.middleOf(leftImage.getHeight()), leftImage.getWidth(), PropManager.UMBRELLA_HEIGHT);
+        rightRect = new Rectangle(rightX, PropManager.BUCKET_HOVER + SpriteUtil.middleOf(rightImage.getHeight()), rightImage.getWidth(), PropManager.UMBRELLA_HEIGHT);
     }
 
     /**
@@ -60,8 +60,8 @@ public class Umbrella {
         rightRect.setX(rightX);
 
         //Draw the umbrella wings
-        batch.draw(leftImage, leftX, PropertiesMgr.BUCKET_HOVER, leftImage.getWidth(), leftImage.getHeight());
-        batch.draw(rightImage, rightX, PropertiesMgr.BUCKET_HOVER, rightImage.getWidth(), rightImage.getHeight());
+        batch.draw(leftImage, leftX, PropManager.BUCKET_HOVER, leftImage.getWidth(), leftImage.getHeight());
+        batch.draw(rightImage, rightX, PropManager.BUCKET_HOVER, rightImage.getWidth(), rightImage.getHeight());
     }
 
 }
