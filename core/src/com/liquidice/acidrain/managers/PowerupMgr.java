@@ -1,6 +1,6 @@
 package com.liquidice.acidrain.managers;
 
-public class Powerup {
+public class PowerupMgr {
     private static boolean umbrellaActive;
 
     public static boolean isUmbrellaActive() { return umbrellaActive; }

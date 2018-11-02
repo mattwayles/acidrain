@@ -1,11 +1,7 @@
 package com.liquidice.acidrain.utilities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
-import com.liquidice.acidrain.managers.Properties;
 
 public class FontGenerator {
     private static final String MAIN_FONT = "font/Play.ttf";

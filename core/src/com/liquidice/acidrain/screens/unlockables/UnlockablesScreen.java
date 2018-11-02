@@ -11,9 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.liquidice.acidrain.managers.Gameplay;
-import com.liquidice.acidrain.managers.Properties;
+import com.liquidice.acidrain.managers.GameplayMgr;
+import com.liquidice.acidrain.managers.PropertiesMgr;
 import com.liquidice.acidrain.screens.StartScreen;
+import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
  * Render a list of App Unlockables
@@ -30,12 +31,11 @@ public class UnlockablesScreen {
     /**
      * Initialize the screen with text, close button, and parent handlers
      * @param manager   The manager containing the assets to use in this screen
-     * @param parentScreen  The parent scree nto return to when the screen is closed
      */
-    public UnlockablesScreen(AssetManager manager, StartScreen parentScreen) {
+    public UnlockablesScreen(AssetManager manager, StartScreen parent) {
         //Text
-        unlockedItemFont = manager.get("unlockableItems.ttf", BitmapFont.class);
-        unlockedItemLayout.setText(unlockedItemFont, Properties.UNLOCKED_ITEMS_TEXT);
+        unlockedItemFont = manager.get("unlockables.ttf", BitmapFont.class);
+        unlockedItemLayout.setText(unlockedItemFont, PropertiesMgr.UNLOCKED_ITEMS_TEXT);
 
         //Close Button
         ImageButton.ImageButtonStyle closeButtonStyle = new ImageButton.ImageButtonStyle();
@@ -44,7 +44,7 @@ public class UnlockablesScreen {
 
         //Parent
         this.manager = manager;
-        this.parent = parentScreen;
+        this.parent = parent;
     }
 
     /**
@@ -53,26 +53,26 @@ public class UnlockablesScreen {
     public void display() {
         //Draw the unlockable list
         stage.getBatch().begin();
-        unlockedItemFont.draw(stage.getBatch(), Properties.UNLOCKED_ITEMS_TEXT, parent.middleOf(Gdx.graphics.getWidth()) - parent.middleOf(unlockedItemLayout.width), Properties.UNLOCKED_ITEMS_Y);
+        unlockedItemFont.draw(stage.getBatch(), PropertiesMgr.UNLOCKED_ITEMS_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(unlockedItemLayout.width), PropertiesMgr.UNLOCKED_ITEMS_Y);
 
         //Unknown Unlockable
         Texture unlockableUnknown = manager.get("unlockables/unlockableLocked.png", Texture.class);
 
 
-        //Level 5 - Multipliers
+        //UNLOCK_1 - Multipliers
         Texture unlockableMultipliers = manager.get("unlockables/powerDrop/unlockableMultipliers.png", Texture.class);
-        drawUnlockable(Gameplay.getLevel() >= Properties.UNLOCK_1_LEVEL ? unlockableMultipliers : unlockableUnknown, Properties.UNLOCK_1_Y);
+        drawUnlockable(GameplayMgr.getLevel() >= PropertiesMgr.UNLOCK_1_LEVEL ? unlockableMultipliers : unlockableUnknown, PropertiesMgr.UNLOCK_1_Y);
 
-        //Level 10 - Health Pack
+        //UNLOCK_2 - Health Pack
         Texture unlockableHealthPack = manager.get("unlockables/healthPack/unlockableHealthPack.png", Texture.class);
-        drawUnlockable(Gameplay.getLevel() >= Properties.UNLOCK_2_LEVEL ? unlockableHealthPack : unlockableUnknown,Properties.UNLOCK_2_Y);
+        drawUnlockable(GameplayMgr.getLevel() >= PropertiesMgr.UNLOCK_2_LEVEL ? unlockableHealthPack : unlockableUnknown,PropertiesMgr.UNLOCK_2_Y);
 
-        //Level 15 - Umbrella
+        //UNLOCK_3 - Umbrella
         Texture unlockableUmbrella = manager.get("unlockables/umbrella/unlockableUmbrella.png", Texture.class);
-        drawUnlockable(Gameplay.getLevel() >= Properties.UNLOCK_3_LEVEL ? unlockableUmbrella : unlockableUnknown,Properties.UNLOCK_3_Y);
+        drawUnlockable(GameplayMgr.getLevel() >= PropertiesMgr.UNLOCK_3_LEVEL ? unlockableUmbrella : unlockableUnknown,PropertiesMgr.UNLOCK_3_Y);
 
-        //Level 20 - ????
-        drawUnlockable(Gameplay.getLevel() >= Properties.UNLOCK_4_LEVEL ? unlockableUnknown : unlockableUnknown,Properties.UNLOCK_4_Y);
+        //UNLOCK_4 - ????
+        drawUnlockable(GameplayMgr.getLevel() >= PropertiesMgr.UNLOCK_4_LEVEL ? unlockableUnknown : unlockableUnknown,PropertiesMgr.UNLOCK_4_Y);
         stage.getBatch().end();
 
         drawCloseButton();
@@ -84,8 +84,11 @@ public class UnlockablesScreen {
      * @param height    The placement of the image on the screen
      */
     private void drawUnlockable(Texture image, int height) {
-        stage.getBatch().draw(image, parent.middleOf(Gdx.graphics.getWidth()) - parent.middleOf(image.getWidth()), Gdx.graphics.getHeight() - image.getHeight() - height, image.getWidth(), image.getHeight());
-
+        stage.getBatch().draw(image,
+                SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(image.getWidth()),
+                Gdx.graphics.getHeight() - image.getHeight() - height,
+                image.getWidth(),
+                image.getHeight());
     }
 
     /**

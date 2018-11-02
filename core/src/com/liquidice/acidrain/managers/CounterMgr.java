@@ -1,6 +1,6 @@
 package com.liquidice.acidrain.managers;
 
-public class Counter {
+public class CounterMgr {
     //Store time between raindrops
     private static int rainCount;
 
@@ -35,14 +35,14 @@ public class Counter {
     public static void resetSplashCount() { splashCount = 0; }
 
     //Manage BackgroundCount variable
-    static int getBackgroundCount() { return backgroundCount; }
-    static void increaseBackgroundCount() { backgroundCount++; }
-    static void resetBackgroundCount() { backgroundCount = 0; }
+    public static int getBackgroundCount() { return backgroundCount; }
+    public static void increaseBackgroundCount() { backgroundCount++; }
+    public static void resetBackgroundCount() { backgroundCount = 0; }
 
     //Manage sunnyCount variable
     public static int getSunnyCount() { return sunnyCount; }
-    static void increaseSunnyCount() { sunnyCount++; }
-    static void decreaseSunnyCount() { sunnyCount--; }
+    public static void increaseSunnyCount() { sunnyCount++; }
+    public static void decreaseSunnyCount() { sunnyCount--; }
 
     //Manage umbrellaCount variable
     public static int getUmbrellaCount() { return umbrellaCount; }
