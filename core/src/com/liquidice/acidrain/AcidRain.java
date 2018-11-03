@@ -169,6 +169,7 @@ public class AcidRain extends ApplicationAdapter {
 	public void pause() {
 		GameplayManager.pause();
 		assetManager.dispose();
+		assetLoader = null;
 	}
 
 	/**

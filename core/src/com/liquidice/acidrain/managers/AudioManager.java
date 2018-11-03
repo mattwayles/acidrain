@@ -107,7 +107,7 @@ public class AudioManager {
     public static void playThunderstorm() {
         if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) {
             thunderstorm.play();
-        thunderstorm.setLooping(true);}
+            thunderstorm.setLooping(true);}
     }
 
     /**
