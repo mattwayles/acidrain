@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
@@ -47,7 +48,7 @@ public class UnlockedScreen {
      * @param power The powerup power
      */
     public void display(Texture image, String title, String power) {
-        holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT);
+        holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT + GameplayManager.getLevel());
 
         batch.begin();
 
@@ -87,7 +88,7 @@ public class UnlockedScreen {
         //Draw "Hold to Continue"
         holdFont.draw(
                 batch,
-                PropManager.UNLOCKED_HOLD_TEXT,
+                PropManager.UNLOCKED_HOLD_TEXT + GameplayManager.getLevel(),
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(holdLayout.width),
                 Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_HOLD_HEIGHT);
 
@@ -109,7 +110,7 @@ public class UnlockedScreen {
      */
     private void setFonts() {
         unlockedItemFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_100), Gdx.files.internal(PropManager.FONT_PLAY_100_PNG), false);
-        powerupTypeFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_100), Gdx.files.internal(PropManager.FONT_PLAY_100_PNG), false);
+        powerupTypeFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_82), Gdx.files.internal(PropManager.FONT_PLAY_82_PNG), false);
         powerupFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_56), Gdx.files.internal(PropManager.FONT_PLAY_56_PNG), false);
         holdFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_56), Gdx.files.internal(PropManager.FONT_PLAY_56_PNG), false);
         unlockedItemFont.setColor(Color.GOLD);

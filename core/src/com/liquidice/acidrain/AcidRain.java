@@ -25,6 +25,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 //TODO:
 // BUG: If device falls asleep, app fails
+// CLEANUP: Sound ON by default
 // CLEANUP: Test on different screen sizes
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water

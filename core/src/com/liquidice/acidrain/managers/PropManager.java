@@ -76,15 +76,15 @@ public class PropManager {
     public static String UNLOCKED_ITEMS_TEXT = "Unlocked Items";
 
     //Unlocked Screen
-    public static String POWERUP_MULTIPLIER_TITLE = "Score Multipliers!";
+    public static String POWERUP_MULTIPLIER_TITLE = "Score Multipliers";
     public static String POWERUP_MULTIPLIER_DESC = "Earn up to x6 points from a Single Drop";
-    public static String POWERUP_HEALTHPACK_TITLE = "Health Pack!";
+    public static String POWERUP_HEALTHPACK_TITLE = "Health Pack";
     public static String POWERUP_HEALTHPACK_DESC = "Increase City Strength by 25%";
-    public static String POWERUP_UMBRELLA_TITLE = "Umbrella!";
+    public static String POWERUP_UMBRELLA_TITLE = "Umbrella";
     public static String POWERUP_UMBRELLA_DESC = "Extra Protection for 30 seconds";
     public static int POWERUP_ANIMATION_TIME = 10;
     public static String ITEM_UNLOCKED_TEXT = "Powerup Unlocked!";
-    public static String UNLOCKED_HOLD_TEXT = "Long touch to play Level " + (GameplayManager.getLevel() + 1);
+    public static String UNLOCKED_HOLD_TEXT = "Long touch to play Level ";
     public static int UNLOCKED_ITEM_ANIMATION_HEIGHT = 800;
     public static int UNLOCKED_ITEM_HEADER_HEIGHT = 200;
     public static int UNLOCKED_ITEM_TITLE_HEIGHT = 900;
@@ -94,7 +94,7 @@ public class PropManager {
     public static int UNLOCKED_ITEM_BOUNCE = 6;
 
     //Level Complete Screen
-    public static String NEXT_LEVEL_TEXT = "Touch anywhere to begin Level " + (GameplayManager.getLevel() + 1);
+    public static String NEXT_LEVEL_TEXT = "Touch anywhere to begin Level ";
     public static int NORTH_OF_CENTER = 50;
     public static int PERFECT_SCORE = 100;
 

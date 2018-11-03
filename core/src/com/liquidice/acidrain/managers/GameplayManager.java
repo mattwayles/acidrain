@@ -33,6 +33,7 @@ public class GameplayManager {
         ScoreManager.increaseWinScore(getLevel() < PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L1_9_INCREASE : PropManager.SCORE_L10_INCREASE);
         ScoreManager.increaseLoseScore(getLevel() < PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L1_9_INCREASE : PropManager.SCORE_L10_INCREASE);
         ScoreManager.increaseCaughtScore(getLevel() < PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L1_9_INCREASE : PropManager.SCORE_L10_INCREASE);
+        ScoreManager.resetStrength();
 
         //Set New Level Data
         PreferenceManager.putInt(PropManager.PREF_LEVEL, getLevel() + 1);

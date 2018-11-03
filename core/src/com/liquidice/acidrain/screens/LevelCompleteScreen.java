@@ -53,7 +53,7 @@ public class LevelCompleteScreen {
             City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
         }
 
-        nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT);
+        nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT + GameplayManager.getLevel());
 
         //If a PowerupManager has been unlocked, display that window. If not, display Level Complete window
         if (!checkForPowerupUnlock()) {
@@ -75,7 +75,7 @@ public class LevelCompleteScreen {
             //Draw "Touch for next level" text
             nextLevelFont.draw(
                     batch,
-                    PropManager.NEXT_LEVEL_TEXT,
+                    PropManager.NEXT_LEVEL_TEXT + GameplayManager.getLevel(),
                     SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(nextLevelLayout.width),
                     SpriteUtil.middleOf(Gdx.graphics.getHeight()) - SpriteUtil.middleOf(levelTexture.getHeight()));
         }
