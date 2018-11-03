@@ -24,11 +24,15 @@ public class AssetLoader {
         manager  = new AssetManager();
         loadButtons();
         loadTextures();
+
+        //isFinished depends on final sound to be loaded
         loadSounds();
+
         manager.finishLoading();
         AudioManager.init(manager);
-
     }
+
+    //TODO: Replace with prop
 
     /**
      * Load Texture assets
@@ -138,6 +142,11 @@ public class AssetLoader {
         manager.load("sounds/siren.wav", Sound.class);
         manager.load("sounds/thunderCrack.wav", Sound.class);
         manager.load("sounds/thunderstorm.mp3", Music.class);
-
     }
+
+    /**
+     * Determine if the assets have finished loading. Dependent on final asset loaded
+     * @return Boolean value representing asset manager load finish status
+     */
+    public boolean isFinished() { return manager.isLoaded(PropManager.AUDIO_THUNDERSTORM); }
 }

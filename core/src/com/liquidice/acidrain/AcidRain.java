@@ -24,7 +24,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
 //TODO:
-// BUG: If device falls asleep, app fails
+// CLEANUP: Replace AssetLoader paths with PropMgr paths
 // CLEANUP: Test on different screen sizes
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
@@ -49,9 +49,11 @@ public class AcidRain extends ApplicationAdapter {
 	// Management
 	private ScreenManager screenManager;
 	private AssetManager assetManager;
+	private AssetLoader assetLoader;
 
 	//Input
 	private static GestureDetector inputProcessor;
+
 
 	/**
 	 * Retrieve the application input processor
@@ -72,7 +74,7 @@ public class AcidRain extends ApplicationAdapter {
 		inputProcessor = new GestureDetector(new GestureManager());
 
 		//Load assets
-		AssetLoader assetLoader = new AssetLoader();
+		assetLoader = new AssetLoader();
 		this.assetManager = assetLoader.getManager();
 		screenManager = new ScreenManager(this.assetManager);
 		SpriteManager.init(this.assetManager);
@@ -86,6 +88,7 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void render () {
+		if (assetLoader.isFinished()) {
 			batch.begin();
 
 			//On every screen, draw the background, city, and bucket
@@ -141,6 +144,7 @@ public class AcidRain extends ApplicationAdapter {
 			}
 
 			batch.end();
+		}
 	}
 
 	/**
@@ -170,7 +174,9 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void resume() {
-		assetManager = new AssetLoader().getManager(); }
+		assetLoader = new AssetLoader();
+		assetManager = assetLoader.getManager();
+		}
 
 	/**
 	 * On application end, dispose the batch

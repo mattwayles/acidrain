@@ -132,7 +132,7 @@ public class PropManager {
     //BUCKET PROPERTIES
     public static final int BUCKET_HOVER = 200;
     public static final int BUCKET_SPEED = 25;
-    public static final int BUCKET_RECT_TOP_HEIGHT = 10;
+    public static final int BUCKET_RECT_TOP_HEIGHT = 3;
     public static final int BUCKET_RECT_LEFT_WIDTH = 10;
     public static final int BUCKET_RECT_RIGHT_WIDTH = 10;
     public static final int BUCKET_TOP_OFFSET = 5;
