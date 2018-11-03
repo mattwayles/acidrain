@@ -46,11 +46,4 @@ public class Clouds {
      * @param newX  The new clouds X position
      */
     public static void setX(int newX) { x = newX; }
-
-    /**
-     * Set the clouds Y position
-     * @param newY The new clouds Y position
-     */
-    public static void setY(int newY) { y = newY; }
-
 }

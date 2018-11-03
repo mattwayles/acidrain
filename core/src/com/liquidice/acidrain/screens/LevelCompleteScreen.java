@@ -37,7 +37,7 @@ public class LevelCompleteScreen {
     public LevelCompleteScreen(AssetManager manager) {
         this.manager = manager;
         unlockedScreen = new UnlockedScreen(manager);
-        nextLevelFont = manager.get("white56.ttf", BitmapFont.class);
+        nextLevelFont = manager.get(PropManager.FONT_WHITE56, BitmapFont.class);
         nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT);
     }
 
@@ -47,10 +47,10 @@ public class LevelCompleteScreen {
      */
     public void display(Batch batch) {
         //Asset Control
-        if (manager.get("sounds/thunderstorm.mp3", Music.class).isPlaying()) {
+        if (manager.get(PropManager.AUDIO_THUNDERSTORM, Music.class).isPlaying()) {
             AudioManager.stopThunderstorm();
             AudioManager.playBirds();
-            City.setImage(manager.get("city/city10.png", Texture.class));
+            City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
         }
 
         //If a PowerupManager has been unlocked, display that window. If not, display Level Complete window
@@ -61,8 +61,8 @@ public class LevelCompleteScreen {
 
             //Determine if level was completed with a perfect score
             Texture levelTexture = ScoreManager.getStrengthPercentage() < PropManager.PERFECT_SCORE ?
-                    manager.get("text/levelComplete.png", Texture.class) :
-                    manager.get("text/perfectLevel.png", Texture.class);
+                    manager.get(PropManager.TEXTURE_TEXT_LEVEL_COMPLETE, Texture.class) :
+                    manager.get(PropManager.TEXTURE_TEXT_PERFECT_LEVEL, Texture.class);
 
             //Draw appropriate texture
             batch.draw(
@@ -91,15 +91,15 @@ public class LevelCompleteScreen {
                         || GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL)) {
 
             if (GameplayManager.getLevel() == PropManager.UNLOCK_1_LEVEL) {
-                unlockedScreen.display(manager.get("unlockables/powerDrop/multipliersDrop.png", Texture.class), PropManager.POWERUP_MULTIPLIER_TITLE, PropManager.POWERUP_MULTIPLIER_DESC);
+                unlockedScreen.display(manager.get(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class), PropManager.POWERUP_MULTIPLIER_TITLE, PropManager.POWERUP_MULTIPLIER_DESC);
             }
 
             else if (GameplayManager.getLevel() == PropManager.UNLOCK_2_LEVEL) {
-                unlockedScreen.display(manager.get("unlockables/healthPack/healthPackDrop.png", Texture.class), PropManager.POWERUP_HEALTHPACK_TITLE, PropManager.POWERUP_HEALTHPACK_DESC);
+                unlockedScreen.display(manager.get(PropManager.TEXTURE_HEALTHPACK_DROP, Texture.class), PropManager.POWERUP_HEALTHPACK_TITLE, PropManager.POWERUP_HEALTHPACK_DESC);
             }
 
             else if (GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL) {
-                unlockedScreen.display(manager.get("unlockables/umbrella/umbrellaDrop.png", Texture.class), PropManager.POWERUP_UMBRELLA_TITLE, PropManager.POWERUP_UMBRELLA_DESC);
+                unlockedScreen.display(manager.get(PropManager.TEXTURE_UMBRELLA_DROP, Texture.class), PropManager.POWERUP_UMBRELLA_TITLE, PropManager.POWERUP_UMBRELLA_DESC);
             }
             powerupLevel = true;
         }

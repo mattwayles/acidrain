@@ -34,10 +34,10 @@ public class UnlockedScreen {
     public UnlockedScreen(AssetManager manager) {
         this.manager = manager;
         batch = new SpriteBatch();
-        holdFont = manager.get("white56.ttf", BitmapFont.class);
-        powerupFont = manager.get("powerup.ttf", BitmapFont.class);
-        powerupTypeFont = manager.get("gold56.ttf", BitmapFont.class);
-        unlockedItemFont = manager.get("unlockables.ttf", BitmapFont.class);
+        holdFont = manager.get(PropManager.FONT_WHITE56, BitmapFont.class);
+        powerupFont = manager.get(PropManager.FONT_POWERUP, BitmapFont.class);
+        powerupTypeFont = manager.get(PropManager.FONT_GOLD56, BitmapFont.class);
+        unlockedItemFont = manager.get(PropManager.FONT_UNLOCKABLES, BitmapFont.class);
 
         holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT);
         unlockedItemLayout.setText(unlockedItemFont, PropManager.ITEM_UNLOCKED_TEXT);
@@ -55,7 +55,7 @@ public class UnlockedScreen {
 
         //Draw background
         batch.draw(
-                manager.get("screen/unlocked.jpg", Texture.class),
+                manager.get(PropManager.TEXTURE_SCREEN_UNLOCKED, Texture.class),
                 0,
                 0,
                 Gdx.graphics.getWidth(),
@@ -112,7 +112,7 @@ public class UnlockedScreen {
     private void animatePowerup() {
         //Bounce Up
         if (!desc) {
-            if (count < 10){
+            if (count < PropManager.POWERUP_ANIMATION_TIME){
                 count++;
                 bounceY += PropManager.UNLOCKED_ITEM_BOUNCE;
             } else {

@@ -3,9 +3,12 @@ package com.liquidice.acidrain.managers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
+/**
+ * Manage application properties, numbers and strings
+ */
 public class PropManager {
 
-    //TODO: PROPERTIES for all Magic Numbers
+    //TODO: Organize this a little better, name things better, it'll be a big effort
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// MANAGER PROPERTIES //////////////////////////////////////////
@@ -62,6 +65,9 @@ public class PropManager {
     public static final String CATCH_BLUE_TEXT = "Catch the CLEAN raindrops,";
     static final int START_SCREEN_TEXT_SIZE = 56;
     public static final int START_SCREEN_SPACING = 100;
+    public static final int TABLE_TOP_PADDING = 1050;
+    public static final int TABLE_VERTICAL_SPACING = 100;
+    public static final int TABLE_HORIZONTAL_SPACING = 150;
 
     //Unlockable items screen
     static int UNLOCKED_ITEMS_FONT_SIZE = 100;
@@ -79,6 +85,7 @@ public class PropManager {
     public static String POWERUP_HEALTHPACK_DESC = "Increase City Strength by 25%";
     public static String POWERUP_UMBRELLA_TITLE = "Umbrella!";
     public static String POWERUP_UMBRELLA_DESC = "Extra Protection for 30 seconds";
+    public static int POWERUP_ANIMATION_TIME = 10;
     public static String ITEM_UNLOCKED_TEXT = "Powerup Unlocked!";
     public static String UNLOCKED_HOLD_TEXT = "Long touch to play Level " + (GameplayManager.getLevel() + 1);
     public static int UNLOCKED_ITEM_ANIMATION_HEIGHT = 800;
@@ -116,7 +123,6 @@ public class PropManager {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //CLOUD PROPERTIES
      public static final int CLOUD_MOVE_SPEED = 12;
-     public static final int DEFAULT_CLOUD_TEXTURE = 10;
      public static final int DEFAULT_CLOUD_X = -100;
      public static final int CLOUD_EXTRA_WIDTH = 200;
 
@@ -124,6 +130,11 @@ public class PropManager {
     public static final int SPLASH_LENGTH = 20;
     public static final int DROP_SIZE_MIN = 2;
     public static final int DROP_SIZE_MAX = 7;
+    public static final int DROP_SIZE_MAX_POINTS = 10;
+    public static final int DROP_SMASH_VIBRATE_TIME = 15;
+    public static final int RAINDROP_CAUGHT_VIBRATE_TIME = 15;
+    public static final int ACIDDROP_CAUGHT_VIBRATE_TIME = 250;
+    public static final int POWERDROP_CAUGHT_VIBRATE_TIME = 100;
 
     //BUCKET PROPERTIES
     public static final int BUCKET_HOVER = 200;
@@ -131,6 +142,8 @@ public class PropManager {
     public static final int BUCKET_RECT_TOP_HEIGHT = 10;
     public static final int BUCKET_RECT_LEFT_WIDTH = 10;
     public static final int BUCKET_RECT_RIGHT_WIDTH = 10;
+    public static final int BUCKET_TOP_OFFSET = 5;
+    public static final int BUCKET_SIDE_OFFSET = 2;
 
 
     //CITY PROPERTIES
@@ -146,12 +159,18 @@ public class PropManager {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// POWERUP PROPERTIES //////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    //CHANCE
+    public static int POWERUP_CHANCE_TOTAL = 25;
+    public static int POWERUP_CHANCE = 15;
+    public static int HEALTHPACK_CHANCE = 16;
+    public static int UMBRELLA_CHANCE = 17;
+
     //UMBRELLA PROPERTIES
     public static final int UMBRELLA_ACTIVATION_TIME = 1800;
     public static final int UMBRELLA_OFFSET = 20;
     public static final int UMBRELLA_HEIGHT = 10;
 
-    public static int POWERUP_CHANCE = 25;
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// STATE PROPERTIES ////////////////////////////////////////////
@@ -165,6 +184,89 @@ public class PropManager {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////// SHARED PREF KEY PROPERTIES ///////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public static String SHARED_PREF_SOUND_ON = "soundOn";
+    public static String PREF_SOUND_ON = "soundOn";
+    static String PREF_LEVEL = "level";
+    public static String PREF_LEVEL_BEST = "levelBest";
+    static String PREF_MAX_SPEED = "maxSpeed";
+    static String PREF_MIN_SPEED = "minSpeed";
+    static String PREF_RAIN_FREQ = "rainFreq";
+    static String PREF_ACID_FREQ = "acidFreq";
+    static String PREF_WIN_SCORE = "winScore";
+    static String PREF_LOSE_SCORE = "loseScore";
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////// ASSET PATH PROPERTIES ///////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public static String PNG = ".png";
+    public static String RAIN_DROP_PREFIX = "rain/drop/drop";
+    public static String ACID_DROP_PREFIX = "acid/drop/acid";
+    public static String BUCKET_PREFIX = "bucket/bucket";
+    public static String CITY_PREFIX = "city/city";
+    public static String POWER_DROP_PREFIX = "unlockables/powerDrop/powerDrop";
+    public static String SUNNY_SKY_PREFIX = "backgrounds/sunnySkyBackground";
     
+    //Font Assets
+    public static String FONT_BLUE56 = "blue56.ttf";
+    public static String FONT_RED56 = "red56.ttf";
+    public static String FONT_GOLD56 = "gold56.ttf";
+    public static String FONT_WHITE56 = "white56.ttf";
+    public static String FONT_UNLOCKABLES = "unlockables.ttf";
+    public static String FONT_POWERUP = "powerup.ttf";
+    public static String FONT_CAUGHTSCORE = "caughtScore.ttf";
+    public static String FONT_STRENGTHSCORE = "strengthScore.ttf";
+
+    //Texture Assets
+    public static final String TEXTURE_ACID_SPLASH = "acid/splash/acidSplash.png";
+    public static final String TEXTURE_ACID_SPLASH_LEFT = "acid/splash/acidSplashLeft.png";
+    public static final String TEXTURE_ACID_SPLASH_RIGHT = "acid/splash/acidSplashRight.png";
+    public static final String TEXTURE_BUCKET_0 = "bucket/bucket0.png";
+    public static final String TEXTURE_BUCKET_9 = "bucket/bucket9.png";
+    public static final String TEXTURE_BG_STORM = "backgrounds/stormBackground.png";
+    public static final String TEXTURE_BG_LIGHTNING = "backgrounds/lightningBackground.jpg";
+    public static final String TEXTURE_CITY_1 = "city/city1.png";
+    public static final String TEXTURE_CITY_10 = "city/city10.png";
+    static final String TEXTURE_CLOUDS = "clouds.png";
+    public static final String TEXTURE_PLACEHOLDER = "placeholder.png";
+    public static final String TEXTURE_RAIN_SPLASH = "rain/splash/rainSplash.png";
+    public static final String TEXTURE_RAIN_SPLASH_LEFT = "rain/splash/rainSplashLeft.png";
+    public static final String TEXTURE_RAIN_SPLASH_RIGHT = "rain/splash/rainSplashRight.png";
+    public static final String TEXTURE_SCREEN_UNLOCKED = "screen/unlocked.jpg";
+    public static final String TEXTURE_TEXT_GAME_OVER = "text/gameOver.png";
+    public static final String TEXTURE_TEXT_LEVEL_COMPLETE = "text/levelComplete.png";
+    public static final String TEXTURE_TEXT_LOGO = "text/logo.png";
+    public static final String TEXTURE_TEXT_PERFECT_LEVEL = "text/perfectLevel.png";
+    public static final String TEXTURE_HEALTHPACK_DROP = "unlockables/healthPack/healthPackDrop.png";
+    public static final String TEXTURE_HEALTHPACK_UNLOCK = "unlockables/healthPack/unlockableHealthPack.png";
+    public static final String TEXTURE_MULTIPLIER_DROP = "unlockables/powerDrop/multipliersDrop.png";
+    public static final String TEXTURE_MULTIPLIER_UNLOCK = "unlockables/powerDrop/unlockableMultipliers.png";
+    public static final String TEXTURE_SUNNY_SKY_10 = "backgrounds/sunnySkyBackground10.png";
+    public static final String TEXTURE_UMBRELLA_DROP = "unlockables/umbrella/umbrellaDrop.png";
+    static final String TEXTURE_UMBRELLA_LEFT = "unlockables/umbrella/umbrellaLeft.png";
+    static final String TEXTURE_UMBRELLA_RIGHT = "unlockables/umbrella/umbrellaRight.png";
+    public static final String TEXTURE_UMBRELLA_UNLOCK = "unlockables/umbrella/unlockableUmbrella.png";
+    public static final String TEXTURE_LOCKED_UNLOCK = "unlockables/unlockableLocked.png";
+
+
+    //Button Assets
+    public static final String BUTTON_CLOSE = "buttons/closeButton.png";
+    public static final String BUTTON_HELP = "buttons/helpButton.png";
+    public static final String BUTTON_PAUSE = "buttons/pauseButton.png";
+    public static final String BUTTON_PLAY = "buttons/playButton.png";
+    public static final String BUTTON_SOUND_OFF = "buttons/soundOffButton.png";
+    public static final String BUTTON_SOUND_ON = "buttons/soundOnButton.png";
+    public static final String BUTTON_START = "buttons/startButton.png";
+    public static final String BUTTON_STOP = "buttons/stopButton.png";
+    public static final String BUTTON_UNLOCK = "buttons/unlockButton.png";
+
+    //Sound Assets
+     static final String AUDIO_ACID_DROP ="sounds/acidDrop.mp3";
+     static final String AUDIO_BIRDS = "sounds/birds.wav";
+     static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
+     static final String AUDIO_POWERUP = "sounds/powerup.wav";
+     static final String AUDIO_RAIN_DROP = "sounds/rainDrop.mp3";
+     static final String AUDIO_SIDE_SPLAT = "sounds/sideSplat.mp3";
+     static final String AUDIO_SIREN = "sounds/siren.wav";
+     static final String AUDIO_THUNDERCRACK = "sounds/thunderCrack.wav";
+    public static final String AUDIO_THUNDERSTORM = "sounds/thunderstorm.mp3";
 }

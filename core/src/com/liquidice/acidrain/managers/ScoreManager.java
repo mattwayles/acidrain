@@ -7,8 +7,8 @@ import com.liquidice.acidrain.AcidRain;
  */
 public class ScoreManager {
 
-    private static double winScore = PreferenceManager.getInt("winScore", 100);
-    private static double loseScore = PreferenceManager.getInt("loseScore", 150);
+    private static double winScore = PreferenceManager.getInt(PropManager.PREF_WIN_SCORE, 100);
+    private static double loseScore = PreferenceManager.getInt(PropManager.PREF_LOSE_SCORE, 150);
     private static double caughtScore;
     private static double strengthScore = loseScore;
     private static int caughtPercentage;
@@ -44,11 +44,12 @@ public class ScoreManager {
     static void increaseWinScore(int num) {
         winScore += num;
         calculateCaughtPercentage();
+        PreferenceManager.putInt(PropManager.PREF_WIN_SCORE, num);
     }
 
     /**
      * Retrieve the losing score for the current level
-     * @return  The losing score for the succren level
+     * @return  The losing score for the current level
      */
     public static int getLoseScore() { return (int) loseScore; }
 
@@ -56,9 +57,10 @@ public class ScoreManager {
      * Increase the losing score by a specified number
      * @param num   The number to increase the losing score
      */
-    static void increaseLoseScore(int num ) {
+    static void increaseLoseScore(int num) {
         loseScore += num;
         calculateStrengthPercentage();
+        PreferenceManager.putInt(PropManager.PREF_LOSE_SCORE, num);
     }
 
     /**

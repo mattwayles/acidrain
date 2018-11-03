@@ -34,12 +34,12 @@ public class UnlockablesScreen {
      */
     public UnlockablesScreen(AssetManager manager, StartScreen parent) {
         //Text
-        unlockedItemFont = manager.get("unlockables.ttf", BitmapFont.class);
+        unlockedItemFont = manager.get(PropManager.FONT_UNLOCKABLES, BitmapFont.class);
         unlockedItemLayout.setText(unlockedItemFont, PropManager.UNLOCKED_ITEMS_TEXT);
 
         //Close Button
         ImageButton.ImageButtonStyle closeButtonStyle = new ImageButton.ImageButtonStyle();
-        closeButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/closeButton.png", Texture.class)));
+        closeButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_CLOSE, Texture.class)));
         closeButton = new ImageButton(closeButtonStyle);
 
         //Parent
@@ -56,19 +56,19 @@ public class UnlockablesScreen {
         unlockedItemFont.draw(stage.getBatch(), PropManager.UNLOCKED_ITEMS_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(unlockedItemLayout.width), PropManager.UNLOCKED_ITEMS_Y);
 
         //Unknown Unlockable
-        Texture unlockableUnknown = manager.get("unlockables/unlockableLocked.png", Texture.class);
+        Texture unlockableUnknown = manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class);
 
 
         //UNLOCK_1 - Multipliers
-        Texture unlockableMultipliers = manager.get("unlockables/powerDrop/unlockableMultipliers.png", Texture.class);
+        Texture unlockableMultipliers = manager.get(PropManager.TEXTURE_MULTIPLIER_UNLOCK, Texture.class);
         drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_1_LEVEL ? unlockableMultipliers : unlockableUnknown, PropManager.UNLOCK_1_Y);
 
         //UNLOCK_2 - Health Pack
-        Texture unlockableHealthPack = manager.get("unlockables/healthPack/unlockableHealthPack.png", Texture.class);
+        Texture unlockableHealthPack = manager.get(PropManager.TEXTURE_HEALTHPACK_UNLOCK, Texture.class);
         drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_2_LEVEL ? unlockableHealthPack : unlockableUnknown,PropManager.UNLOCK_2_Y);
 
         //UNLOCK_3 - Umbrella
-        Texture unlockableUmbrella = manager.get("unlockables/umbrella/unlockableUmbrella.png", Texture.class);
+        Texture unlockableUmbrella = manager.get(PropManager.TEXTURE_UMBRELLA_UNLOCK, Texture.class);
         drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_3_LEVEL ? unlockableUmbrella : unlockableUnknown,PropManager.UNLOCK_3_Y);
 
         //UNLOCK_4 - ????

@@ -38,8 +38,6 @@ public class AssetLoader {
         AudioManager.init(manager);
     }
 
-    //TODO: Replace hard-corded file paths with PropManager strings
-
     /**
      * Load Font Assets
      */

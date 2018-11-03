@@ -1,13 +1,37 @@
 package com.liquidice.acidrain.managers;
 
+/**
+ * Manager Powerup State
+ */
 public class PowerupManager {
     private static boolean umbrellaActive;
 
-    public static boolean isUmbrellaActive() { return umbrellaActive; }
-    public static void activateUmbrella() { umbrellaActive = true; }
-    public static void deactivateUmbrella() { umbrellaActive = false; }
-
+    /**
+     * Deactivate ALL Powerups
+     */
     public static void deactivateAllPowerups() {
         umbrellaActive = false;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////// UMBRELLA /////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Determine Active status of the Umbrella Powerup
+     * @return Boolean determining Active status of the Umbrella Powerup
+     */
+    public static boolean isUmbrellaActive() { return umbrellaActive; }
+
+
+
+    /**
+     * Activate the Umbrella Powerup
+     */
+    public static void activateUmbrella() { umbrellaActive = true; }
+
+    /**
+     * Deactivate the Umbrella Powerup
+     */
+    public static void deactivateUmbrella() { umbrellaActive = false; }
 }

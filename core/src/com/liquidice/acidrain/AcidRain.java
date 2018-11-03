@@ -24,10 +24,6 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
 //TODO:
-//BUG: "Touch anywhere to play level X" does not match up with current level
-// CLEANUP: Magic numbers to PropManager class
-// CLEANUP: If Properties only used in one class, make them final in that class. If shared, move to SharedProperties manager
-// CLEANUP: Code cleanup and commenting; specifically, the Manager classes
 // CLEANUP: Avoid long wait time by using AssetLoader asynchronously - research and implementation
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
@@ -121,7 +117,7 @@ public class AcidRain extends ApplicationAdapter {
 			    screenManager.getGameOverScreen().display(batch);
 				if (Gdx.input.justTouched()) {
 					screenManager.getGameplayScreen().clearAll();
-					GameplayManager.setGameState(0);
+					GameplayManager.setGameState(PropManager.GAME_OVER_STATE);
 				}
 				break;
             case 3:
@@ -179,8 +175,9 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void dispose () {
-		if (GameplayManager.getGameState() == 1 && ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
-			PreferenceManager.putInt("levelBest", ScoreManager.getCaughtPercentage());
+		if (GameplayManager.getGameState() == PropManager.GAME_PLAY_STATE
+				&& ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
+			PreferenceManager.putInt(PropManager.PREF_LEVEL_BEST, ScoreManager.getCaughtPercentage());
 		}
 		batch.dispose();
 	}

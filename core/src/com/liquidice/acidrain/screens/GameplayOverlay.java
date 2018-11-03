@@ -2,12 +2,10 @@ package com.liquidice.acidrain.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.liquidice.acidrain.AcidRain;
 import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GameplayManager;
@@ -41,10 +39,10 @@ public class GameplayOverlay {
      */
     public GameplayOverlay(AssetManager manager) {
         this.manager = manager;
-        caughtLabelFont = manager.get("blue56.ttf", BitmapFont.class);
-        caughtScoreFont = manager.get("caughtScore.ttf", BitmapFont.class);
-        strengthLabelFont = manager.get("red56.ttf", BitmapFont.class); 
-        strengthScoreFont = manager.get("strengthScore.ttf", BitmapFont.class);
+        caughtLabelFont = manager.get(PropManager.FONT_BLUE56, BitmapFont.class);
+        caughtScoreFont = manager.get(PropManager.FONT_CAUGHTSCORE, BitmapFont.class);
+        strengthLabelFont = manager.get(PropManager.FONT_RED56, BitmapFont.class);
+        strengthScoreFont = manager.get(PropManager.FONT_STRENGTHSCORE, BitmapFont.class);
 
         gameplayButtonOverlay = new GameplayButtonOverlay(manager);
     }
@@ -70,7 +68,7 @@ public class GameplayOverlay {
                 Clouds.getImage().getHeight());
 
         //Draw ScoreManager if not on LevelComplete/GameOver screens
-        if (CountManager.getSunnyCount() == 0 && GameplayManager.getGameState() != 2) {
+        if (CountManager.getSunnyCount() == 0 && GameplayManager.getGameState() != PropManager.GAME_OVER_STATE) {
             //Draw "Clean Water" label
             caughtLabelFont.draw(
                     batch,
@@ -102,7 +100,7 @@ public class GameplayOverlay {
             //Draw gameplay buttons
             if (GameplayManager.getGameState() != 3) {
                 //Placeholder required because button stage overwrites last batch draw
-                batch.draw(manager.get("placeholder.png", Texture.class), 0, 0, 0, 0);
+                batch.draw(manager.get(PropManager.TEXTURE_PLACEHOLDER, Texture.class), 0, 0, 0, 0);
                 gameplayButtonOverlay.display();
             }
         }
@@ -134,8 +132,8 @@ public class GameplayOverlay {
 
             //Reset for next level
             sirenPlayed = false;
-            City.setImage(manager.get("city/city10.png", Texture.class));
-            Bucket.setImage(manager.get("bucket/bucket9.png", Texture.class));
+            City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
+            Bucket.setImage(manager.get(PropManager.TEXTURE_BUCKET_9, Texture.class));
         }
         else if (strength <= 0) { //Check if game lost
             sirenPlayed = false;
@@ -165,7 +163,7 @@ public class GameplayOverlay {
         if (percentage > 9) {
             //Render a bucket texture based on the tens digit of the caught percentage
             int bucketToRender = Integer.parseInt(Integer.toString(percentage).substring(0, 1));
-            Bucket.setImage(manager.get("bucket/bucket" + bucketToRender + ".png", Texture.class));
+            Bucket.setImage(manager.get(PropManager.BUCKET_PREFIX + bucketToRender +PropManager.PNG, Texture.class));
         }
     }
 
@@ -177,14 +175,14 @@ public class GameplayOverlay {
         //We use the tens digit to render images, so ignore 0-9
         if (percentage > 9) {
             if (percentage >= 100) {
-                City.setImage(manager.get("city/city10.png", Texture.class));
+                City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
             } else {
                 //Render a City texture based on the tens digit of the strength percentage
                 int cityToRender = Integer.parseInt(String.valueOf(ScoreManager.getStrengthPercentage()).substring(0, 1));
-                City.setImage(manager.get("city/city" + cityToRender + ".png", Texture.class));
+                City.setImage(manager.get(PropManager.CITY_PREFIX + cityToRender + PropManager.PNG, Texture.class));
             }
         } else {
-            City.setImage(manager.get("city/city1.png", Texture.class));
+            City.setImage(manager.get(PropManager.TEXTURE_CITY_1, Texture.class));
         }
     }
 }

@@ -2,7 +2,6 @@ package com.liquidice.acidrain.managers;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.liquidice.acidrain.screens.GameOverScreen;
-import com.liquidice.acidrain.screens.GameplayButtonOverlay;
 import com.liquidice.acidrain.screens.GameplayOverlay;
 import com.liquidice.acidrain.screens.GameplayScreen;
 import com.liquidice.acidrain.screens.LevelCompleteScreen;
@@ -16,7 +15,6 @@ public class ScreenManager {
     private GameplayScreen gameplayScreen;
     private GameOverScreen gameOverScreen;
     private GameplayOverlay gameplayOverlay;
-    private GameplayButtonOverlay gameplayButtonOverlay;
     private LevelCompleteScreen levelCompleteScreen;
 
     /**
@@ -28,7 +26,6 @@ public class ScreenManager {
         gameplayScreen = new GameplayScreen(manager);
         gameOverScreen = new GameOverScreen(manager);
         gameplayOverlay = new GameplayOverlay((manager));
-        gameplayButtonOverlay = new GameplayButtonOverlay((manager));
         levelCompleteScreen = new LevelCompleteScreen(manager);
    }
 
@@ -49,12 +46,6 @@ public class ScreenManager {
      * @return The gameplay overlay
      */
     public GameplayOverlay getGameplayOverlay() { return gameplayOverlay; }
-
-    /**
-     * Retrieve the gameplay button overlay
-     * @return The gameplaybutton  overlay
-     */
-    public GameplayButtonOverlay getGameplayButtonOverlay() { return gameplayButtonOverlay; }
 
     /**
      * Retrieve the application Game Over Screen

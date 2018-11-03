@@ -22,9 +22,21 @@ public class Bucket {
     public static void init(Texture texture) {
         image = texture;
         x = SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(image.getWidth());
-        topRect = new Rectangle(x, PropManager.BUCKET_HOVER + image.getHeight(), image.getWidth(), PropManager.BUCKET_RECT_TOP_HEIGHT);
-        leftRect = new Rectangle(x, PropManager.BUCKET_HOVER, PropManager.BUCKET_RECT_LEFT_WIDTH, image.getHeight());
-        rightRect= new Rectangle(x + image.getWidth(), PropManager.BUCKET_HOVER, PropManager.BUCKET_RECT_RIGHT_WIDTH, image.getHeight());
+        topRect = new Rectangle(
+                x,
+                PropManager.BUCKET_HOVER + image.getHeight(),
+                image.getWidth(),
+                PropManager.BUCKET_RECT_TOP_HEIGHT);
+        leftRect = new Rectangle(
+                x,
+                PropManager.BUCKET_HOVER,
+                PropManager.BUCKET_RECT_LEFT_WIDTH,
+                image.getHeight());
+        rightRect= new Rectangle(
+                x + image.getWidth(),
+                PropManager.BUCKET_HOVER,
+                PropManager.BUCKET_RECT_RIGHT_WIDTH,
+                image.getHeight());
     }
 
     /**
@@ -41,9 +53,21 @@ public class Bucket {
      */
     public static void setX(float bucketX) {
         x = bucketX;
-        leftRect.set(x, PropManager.BUCKET_HOVER, PropManager.BUCKET_RECT_LEFT_WIDTH, image.getHeight() - 2);
-        rightRect.set(x + image.getWidth() - PropManager.BUCKET_RECT_RIGHT_WIDTH, PropManager.BUCKET_HOVER, PropManager.BUCKET_RECT_RIGHT_WIDTH, image.getHeight() - 2);
-        topRect.set(x + 2, PropManager.BUCKET_HOVER + image.getHeight()- 5, image.getWidth() - 2, 1);
+        leftRect.set(
+                x,
+                PropManager.BUCKET_HOVER,
+                PropManager.BUCKET_RECT_LEFT_WIDTH,
+                image.getHeight() - PropManager.BUCKET_SIDE_OFFSET);
+        rightRect.set(
+                x + image.getWidth() - PropManager.BUCKET_RECT_RIGHT_WIDTH,
+                PropManager.BUCKET_HOVER,
+                PropManager.BUCKET_RECT_RIGHT_WIDTH,
+                image.getHeight() - PropManager.BUCKET_SIDE_OFFSET);
+        topRect.set(
+                x + PropManager.BUCKET_SIDE_OFFSET,
+                PropManager.BUCKET_HOVER + image.getHeight()- PropManager.BUCKET_TOP_OFFSET,
+                image.getWidth() - PropManager.BUCKET_SIDE_OFFSET,
+                PropManager.BUCKET_RECT_TOP_HEIGHT);
     }
 
     /**

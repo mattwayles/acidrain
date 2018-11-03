@@ -22,7 +22,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 /**
  * Provide Pause, Play, and Stop buttons during gameplay
  */
-public class GameplayButtonOverlay {
+class GameplayButtonOverlay {
     private ImageButton playButton;
     private ImageButton stopButton;
     private ImageButton pauseButton;
@@ -34,23 +34,23 @@ public class GameplayButtonOverlay {
      * Create a GameplayButtonOverlay
      * @param manager   The AssetLoader containing the Textures used in this overlay
      */
-    public GameplayButtonOverlay(AssetManager manager) {
+    GameplayButtonOverlay(AssetManager manager) {
         //Create GameplayManager Overlay Button styles
         ImageButton.ImageButtonStyle playButtonStyle = new ImageButton.ImageButtonStyle();
         ImageButton.ImageButtonStyle stopButtonStyle = new ImageButton.ImageButtonStyle();
         ImageButton.ImageButtonStyle pauseButtonStyle = new ImageButton.ImageButtonStyle();
 
         //Set GameplayManager Overlay Button images
-        playButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/playButton.png", Texture.class)));
-        stopButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/stopButton.png", Texture.class)));
-        pauseButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/pauseButton.png", Texture.class)));
+        playButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_PLAY, Texture.class)));
+        stopButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_STOP, Texture.class)));
+        pauseButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_PAUSE, Texture.class)));
 
         //Create GameplayManager Overlay Buttons
         playButton  = new ImageButton(playButtonStyle);
         stopButton  = new ImageButton(stopButtonStyle);
         pauseButton  = new ImageButton(pauseButtonStyle);
 
-        pausedFont = manager.get("white56.ttf", BitmapFont.class);
+        pausedFont = manager.get(PropManager.FONT_WHITE56, BitmapFont.class);
         pausedLayout.setText(pausedFont, PropManager.PAUSED);
     }
 
@@ -84,6 +84,7 @@ public class GameplayButtonOverlay {
             stage.addActor(playButton);
             stage.addActor(stopButton);
 
+            //Draw "Game Paused" font
             stage.getBatch().begin();
             pausedFont.draw(
                     stage.getBatch(),
@@ -122,7 +123,7 @@ public class GameplayButtonOverlay {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
-                    PreferenceManager.putInt("levelBest", ScoreManager.getCaughtPercentage());
+                    PreferenceManager.putInt(PropManager.PREF_LEVEL_BEST, ScoreManager.getCaughtPercentage());
                 }
                 GameplayManager.resume();
                 GameplayManager.setGameState(PropManager.GAME_START_STATE);

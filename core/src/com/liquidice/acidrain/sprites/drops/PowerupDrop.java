@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.liquidice.acidrain.managers.CountManager;
+import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
@@ -41,31 +42,31 @@ public class PowerupDrop extends Drop {
         switch (powerup) {
             case 0: //Multipliers
                 type = 0;
-                image = manager.get("unlockables/powerDrop/powerDrop" + size + ".png", Texture.class);
+                image = manager.get(PropManager.POWER_DROP_PREFIX + size + PropManager.PNG, Texture.class);
                 this.size = size;
                 break;
             case 1: //Health Pack
                 type = 1;
-                image = manager.get("unlockables/healthPack/healthPackDrop.png", Texture.class);
+                image = manager.get(PropManager.TEXTURE_HEALTHPACK_DROP, Texture.class);
                 break;
             case 2: //Umbrella
                 type = 2;
-                image = manager.get("unlockables/umbrella/umbrellaDrop.png", Texture.class);
+                image = manager.get(PropManager.TEXTURE_UMBRELLA_DROP, Texture.class);
                 break;
             default:
                 type = 0;
-                image = manager.get("unlockables/powerDrop/powerDrop" + size + ".png", Texture.class);
+                image = manager.get(PropManager.POWER_DROP_PREFIX + size + PropManager.PNG, Texture.class);
         }
 
         //Set Drop properties
         super.setX(x);
         super.setY(y);
-        super.setPoints(20);
-        super.setSpeed(10);
+        super.setPoints(0);
+        super.setSpeed(GameplayManager.getMaxSpeed() * 1.8f);
         super.setImage(image);
-        super.setSplash(manager.get("rain/splash/rainSplash.png", Texture.class));
-        super.setLeftSplash(manager.get("rain/splash/rainSplashLeft.png", Texture.class));
-        super.setRightSplash(manager.get("rain/splash/rainSplashRight.png", Texture.class));
+        super.setSplash(manager.get(PropManager.TEXTURE_RAIN_SPLASH, Texture.class));
+        super.setLeftSplash(manager.get(PropManager.TEXTURE_RAIN_SPLASH_LEFT, Texture.class));
+        super.setRightSplash(manager.get(PropManager.TEXTURE_RAIN_SPLASH_RIGHT, Texture.class));
         super.setRect(new Rectangle(x, y, image.getWidth(), image.getHeight()));
     }
 

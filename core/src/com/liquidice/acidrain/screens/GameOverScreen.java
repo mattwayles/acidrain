@@ -26,7 +26,7 @@ public class GameOverScreen {
      */
     public GameOverScreen(AssetManager manager) {
         this.manager = manager;
-        gameOverFont = manager.get("white56.ttf", BitmapFont.class);
+        gameOverFont = manager.get(PropManager.FONT_WHITE56, BitmapFont.class);
         gameOverLayout.setText(gameOverFont, PropManager.GAME_OVER_TEXT);
     }
 
@@ -36,10 +36,10 @@ public class GameOverScreen {
      */
     public void display(Batch batch) {
         //Reset Bucket image
-        Bucket.setImage(manager.get("bucket/bucket0.png",Texture.class));
+        Bucket.setImage(manager.get(PropManager.TEXTURE_BUCKET_0,Texture.class));
 
         //Retrieve the Game Over image
-        Texture gameOverImage = manager.get("text/gameOver.png", Texture.class);
+        Texture gameOverImage = manager.get(PropManager.TEXTURE_TEXT_GAME_OVER, Texture.class);
 
         //Draw the Game Over image
         batch.draw(

@@ -58,9 +58,9 @@ public class StartScreen {
      */
     public StartScreen(AssetManager manager) {
         //Logo and Text
-        logo = manager.get("text/logo.png", Texture.class);
-        blueFont = manager.get("blue56.ttf", BitmapFont.class);
-        redFont = manager.get("red56.ttf");
+        logo = manager.get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
+        blueFont = manager.get(PropManager.FONT_BLUE56, BitmapFont.class);
+        redFont = manager.get(PropManager.FONT_RED56, BitmapFont.class);
         catchCleanLayout = new GlyphLayout(blueFont, PropManager.CATCH_BLUE_TEXT);
         currentLevelLayout = new GlyphLayout(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
         avoidRedLayout = new GlyphLayout(redFont, PropManager.AVOID_RED_TEXT);
@@ -81,11 +81,11 @@ public class StartScreen {
         helpButton = new ImageButton(helpButtonStyle);
 
         //Images
-        soundOffButtonStyleUp = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/soundOffButton.png", Texture.class)));
-        soundOnButtonStyleUp = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/soundOnButton.png", Texture.class)));
-        unlockButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/unlockButton.png", Texture.class)));
-        helpButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/helpButton.png", Texture.class)));
-        startButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get("buttons/startButton.png", Texture.class)));
+        soundOffButtonStyleUp = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_SOUND_OFF, Texture.class)));
+        soundOnButtonStyleUp = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_SOUND_ON, Texture.class)));
+        unlockButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_UNLOCK, Texture.class)));
+        helpButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_HELP, Texture.class)));
+        startButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_START, Texture.class)));
 
         //Listeners
         addButtonListeners();
@@ -107,13 +107,39 @@ public class StartScreen {
         //Draw Sprites
         if (!unlockedScreenOpen) {
             stage.getBatch().begin();
-            stage.getBatch().draw(logo, Gdx.graphics.getWidth() / 2 - logo.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+
+            //Logo
+            stage.getBatch().draw(
+                    logo,
+                    SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(logo.getWidth()),
+                    SpriteUtil.middleOf(Gdx.graphics.getHeight()));
             if (GameplayManager.getLevel() == 1 && GameplayManager.getLevelBest() == 0) {
-                blueFont.draw(stage.getBatch(), PropManager.CATCH_BLUE_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(catchCleanLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()));
-                redFont.draw(stage.getBatch(), PropManager.AVOID_RED_TEXT, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(avoidRedLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
+                //Catch the CLEAN Raindrops
+                blueFont.draw(
+                        stage.getBatch(),
+                        PropManager.CATCH_BLUE_TEXT,
+                        SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(catchCleanLayout.width),
+                        SpriteUtil.middleOf(Gdx.graphics.getHeight()));
+                //Avoid the ACID Rain!
+                redFont.draw(
+                        stage.getBatch(),
+                        PropManager.AVOID_RED_TEXT,
+                        SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(avoidRedLayout.width),
+                        SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
             } else {
-                blueFont.draw(stage.getBatch(), PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel(), SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(currentLevelLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()));
-                redFont.draw(stage.getBatch(), PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%", SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(bestScoreLayout.width), SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
+                //Level X
+                blueFont.draw(
+                        stage.getBatch(),
+                        PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel(),
+                        SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(currentLevelLayout.width),
+                        SpriteUtil.middleOf(Gdx.graphics.getHeight()));
+
+                //Best: X%
+                redFont.draw(
+                        stage.getBatch(),
+                        PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%",
+                        SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(bestScoreLayout.width),
+                        SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
             }
             stage.getBatch().end();
 
@@ -126,7 +152,6 @@ public class StartScreen {
             stage.addActor(table);
             stage.draw();
         } else {
-            //TODO: Un-Staticize UnlockablesScreen
             unlockablesScreen.display();
         }
     }
@@ -135,7 +160,7 @@ public class StartScreen {
      * Toggle the sound button based on user sound preferences
      */
     private void displaySoundButton() {
-        soundOn = PreferenceManager.getBoolean(PropManager.SHARED_PREF_SOUND_ON);
+        soundOn = PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON);
         if (!soundOn) {
             soundOffButtonStyle.up = soundOffButtonStyleUp;
             soundOnButtonStyle.up = null;
@@ -163,16 +188,16 @@ public class StartScreen {
         table.center();
 
         //Space the elements appropriately
-        table.padTop(1050);
+        table.padTop(PropManager.TABLE_TOP_PADDING);
 
         //Create a new vertical group
         VerticalGroup group = new VerticalGroup();
-        group.space(100);
+        group.space(PropManager.TABLE_VERTICAL_SPACING);
 
         //Create a new horizontal group
         HorizontalGroup settingsGroup = new HorizontalGroup();
         settingsGroup.center();
-        settingsGroup.space(150);
+        settingsGroup.space(PropManager.TABLE_HORIZONTAL_SPACING);
 
         //Add actors
         settingsGroup.addActor(soundButton);
@@ -216,7 +241,7 @@ public class StartScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 soundOn = !soundOn;
-                PreferenceManager.putBoolean(PropManager.SHARED_PREF_SOUND_ON, soundOn);
+                PreferenceManager.putBoolean(PropManager.PREF_SOUND_ON, soundOn);
 
                 if (soundOn) {
                     AudioManager.playThunderstorm();

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.liquidice.acidrain.AcidRain;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PropManager;
@@ -37,11 +36,11 @@ public class Background {
         //Draw the Storm background
         if (CountManager.getBackgroundCount() < PropManager.LIGHTNING_FREQUENCY) {
             CountManager.increaseBackgroundCount();
-            Background.setBackground(manager.get("backgrounds/stormBackground.png", Texture.class));
+            Background.setBackground(manager.get(PropManager.TEXTURE_BG_STORM, Texture.class));
         }
         else { //Draw a lightning flash
             CountManager.resetBackgroundCount();
-            Background.setBackground(manager.get("backgrounds/lightningBackground.jpg", Texture.class));
+            Background.setBackground(manager.get(PropManager.TEXTURE_BG_LIGHTNING, Texture.class));
         }
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -59,7 +58,7 @@ public class Background {
         if (CountManager.getSunnyCount() < PropManager.SUNNY_COUNTER) {
             int firstDigit = Integer.parseInt(String.valueOf(CountManager.getSunnyCount()).substring(0, 1));
             int sunToRender = firstDigit > 0 ? firstDigit : 1;
-            batch.draw(manager.get("backgrounds/sunnySkyBackground" + sunToRender + ".png", Texture.class), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            batch.draw(manager.get(PropManager.SUNNY_SKY_PREFIX + sunToRender + PropManager.PNG, Texture.class), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
             //Sun is breaking through the clouds
             if (increase) {
@@ -72,7 +71,7 @@ public class Background {
                 Clouds.setX(CountManager.getSunnyCount() == 0 ? Clouds.getX() + PropManager.CLOUD_MOVE_SPEED * 2 : Clouds.getX() + PropManager.CLOUD_MOVE_SPEED);
             }
         } else { //Render the fully sunny sky background
-            batch.draw(manager.get("backgrounds/sunnySkyBackground" + PropManager.DEFAULT_CLOUD_TEXTURE + ".png", Texture.class), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            batch.draw(manager.get(PropManager.TEXTURE_SUNNY_SKY_10, Texture.class), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             if (!increase) {
                 CountManager.decreaseSunnyCount();
             }
