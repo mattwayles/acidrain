@@ -131,7 +131,6 @@ public class AcidRain extends ApplicationAdapter {
 					AudioManager.stopBirds();
 					AudioManager.playThunderstorm();
 					AudioManager.playThundercrack();
-					GameplayManager.increaseLevel();
 					screenManager.getGameplayScreen().clearAll();
                 	GameplayManager.setGameState(1);
 				}
@@ -165,6 +164,7 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void pause() {
+		GameplayManager.pause();
 		assetManager.dispose();
 	}
 
@@ -179,7 +179,7 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void dispose () {
-		if (ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
+		if (GameplayManager.getGameState() == 1 && ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
 			PreferenceManager.putInt("levelBest", ScoreManager.getCaughtPercentage());
 		}
 		batch.dispose();

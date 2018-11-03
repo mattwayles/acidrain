@@ -127,6 +127,7 @@ public class GameplayOverlay {
         if (score >= 100) { //Check if game won
             //Initiate level complete
             if (GameplayManager.getGameState() == PropManager.GAME_PLAY_STATE) {
+                GameplayManager.increaseLevel();
                 AudioManager.playLevelWin();
                 GameplayManager.setGameState(PropManager.LEVEL_COMPLETE_STATE);
             }

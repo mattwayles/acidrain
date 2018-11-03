@@ -137,6 +137,7 @@ public class PropManager {
     public static final int CITY_HEIGHT = BUCKET_HOVER - 20;
 
     //BUTTON PROPERTIES
+    public static final String PAUSED = "Game Paused";
     public static final int PAUSE_BUTTON_HEIGHT = 40;
     public static final int PLAY_STOP_BUTTON_HEIGHT = 50;
 

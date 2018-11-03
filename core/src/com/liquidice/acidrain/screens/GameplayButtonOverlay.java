@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -24,6 +26,8 @@ public class GameplayButtonOverlay {
     private ImageButton playButton;
     private ImageButton stopButton;
     private ImageButton pauseButton;
+    private BitmapFont pausedFont;
+    private GlyphLayout pausedLayout = new GlyphLayout();
     private Stage stage = new Stage();
 
     /**
@@ -46,6 +50,8 @@ public class GameplayButtonOverlay {
         stopButton  = new ImageButton(stopButtonStyle);
         pauseButton  = new ImageButton(pauseButtonStyle);
 
+        pausedFont = manager.get("white56.ttf", BitmapFont.class);
+        pausedLayout.setText(pausedFont, PropManager.PAUSED);
     }
 
     /**
@@ -77,6 +83,14 @@ public class GameplayButtonOverlay {
             stopButton.setY(Gdx.graphics.getHeight() - stopButton.getHeight() - PropManager.PLAY_STOP_BUTTON_HEIGHT);
             stage.addActor(playButton);
             stage.addActor(stopButton);
+
+            stage.getBatch().begin();
+            pausedFont.draw(
+                    stage.getBatch(),
+                    PropManager.PAUSED,
+                    SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(pausedLayout.width),
+                    SpriteUtil.middleOf(Gdx.graphics.getHeight()));
+            stage.getBatch().end();
         }
 
         addButtonListeners();

@@ -22,21 +22,17 @@ public class Umbrella {
         rightImage = right;
         leftX = Bucket.getX() - leftImage.getWidth() + PropManager.UMBRELLA_OFFSET;
         rightX = Bucket.getX() + Bucket.getImage().getWidth() - PropManager.UMBRELLA_OFFSET;
-        leftRect = new Rectangle(leftX, PropManager.BUCKET_HOVER + SpriteUtil.middleOf(leftImage.getHeight()), leftImage.getWidth(), PropManager.UMBRELLA_HEIGHT);
-        rightRect = new Rectangle(rightX, PropManager.BUCKET_HOVER + SpriteUtil.middleOf(rightImage.getHeight()), rightImage.getWidth(), PropManager.UMBRELLA_HEIGHT);
+        leftRect = new Rectangle(
+                leftX,
+                PropManager.BUCKET_HOVER + SpriteUtil.middleOf(leftImage.getHeight()),
+                leftImage.getWidth(),
+                PropManager.UMBRELLA_HEIGHT);
+        rightRect = new Rectangle(
+                rightX,
+                PropManager.BUCKET_HOVER + SpriteUtil.middleOf(rightImage.getHeight()),
+                rightImage.getWidth(),
+                PropManager.UMBRELLA_HEIGHT);
     }
-
-    /**
-     * Set the left umbrella image
-     * @param image The left umbrella image
-     */
-    public static void setLeftImage(Texture image) { leftImage = image; }
-
-    /**
-     * Set the right umbrella image
-     * @param image The right umbrella image
-     */
-    public static void setRightImage(Texture image) { rightImage = image; }
 
     /**
      * Retrieve the left umbrella rectangle for collision purposes
@@ -55,6 +51,9 @@ public class Umbrella {
      * @param batch The current sprite batch to add the umbrella to
      */
     public static void draw(Batch batch) {
+        leftX = Bucket.getX() - leftImage.getWidth() + PropManager.UMBRELLA_OFFSET;
+        rightX = Bucket.getX() + Bucket.getImage().getWidth() - PropManager.UMBRELLA_OFFSET;
+
         //Set rectangle X positions
         leftRect.setX(leftX);
         rightRect.setX(rightX);

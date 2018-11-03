@@ -187,7 +187,7 @@ public class GameplayScreen {
         //Render Drop
         if (isRain) {
             renderDrop(size, x, speed);
-        } else {
+        } else if (!GameplayManager.isPaused()) {
             drops.add(new AcidDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
         }
     }
