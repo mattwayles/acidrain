@@ -48,7 +48,6 @@ public class StartScreen {
     private boolean soundOn;
     private boolean unlockedScreenOpen;
     private UnlockablesScreen unlockablesScreen;
-    private AssetManager manager;
 
     /**
      * Create the Start ScreenManager
@@ -86,8 +85,6 @@ public class StartScreen {
 
         //Listeners
         addButtonListeners();
-
-        this.manager = manager;
     }
 
     /**
@@ -167,7 +164,7 @@ public class StartScreen {
      * Toggle the sound button based on user sound preferences
      */
     private void displaySoundButton() {
-        soundOn = PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON);
+        soundOn = PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true);
         if (!soundOn) {
             soundOffButtonStyle.up = soundOffButtonStyleUp;
             soundOnButtonStyle.up = null;

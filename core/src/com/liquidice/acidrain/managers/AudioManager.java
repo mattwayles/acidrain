@@ -23,7 +23,7 @@ public class AudioManager {
      * Initialize default files for each sound asset
      * @param manager   The AssetManager containing the sounds used by this class
      */
-    public static void init(AssetManager manager) {
+    static void init(AssetManager manager) {
         acidDrop = manager.get(PropManager.AUDIO_ACID_DROP, Sound.class);
         birds = manager.get(PropManager.AUDIO_BIRDS, Music.class);
         levelWin = manager.get(PropManager.AUDIO_LEVEL_WIN, Sound.class);
@@ -39,56 +39,56 @@ public class AudioManager {
      * Play the AcidDrop sound when an Acid Drop is caught
      */
     public static void playAcidDrop() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { acidDrop.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { acidDrop.play(); }
     }
 
     /**
      * Play the Powerup sound when a powerup drop is caught
      */
     public static void playPowerup() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { powerup.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { powerup.play(); }
     }
 
     /**
      * Play the RainDrop sound when a Rain Drop is caught
      */
     public static void playRainDrop() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { rainDrop.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { rainDrop.play(); }
     }
 
     /**
      * Play the SideSplat sound when a Drop is smashed on the bucket/umbrella
      */
     public static void playSideSplat() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { sideSplat.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { sideSplat.play(); }
     }
 
     /**
      * Play the Level Win sound when a level is completed
      */
     public static void playLevelWin() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { levelWin.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { levelWin.play(); }
     }
 
     /**
      * Play the Siren sound when the ciy strength drops to warning levels
      */
     public static void playSiren() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { siren.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { siren.play(); }
     }
 
     /**
      * Play the Thundercrack sound when a new level is started
      */
     public static void playThundercrack() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { thundercrack.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { thundercrack.play(); }
     }
 
     /**
      * Play Birds music on the Level Complete page
      */
     public static void playBirds() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { birds.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { birds.play(); }
     }
 
     /**
@@ -102,7 +102,7 @@ public class AudioManager {
      * Play Thunderstorm as background music during gameplay
      */
     public static void playThunderstorm() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON)) { thunderstorm.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { thunderstorm.play(); }
     }
 
     /**

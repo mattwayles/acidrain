@@ -14,7 +14,7 @@ public class PreferenceManager {
      * @param pref The preference name
      * @return The preference stored value
      */
-    public static Boolean getBoolean(String pref) { return prefs.getBoolean(pref); }
+    public static Boolean getBoolean(String pref, boolean def) { return prefs.getBoolean(pref, def); }
 
     /**
      * Retrieve a Float preference
