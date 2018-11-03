@@ -88,7 +88,10 @@ public class AudioManager {
      * Play Birds music on the Level Complete page
      */
     public static void playBirds() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { birds.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) {
+            birds.play();
+        birds.setLooping(true);
+        }
     }
 
     /**
@@ -102,7 +105,9 @@ public class AudioManager {
      * Play Thunderstorm as background music during gameplay
      */
     public static void playThunderstorm() {
-        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { thunderstorm.play(); }
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) {
+            thunderstorm.play();
+        thunderstorm.setLooping(true);}
     }
 
     /**

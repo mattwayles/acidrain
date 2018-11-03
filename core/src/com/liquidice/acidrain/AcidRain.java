@@ -24,6 +24,8 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
 //TODO:
+// BUG: Perect level never reached
+// BUG: "Long touch to play level" isn't implemented
 // CLEANUP: Replace AssetLoader paths with PropMgr paths
 // CLEANUP: Test on different screen sizes
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
