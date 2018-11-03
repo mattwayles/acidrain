@@ -36,9 +36,8 @@ public class PropManager {
     public static final int SUNNY_COUNTER = 100;
 
     //SCORE PROPERTIES
-     static Color SCORE_BLUE_COLOR = Color.valueOf("#53c0e0");
-     static Color SCORE_RED_COLOR = Color.valueOf("#bf2020");
-     static int SCORE_FONT_SIZE = 82;
+     public static Color SCORE_BLUE_COLOR = Color.valueOf("#53c0e0");
+     public static Color SCORE_RED_COLOR = Color.valueOf("#bf2020");
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,14 +62,12 @@ public class PropManager {
     public static final String CURRENT_LEVEL_TEXT = "Level ";
     public static final String AVOID_RED_TEXT = "Smash the ACID rain!";
     public static final String CATCH_BLUE_TEXT = "Catch the CLEAN raindrops,";
-    static final int START_SCREEN_TEXT_SIZE = 56;
     public static final int START_SCREEN_SPACING = 100;
     public static final int TABLE_TOP_PADDING = 1050;
     public static final int TABLE_VERTICAL_SPACING = 100;
     public static final int TABLE_HORIZONTAL_SPACING = 150;
 
     //Unlockable items screen
-    static int UNLOCKED_ITEMS_FONT_SIZE = 100;
     public static int UNLOCKED_ITEMS_Y = Gdx.graphics.getHeight() - 200;
     public static int UNLOCK_1_Y = 400;
     public static int UNLOCK_2_Y = 710;
@@ -93,8 +90,6 @@ public class PropManager {
     public static int UNLOCKED_ITEM_TITLE_HEIGHT = 900;
     public static int UNLOCKED_ITEM_POWER_HEIGHT = 1150;
     public static int UNLOCKED_ITEM_HOLD_HEIGHT = 1450;
-    static int UNLOCKED_FONT_SIZE = 48;
-    static int UNLOCKED_HOLD_FONT_SIZE = 42;
     public static int UNLOCKED_ITEM_SIZE_MULTIPLIER = 4;
     public static int UNLOCKED_ITEM_BOUNCE = 6;
 
@@ -108,14 +103,12 @@ public class PropManager {
     
     //Score Overlay Screen
     public static String CLEAN_WATER_TEXT = "Clean Water";
-    public static String CLEAN_WATER_PERCENT = ScoreManager.getCaughtPercentage() + "%";
     public static String CITY_STRENGTH_TEXT = "City Strength";
-    public static String CITY_STRENGTH_PERCENT = ScoreManager.getStrengthPercentage() + "%";
     public static int STRENGTH_WARNING_LEVEL = 10;
-    public static int CAUGHT_SCORE_X = 70;
+    public static int CAUGHT_SCORE_X = 100;
     public static int LABEL_Y = 30;
     public static int SCORE_Y = 120;
-    public static int STRENGTH_SCORE_X = Gdx.graphics.getWidth() - 425;
+    public static int STRENGTH_SCORE_X = Gdx.graphics.getWidth() - 400;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,6 +191,19 @@ public class PropManager {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// ASSET PATH PROPERTIES ///////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Fonts
+    public static String FONT_PLAY_56 = "font/play56.fnt";
+    public static String  FONT_PLAY_56_PNG = "font/play56.png";
+    public static String FONT_PLAY_68 = "font/play68.fnt";
+    public static String  FONT_PLAY_68_PNG = "font/play68.png";
+    public static String FONT_PLAY_82 = "font/play82.fnt";
+    public static String  FONT_PLAY_82_PNG = "font/play82.png";
+    public static String FONT_PLAY_100 = "font/play100.fnt";
+    public static String  FONT_PLAY_100_PNG = "font/play100.png";
+
+
+    //Prefix - Suffix
     public static String PNG = ".png";
     public static String RAIN_DROP_PREFIX = "rain/drop/drop";
     public static String ACID_DROP_PREFIX = "acid/drop/acid";
@@ -205,16 +211,6 @@ public class PropManager {
     public static String CITY_PREFIX = "city/city";
     public static String POWER_DROP_PREFIX = "unlockables/powerDrop/powerDrop";
     public static String SUNNY_SKY_PREFIX = "backgrounds/sunnySkyBackground";
-    
-    //Font Assets
-    public static String FONT_BLUE56 = "blue56.ttf";
-    public static String FONT_RED56 = "red56.ttf";
-    public static String FONT_GOLD56 = "gold56.ttf";
-    public static String FONT_WHITE56 = "white56.ttf";
-    public static String FONT_UNLOCKABLES = "unlockables.ttf";
-    public static String FONT_POWERUP = "powerup.ttf";
-    public static String FONT_CAUGHTSCORE = "caughtScore.ttf";
-    public static String FONT_STRENGTHSCORE = "strengthScore.ttf";
 
     //Texture Assets
     public static final String TEXTURE_ACID_SPLASH = "acid/splash/acidSplash.png";

@@ -24,7 +24,8 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
 //TODO:
-// CLEANUP: Avoid long wait time by using AssetLoader asynchronously - research and implementation
+// BUG: If device falls asleep, app fails
+// CLEANUP: Test on different screen sizes
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
 // FEATURE: Tutorial
@@ -73,7 +74,6 @@ public class AcidRain extends ApplicationAdapter {
 		//Load assets
 		AssetLoader assetLoader = new AssetLoader();
 		this.assetManager = assetLoader.getManager();
-		assetLoader.load();
 		screenManager = new ScreenManager(this.assetManager);
 		SpriteManager.init(this.assetManager);
 
@@ -86,9 +86,6 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void render () {
-		if (assetManager.update()) {
-			AudioManager.init(assetManager);
-
 			batch.begin();
 
 			//On every screen, draw the background, city, and bucket
@@ -101,6 +98,7 @@ public class AcidRain extends ApplicationAdapter {
 				case 0: /* Waiting for Input - Display StartScreen */
 					screenManager.getStartScreen().display();
 					if (Gdx.input.justTouched()) {
+						GameplayManager.setGameState(PropManager.GAME_START_STATE);
 						screenManager.getGameplayScreen().clearAll();
 					}
 					break;
@@ -143,9 +141,6 @@ public class AcidRain extends ApplicationAdapter {
 			}
 
 			batch.end();
-		} else {
-			Gdx.app.log("Loading", "loading.......");
-		}
 	}
 
 	/**
@@ -174,7 +169,8 @@ public class AcidRain extends ApplicationAdapter {
 	 * On application resume, refresh the assets
 	 */
 	@Override
-	public void resume() { assetManager = new AssetLoader().getManager(); }
+	public void resume() {
+		assetManager = new AssetLoader().getManager(); }
 
 	/**
 	 * On application end, dispose the batch

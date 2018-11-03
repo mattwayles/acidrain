@@ -2,7 +2,6 @@ package com.liquidice.acidrain.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -17,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.liquidice.acidrain.AcidRain;
 import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PreferenceManager;
@@ -59,8 +57,7 @@ public class StartScreen {
     public StartScreen(AssetManager manager) {
         //Logo and Text
         logo = manager.get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
-        blueFont = manager.get(PropManager.FONT_BLUE56, BitmapFont.class);
-        redFont = manager.get(PropManager.FONT_RED56, BitmapFont.class);
+        setFonts();
         catchCleanLayout = new GlyphLayout(blueFont, PropManager.CATCH_BLUE_TEXT);
         currentLevelLayout = new GlyphLayout(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
         avoidRedLayout = new GlyphLayout(redFont, PropManager.AVOID_RED_TEXT);
@@ -154,6 +151,16 @@ public class StartScreen {
         } else {
             unlockablesScreen.display();
         }
+    }
+
+    /**
+     * Set the fonts and font oclors
+     */
+    private void setFonts() {
+        blueFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_82), Gdx.files.internal(PropManager.FONT_PLAY_82_PNG), false);
+        redFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_82), Gdx.files.internal(PropManager.FONT_PLAY_82_PNG), false);
+        blueFont.setColor(PropManager.SCORE_BLUE_COLOR);
+        redFont.setColor(PropManager.SCORE_RED_COLOR);
     }
 
     /**

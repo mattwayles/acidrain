@@ -2,6 +2,7 @@ package com.liquidice.acidrain.screens.unlockables;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -34,7 +35,9 @@ public class UnlockablesScreen {
      */
     public UnlockablesScreen(AssetManager manager, StartScreen parent) {
         //Text
-        unlockedItemFont = manager.get(PropManager.FONT_UNLOCKABLES, BitmapFont.class);
+        unlockedItemFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_100),
+                Gdx.files.internal(PropManager.FONT_PLAY_100_PNG), false);
+        unlockedItemFont.setColor(Color.GOLD);
         unlockedItemLayout.setText(unlockedItemFont, PropManager.UNLOCKED_ITEMS_TEXT);
 
         //Close Button

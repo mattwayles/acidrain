@@ -44,7 +44,7 @@ public class ScoreManager {
     static void increaseWinScore(int num) {
         winScore += num;
         calculateCaughtPercentage();
-        PreferenceManager.putInt(PropManager.PREF_WIN_SCORE, num);
+        PreferenceManager.putInt(PropManager.PREF_WIN_SCORE, (int) winScore);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ScoreManager {
     static void increaseLoseScore(int num) {
         loseScore += num;
         calculateStrengthPercentage();
-        PreferenceManager.putInt(PropManager.PREF_LOSE_SCORE, num);
+        PreferenceManager.putInt(PropManager.PREF_LOSE_SCORE, (int) loseScore);
     }
 
     /**

@@ -50,7 +50,8 @@ class GameplayButtonOverlay {
         stopButton  = new ImageButton(stopButtonStyle);
         pauseButton  = new ImageButton(pauseButtonStyle);
 
-        pausedFont = manager.get(PropManager.FONT_WHITE56, BitmapFont.class);
+        pausedFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_56),
+                Gdx.files.internal(PropManager.FONT_PLAY_56_PNG), false);
         pausedLayout.setText(pausedFont, PropManager.PAUSED);
     }
 

@@ -26,7 +26,8 @@ public class GameOverScreen {
      */
     public GameOverScreen(AssetManager manager) {
         this.manager = manager;
-        gameOverFont = manager.get(PropManager.FONT_WHITE56, BitmapFont.class);
+        gameOverFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_56),
+                Gdx.files.internal(PropManager.FONT_PLAY_56_PNG), false);
         gameOverLayout.setText(gameOverFont, PropManager.GAME_OVER_TEXT);
     }
 

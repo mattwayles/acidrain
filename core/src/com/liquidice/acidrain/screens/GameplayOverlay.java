@@ -39,11 +39,7 @@ public class GameplayOverlay {
      */
     public GameplayOverlay(AssetManager manager) {
         this.manager = manager;
-        caughtLabelFont = manager.get(PropManager.FONT_BLUE56, BitmapFont.class);
-        caughtScoreFont = manager.get(PropManager.FONT_CAUGHTSCORE, BitmapFont.class);
-        strengthLabelFont = manager.get(PropManager.FONT_RED56, BitmapFont.class);
-        strengthScoreFont = manager.get(PropManager.FONT_STRENGTHSCORE, BitmapFont.class);
-
+        setFonts();
         gameplayButtonOverlay = new GameplayButtonOverlay(manager);
     }
 
@@ -55,9 +51,9 @@ public class GameplayOverlay {
 
         //Set layouts with latest data
         caughtLabelLayout.setText(caughtLabelFont, PropManager.CLEAN_WATER_TEXT);
-        caughtScoreLayout.setText(caughtScoreFont, PropManager.CLEAN_WATER_PERCENT);
+        caughtScoreLayout.setText(caughtScoreFont, ScoreManager.getCaughtPercentage() + "%");
         strengthLabelLayout.setText(strengthLabelFont, PropManager.CITY_STRENGTH_TEXT);
-        strengthScoreLayout.setText(strengthScoreFont, PropManager.CITY_STRENGTH_PERCENT);
+        strengthScoreLayout.setText(strengthScoreFont, ScoreManager.getStrengthPercentage() + "%");
 
         //Draw clouds
         batch.draw(
@@ -114,6 +110,20 @@ public class GameplayOverlay {
     }
 
     /**
+     * Set fonts and font colors
+     */
+    private void setFonts() {
+        caughtLabelFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_68), Gdx.files.internal(PropManager.FONT_PLAY_68_PNG), false);
+        caughtScoreFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_100), Gdx.files.internal(PropManager.FONT_PLAY_100_PNG), false);
+        strengthLabelFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_68), Gdx.files.internal(PropManager.FONT_PLAY_68_PNG), false);
+        strengthScoreFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_100), Gdx.files.internal(PropManager.FONT_PLAY_100_PNG), false);
+        caughtLabelFont.setColor(PropManager.SCORE_BLUE_COLOR);
+        caughtScoreFont.setColor(PropManager.SCORE_BLUE_COLOR);
+        strengthLabelFont.setColor(PropManager.SCORE_RED_COLOR);
+        strengthScoreFont.setColor(PropManager.SCORE_RED_COLOR);
+    }
+
+    /**
      * Check the current score and city strength to determine if the level is complete or not
      * @param score The current clean water caught percentage
      * @param strength The current city strength percentage
@@ -137,6 +147,7 @@ public class GameplayOverlay {
         }
         else if (strength <= 0) { //Check if game lost
             sirenPlayed = false;
+            City.setImage(manager.get(PropManager.TEXTURE_CITY_1, Texture.class));
             GameplayManager.setGameState(PropManager.GAME_OVER_STATE);
         }
         else if (strength <= PropManager.STRENGTH_WARNING_LEVEL && !sirenPlayed) { //Check if game is in 'warning mode' and sound siren (once!)

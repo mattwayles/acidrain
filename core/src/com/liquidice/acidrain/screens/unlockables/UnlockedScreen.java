@@ -2,6 +2,7 @@ package com.liquidice.acidrain.screens.unlockables;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -34,12 +35,7 @@ public class UnlockedScreen {
     public UnlockedScreen(AssetManager manager) {
         this.manager = manager;
         batch = new SpriteBatch();
-        holdFont = manager.get(PropManager.FONT_WHITE56, BitmapFont.class);
-        powerupFont = manager.get(PropManager.FONT_POWERUP, BitmapFont.class);
-        powerupTypeFont = manager.get(PropManager.FONT_GOLD56, BitmapFont.class);
-        unlockedItemFont = manager.get(PropManager.FONT_UNLOCKABLES, BitmapFont.class);
-
-        holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT);
+        setFonts();
         unlockedItemLayout.setText(unlockedItemFont, PropManager.ITEM_UNLOCKED_TEXT);
         bounceY = Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_ANIMATION_HEIGHT;
     }
@@ -51,6 +47,8 @@ public class UnlockedScreen {
      * @param power The powerup power
      */
     public void display(Texture image, String title, String power) {
+        holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT);
+
         batch.begin();
 
         //Draw background
@@ -104,6 +102,20 @@ public class UnlockedScreen {
                 image.getHeight() * PropManager.UNLOCKED_ITEM_SIZE_MULTIPLIER);
 
         batch.end();
+    }
+
+    /**
+     * Set fonts and font colors
+     */
+    private void setFonts() {
+        unlockedItemFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_100), Gdx.files.internal(PropManager.FONT_PLAY_100_PNG), false);
+        powerupTypeFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_100), Gdx.files.internal(PropManager.FONT_PLAY_100_PNG), false);
+        powerupFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_56), Gdx.files.internal(PropManager.FONT_PLAY_56_PNG), false);
+        holdFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_56), Gdx.files.internal(PropManager.FONT_PLAY_56_PNG), false);
+        unlockedItemFont.setColor(Color.GOLD);
+        powerupTypeFont.setColor(Color.GOLD);
+        powerupFont.setColor(Color.BLACK);
+        holdFont.setColor(Color.BROWN);
     }
 
     /**

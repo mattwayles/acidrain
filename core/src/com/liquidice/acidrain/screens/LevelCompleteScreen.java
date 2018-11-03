@@ -37,8 +37,8 @@ public class LevelCompleteScreen {
     public LevelCompleteScreen(AssetManager manager) {
         this.manager = manager;
         unlockedScreen = new UnlockedScreen(manager);
-        nextLevelFont = manager.get(PropManager.FONT_WHITE56, BitmapFont.class);
-        nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT);
+        nextLevelFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_56),
+                Gdx.files.internal(PropManager.FONT_PLAY_56_PNG), false);
     }
 
     /**
@@ -52,6 +52,8 @@ public class LevelCompleteScreen {
             AudioManager.playBirds();
             City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
         }
+
+        nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT);
 
         //If a PowerupManager has been unlocked, display that window. If not, display Level Complete window
         if (!checkForPowerupUnlock()) {
