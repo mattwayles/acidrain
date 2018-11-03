@@ -24,8 +24,10 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
 //TODO:
-// BUG: Perect level never reached
+// BUG: App still quits when exited out and resumed- investigate
+// BUG: Perfect level never reached
 // BUG: "Long touch to play level" isn't implemented
+// CLEANUP: Birds.wav is 10mb...that's a lot
 // CLEANUP: Replace AssetLoader paths with PropMgr paths
 // CLEANUP: Test on different screen sizes
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
@@ -76,7 +78,9 @@ public class AcidRain extends ApplicationAdapter {
 		inputProcessor = new GestureDetector(new GestureManager());
 
 		//Load assets
-		assetLoader = new AssetLoader();
+		if (assetLoader == null) {
+			assetLoader = new AssetLoader();
+		}
 		this.assetManager = assetLoader.getManager();
 		screenManager = new ScreenManager(this.assetManager);
 		SpriteManager.init(this.assetManager);
@@ -168,6 +172,7 @@ public class AcidRain extends ApplicationAdapter {
 	@Override
 	public void pause() {
 		GameplayManager.pause();
+		assetManager.unload(PropManager.AUDIO_BIRDS);
 		assetManager.dispose();
 		assetLoader = null;
 	}

@@ -257,7 +257,7 @@ public class PropManager {
 
     //Sound Assets
      static final String AUDIO_ACID_DROP ="sounds/acidDrop.mp3";
-     static final String AUDIO_BIRDS = "sounds/birds.wav";
+     public static final String AUDIO_BIRDS = "sounds/birds.wav";
      static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
      static final String AUDIO_POWERUP = "sounds/powerup.wav";
      static final String AUDIO_RAIN_DROP = "sounds/rainDrop.mp3";
