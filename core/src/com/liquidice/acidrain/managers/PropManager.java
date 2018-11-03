@@ -44,9 +44,9 @@ public class PropManager {
     public static int UNLOCKABLE_MULTIPLIERS = 0;
     public static int UNLOCKABLE_HEALTHPACK = 1;
     public static int UNLOCKABLE_UMBRELLA = 2;
-    public static int UNLOCK_1_LEVEL = 2;
-    public static int UNLOCK_2_LEVEL = 3;
-    public static int UNLOCK_3_LEVEL = 4;
+    public static int UNLOCK_1_LEVEL = 3;
+    public static int UNLOCK_2_LEVEL = 5;
+    public static int UNLOCK_3_LEVEL = 8;
     public static int UNLOCK_4_LEVEL = 20;
     public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
     public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;

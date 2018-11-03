@@ -24,9 +24,10 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
 //TODO:
+//BUG: "Touch anywhere to play level X" does not match up with current level
 // CLEANUP: Magic numbers to PropManager class
 // CLEANUP: If Properties only used in one class, make them final in that class. If shared, move to SharedProperties manager
-// CLEANUP: Code cleanup and commenting; specifially, the Manager classes
+// CLEANUP: Code cleanup and commenting; specifically, the Manager classes
 // CLEANUP: Avoid long wait time by using AssetLoader asynchronously - research and implementation
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
