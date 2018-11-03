@@ -123,7 +123,7 @@ public class AcidRain extends ApplicationAdapter {
 					screenManager.getGameOverScreen().display(batch);
 					if (Gdx.input.justTouched()) {
 						screenManager.getGameplayScreen().clearAll();
-						GameplayManager.setGameState(PropManager.GAME_OVER_STATE);
+						GameplayManager.setGameState(PropManager.GAME_START_STATE);
 					}
 					break;
 				case 3:
