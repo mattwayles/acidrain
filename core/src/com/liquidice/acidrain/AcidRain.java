@@ -73,6 +73,7 @@ public class AcidRain extends ApplicationAdapter {
 		//Load assets
 		AssetLoader assetLoader = new AssetLoader();
 		this.assetManager = assetLoader.getManager();
+		assetLoader.load();
 		screenManager = new ScreenManager(this.assetManager);
 		SpriteManager.init(this.assetManager);
 
@@ -85,61 +86,66 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void render () {
+		if (assetManager.update()) {
+			AudioManager.init(assetManager);
 
-		batch.begin();
+			batch.begin();
 
-		//On every screen, draw the background, city, and bucket
-		Background.draw(batch);
-		City.draw(batch);
-		Bucket.draw(batch);
+			//On every screen, draw the background, city, and bucket
+			Background.draw(batch);
+			City.draw(batch);
+			Bucket.draw(batch);
 
-		//Render different Screens based on game state
-		switch (GameplayManager.getGameState()) {
-			case 0: /* Waiting for Input - Display StartScreen */
-				screenManager.getStartScreen().display();
-				if (Gdx.input.justTouched()) {
-					screenManager.getGameplayScreen().clearAll();
-				}
-				break;
-			case 1: /* Gameplay */
-				if (CountManager.getSunnyCount() == 0) {
-					//Create rain/acid/power drops
-					screenManager.getGameplayScreen().randomizeDrops();
+			//Render different Screens based on game state
+			switch (GameplayManager.getGameState()) {
+				case 0: /* Waiting for Input - Display StartScreen */
+					screenManager.getStartScreen().display();
+					if (Gdx.input.justTouched()) {
+						screenManager.getGameplayScreen().clearAll();
+					}
+					break;
+				case 1: /* Gameplay */
+					if (CountManager.getSunnyCount() == 0) {
+						//Create rain/acid/power drops
+						screenManager.getGameplayScreen().randomizeDrops();
 
-					//Update raindrop positions
-					screenManager.getGameplayScreen().updateDropPositions(batch);
+						//Update raindrop positions
+						screenManager.getGameplayScreen().updateDropPositions(batch);
 
-					//Check for collision
-					screenManager.getGameplayScreen().checkCollision(batch);
-				}
-				break;
-			case 2: /* Game Over */
-			    screenManager.getGameOverScreen().display(batch);
-				if (Gdx.input.justTouched()) {
-					screenManager.getGameplayScreen().clearAll();
-					GameplayManager.setGameState(PropManager.GAME_OVER_STATE);
-				}
-				break;
-            case 3:
-                /* Level Complete */
-				screenManager.getLevelCompleteScreen().display(batch);
-				if (Gdx.input.justTouched()) { //Start new Level
-					AudioManager.stopBirds();
-					AudioManager.playThunderstorm();
-					AudioManager.playThundercrack();
-					screenManager.getGameplayScreen().clearAll();
-                	GameplayManager.setGameState(1);
-				}
-				break;
+						//Check for collision
+						screenManager.getGameplayScreen().checkCollision(batch);
+					}
+					break;
+				case 2: /* Game Over */
+					screenManager.getGameOverScreen().display(batch);
+					if (Gdx.input.justTouched()) {
+						screenManager.getGameplayScreen().clearAll();
+						GameplayManager.setGameState(PropManager.GAME_OVER_STATE);
+					}
+					break;
+				case 3:
+					/* Level Complete */
+					screenManager.getLevelCompleteScreen().display(batch);
+					if (Gdx.input.justTouched()) { //Start new Level
+						AudioManager.stopBirds();
+						AudioManager.playThunderstorm();
+						AudioManager.playThundercrack();
+						screenManager.getGameplayScreen().clearAll();
+						GameplayManager.setGameState(1);
+					}
+					break;
+			}
+
+			//Render overlays (clouds, score, buttons)
+			if (GameplayManager.getGameState() > 0) {
+				screenManager.getGameplayOverlay().display(batch);
+				registerTouch();
+			}
+
+			batch.end();
+		} else {
+			Gdx.app.log("Loading", "loading.......");
 		}
-
-		//Render overlays (clouds, score, buttons)
-        if (GameplayManager.getGameState() > 0) {
-            screenManager.getGameplayOverlay().display(batch);
-			registerTouch();
-        }
-
-		batch.end();
 	}
 
 	/**

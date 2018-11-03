@@ -222,6 +222,7 @@ public class StartScreen {
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                GameplayManager.resume();
                 GameplayManager.setGameState(PropManager.GAME_PLAY_STATE);
             }
         });

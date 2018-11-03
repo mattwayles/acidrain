@@ -1,6 +1,7 @@
 package com.liquidice.acidrain.managers;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
@@ -30,12 +31,14 @@ public class AssetLoader {
      */
     public AssetLoader() {
         manager  = new AssetManager();
+
+    }
+
+    public void load() {
         loadButtons();
         loadTextures();
         loadFonts();
         loadSounds();
-        manager.finishLoading();
-        AudioManager.init(manager);
     }
 
     /**
@@ -45,15 +48,42 @@ public class AssetLoader {
         FileHandleResolver resolver = new InternalFileHandleResolver();
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
-        manager.load("blue56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.START_SCREEN_TEXT_SIZE, PropManager.SCORE_BLUE_COLOR, 3, Color.BLACK ));
-        manager.load("red56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.START_SCREEN_TEXT_SIZE, PropManager.SCORE_RED_COLOR, 3, Color.BLACK));
 
-        manager.load("gold56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.START_SCREEN_TEXT_SIZE, Color.GOLD, 6, Color.BLACK));
-        manager.load("white56.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.UNLOCKED_HOLD_FONT_SIZE, Color.WHITE, 3, Color.BLACK));
-        manager.load("unlockables.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.UNLOCKED_ITEMS_FONT_SIZE, Color.GOLD, 6, Color.BLACK));
-        manager.load("powerup.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.UNLOCKED_FONT_SIZE, Color.BLACK));
-        manager.load("caughtScore.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.SCORE_FONT_SIZE, PropManager.SCORE_BLUE_COLOR, 3, Color.BLACK));
-        manager.load("strengthScore.ttf", BitmapFont.class, FontGenerator.generatePlayFont(PropManager.SCORE_FONT_SIZE, PropManager.SCORE_RED_COLOR, 3, Color.BLACK));
+        FreetypeFontLoader.FreeTypeFontLoaderParameter params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        params.fontFileName = MAIN_FONT;
+        params.fontParameters.color = Color.RED;
+        params.fontParameters.size = PropManager.SCORE_FONT_SIZE;
+
+        manager.load("blue56.ttf", BitmapFont.class, params);
+        manager.load("red56.ttf", BitmapFont.class, params);
+
+        manager.load("gold56.ttf", BitmapFont.class, params);
+        manager.load("white56.ttf", BitmapFont.class, params);
+        manager.load("unlockables.ttf", BitmapFont.class, params);
+        manager.load("powerup.ttf", BitmapFont.class, params);
+        manager.load("caughtScore.ttf", BitmapFont.class, params);
+        manager.load("strengthScore.ttf", BitmapFont.class, params);
+    }
+
+
+    private static final String MAIN_FONT = "font/Play.ttf";
+
+    public static FreetypeFontLoader.FreeTypeFontLoaderParameter generatePlayFont(int size, Color color) {
+        FreetypeFontLoader.FreeTypeFontLoaderParameter font = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        font.fontFileName = MAIN_FONT;
+        font.fontParameters.size = size;
+        font.fontParameters.color = color;
+        return font;
+    }
+
+    public static FreetypeFontLoader.FreeTypeFontLoaderParameter generatePlayFont(int size, Color color, int border, Color borderColor) {
+        FreetypeFontLoader.FreeTypeFontLoaderParameter font = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        font.fontFileName = MAIN_FONT;
+        font.fontParameters.size = size;
+        font.fontParameters.color = color;
+        font.fontParameters.borderWidth = border;
+        font.fontParameters.borderColor = borderColor;
+        return font;
     }
 
     /**

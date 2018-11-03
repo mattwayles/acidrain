@@ -23,7 +23,7 @@ public class AudioManager {
      * Initialize default files for each sound asset
      * @param manager   The AssetManager containing the sounds used by this class
      */
-    static void init(AssetManager manager) {
+    public static void init(AssetManager manager) {
         acidDrop = manager.get(PropManager.AUDIO_ACID_DROP, Sound.class);
         birds = manager.get(PropManager.AUDIO_BIRDS, Music.class);
         levelWin = manager.get(PropManager.AUDIO_LEVEL_WIN, Sound.class);
