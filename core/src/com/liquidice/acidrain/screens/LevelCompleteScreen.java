@@ -53,7 +53,7 @@ public class LevelCompleteScreen {
             City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
         }
 
-        nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT + GameplayManager.getLevel());
+        nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT + (GameplayManager.getLevel() + 1));
 
         //If a PowerupManager has been unlocked, display that window. If not, display Level Complete window
         if (!checkForPowerupUnlock()) {
@@ -75,15 +75,15 @@ public class LevelCompleteScreen {
             //Draw "Touch for next level" text
             nextLevelFont.draw(
                     batch,
-                    PropManager.NEXT_LEVEL_TEXT + GameplayManager.getLevel(),
+                    PropManager.NEXT_LEVEL_TEXT + (GameplayManager.getLevel() + 1),
                     SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(nextLevelLayout.width),
                     SpriteUtil.middleOf(Gdx.graphics.getHeight()) - SpriteUtil.middleOf(levelTexture.getHeight()));
         }
     }
 
     /**
-     * Determine if a PowerupManager Unlocked window should be rednered instead of the Level Complete window
-     * @return  Boolean determinign what type of window should be rendered
+     * Determine if a PowerupManager Unlocked window should be rendered instead of the Level Complete window
+     * @return  Boolean determining what type of window should be rendered
      */
     private boolean checkForPowerupUnlock() {
         boolean powerupLevel = false;

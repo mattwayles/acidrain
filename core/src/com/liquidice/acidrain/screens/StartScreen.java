@@ -21,6 +21,7 @@ import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PreferenceManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.screens.unlockables.UnlockablesScreen;
+import com.liquidice.acidrain.sprites.City;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
@@ -28,6 +29,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
  */
 public class StartScreen {
     private Texture logo;
+    private AssetManager manager;
     private Stage stage = new Stage();
     private BitmapFont redFont;
     private BitmapFont blueFont;
@@ -54,6 +56,8 @@ public class StartScreen {
      * @param manager   AssetLoader containing the assets required for this screen
      */
     public StartScreen(AssetManager manager) {
+        this.manager = manager;
+
         //Logo and Text
         logo = manager.get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
         setFonts();
@@ -135,6 +139,10 @@ public class StartScreen {
                         SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(bestScoreLayout.width),
                         SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
             }
+
+            //City
+            City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
+
             stage.getBatch().end();
 
             //Draw Stage w/ Buttons
@@ -151,7 +159,7 @@ public class StartScreen {
     }
 
     /**
-     * Set the fonts and font oclors
+     * Set the fonts and font colors
      */
     private void setFonts() {
         blueFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_82), Gdx.files.internal(PropManager.FONT_PLAY_82_PNG), false);

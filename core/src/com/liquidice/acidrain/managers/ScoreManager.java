@@ -7,8 +7,8 @@ import com.liquidice.acidrain.AcidRain;
  */
 public class ScoreManager {
 
-    private static double winScore = PreferenceManager.getInt(PropManager.PREF_WIN_SCORE, 100);
-    private static double loseScore = PreferenceManager.getInt(PropManager.PREF_LOSE_SCORE, 150);
+    private static double winScore = PreferenceManager.getInt(PropManager.PREF_WIN_SCORE, PropManager.DEFAULT_WIN_SCORE);
+    private static double loseScore = PreferenceManager.getInt(PropManager.PREF_LOSE_SCORE, PropManager.DEFAULT_LOSE_SCORE);
     private static double caughtScore;
     private static double strengthScore = loseScore;
     private static int caughtPercentage;

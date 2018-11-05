@@ -48,7 +48,7 @@ public class UnlockedScreen {
      * @param power The powerup power
      */
     public void display(Texture image, String title, String power) {
-        holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT + GameplayManager.getLevel());
+        holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT + (GameplayManager.getLevel() + 1));
 
         batch.begin();
 
@@ -88,7 +88,7 @@ public class UnlockedScreen {
         //Draw "Hold to Continue"
         holdFont.draw(
                 batch,
-                PropManager.UNLOCKED_HOLD_TEXT + GameplayManager.getLevel(),
+                PropManager.UNLOCKED_HOLD_TEXT + (GameplayManager.getLevel() + 1),
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(holdLayout.width),
                 Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_HOLD_HEIGHT);
 

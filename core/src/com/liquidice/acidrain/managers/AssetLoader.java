@@ -24,8 +24,6 @@ public class AssetLoader {
         manager  = new AssetManager();
         loadButtons();
         loadTextures();
-
-        //isFinished depends on final sound to be loaded
         loadSounds();
 
         manager.finishLoading();
@@ -38,115 +36,108 @@ public class AssetLoader {
      * Load Texture assets
      */
     private void loadTextures() {
-        manager.load("acid/drop/acid1.png", Texture.class);
-        manager.load("acid/drop/acid2.png", Texture.class);
-        manager.load("acid/drop/acid3.png", Texture.class);
-        manager.load("acid/drop/acid4.png", Texture.class);
-        manager.load("acid/drop/acid5.png", Texture.class);
-        manager.load("acid/drop/acid6.png", Texture.class);
-        manager.load("acid/drop/acid7.png", Texture.class);
-        manager.load("acid/splash/acidSplash.png", Texture.class);
-        manager.load("acid/splash/acidSplashLeft.png", Texture.class);
-        manager.load("acid/splash/acidSplashRight.png", Texture.class);
-        manager.load("backgrounds/stormBackground.png", Texture.class);
-        manager.load("backgrounds/lightningBackground.jpg", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground1.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground2.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground3.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground4.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground5.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground6.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground7.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground8.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground9.png", Texture.class);
-        manager.load("backgrounds/sunnySkyBackground10.png", Texture.class);
-        manager.load("bucket/bucket0.png", Texture.class);
-        manager.load("bucket/bucket1.png", Texture.class);
-        manager.load("bucket/bucket2.png", Texture.class);
-        manager.load("bucket/bucket3.png", Texture.class);
-        manager.load("bucket/bucket4.png", Texture.class);
-        manager.load("bucket/bucket5.png", Texture.class);
-        manager.load("bucket/bucket6.png", Texture.class);
-        manager.load("bucket/bucket7.png", Texture.class);
-        manager.load("bucket/bucket8.png", Texture.class);
-        manager.load("bucket/bucket9.png", Texture.class);
-        manager.load("city/city1.png", Texture.class);
-        manager.load("city/city2.png", Texture.class);
-        manager.load("city/city3.png", Texture.class);
-        manager.load("city/city4.png", Texture.class);
-        manager.load("city/city5.png", Texture.class);
-        manager.load("city/city6.png", Texture.class);
-        manager.load("city/city7.png", Texture.class);
-        manager.load("city/city8.png", Texture.class);
-        manager.load("city/city9.png", Texture.class);
-        manager.load("city/city10.png", Texture.class);
-        manager.load("clouds.png", Texture.class);
-        manager.load("placeholder.png", Texture.class);
-        manager.load("rain/drop/drop1.png", Texture.class);
-        manager.load("rain/drop/drop2.png", Texture.class);
-        manager.load("rain/drop/drop3.png", Texture.class);
-        manager.load("rain/drop/drop4.png", Texture.class);
-        manager.load("rain/drop/drop5.png", Texture.class);
-        manager.load("rain/drop/drop6.png", Texture.class);
-        manager.load("rain/drop/drop7.png", Texture.class);
-        manager.load("rain/splash/rainSplash.png", Texture.class);
-        manager.load("rain/splash/rainSplashLeft.png", Texture.class);
-        manager.load("rain/splash/rainSplashRight.png", Texture.class);
-        manager.load("screen/unlocked.jpg", Texture.class);
-        manager.load("text/gameOver.png", Texture.class);
-        manager.load("text/levelComplete.png", Texture.class);
-        manager.load("text/logo.png", Texture.class);
-        manager.load("text/perfectLevel.png", Texture.class);
-        manager.load("unlockables/healthPack/healthPackDrop.png", Texture.class);
-        manager.load("unlockables/healthPack/unlockableHealthPack.png", Texture.class);
-        manager.load("unlockables/powerDrop/multipliersDrop.png", Texture.class);
-        manager.load("unlockables/powerDrop/powerDrop2.png", Texture.class);
-        manager.load("unlockables/powerDrop/powerDrop3.png", Texture.class);
-        manager.load("unlockables/powerDrop/powerDrop4.png", Texture.class);
-        manager.load("unlockables/powerDrop/powerDrop5.png", Texture.class);
-        manager.load("unlockables/powerDrop/powerDrop6.png", Texture.class);
-        manager.load("unlockables/powerDrop/unlockableMultipliers.png", Texture.class);
-        manager.load("unlockables/umbrella/umbrellaDrop.png", Texture.class);
-        manager.load("unlockables/umbrella/umbrellaLeft.png", Texture.class);
-        manager.load("unlockables/umbrella/umbrellaRight.png", Texture.class);
-        manager.load("unlockables/umbrella/unlockableUmbrella.png", Texture.class);
-        manager.load("unlockables/unlockableLocked.png", Texture.class);
-
+        manager.load(PropManager.ACID_DROP_PREFIX + 1 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.ACID_DROP_PREFIX + 2 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.ACID_DROP_PREFIX + 3 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.ACID_DROP_PREFIX + 4 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.ACID_DROP_PREFIX + 5 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.ACID_DROP_PREFIX + 6 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.ACID_DROP_PREFIX + 7 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.TEXTURE_ACID_SPLASH, Texture.class);
+        manager.load(PropManager.TEXTURE_ACID_SPLASH_LEFT, Texture.class);
+        manager.load(PropManager.TEXTURE_ACID_SPLASH_RIGHT, Texture.class);
+        manager.load(PropManager.TEXTURE_BG_STORM, Texture.class);
+        manager.load(PropManager.TEXTURE_BG_LIGHTNING, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 1 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 2 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 3 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 4 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 5 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 6 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 7 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 8 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 9 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 10 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 0 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 1 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 2 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 3 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 4 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 5 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 6 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 7 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 8 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 0 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 1 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 2 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 3 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 4 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 5 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 6 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 7 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 8 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 9 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.CITY_PREFIX + 10 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.TEXTURE_CLOUDS, Texture.class);
+        manager.load(PropManager.TEXTURE_PLACEHOLDER, Texture.class);
+        manager.load(PropManager.RAIN_DROP_PREFIX + 1 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.RAIN_DROP_PREFIX + 2 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.RAIN_DROP_PREFIX + 3 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.RAIN_DROP_PREFIX + 4 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.RAIN_DROP_PREFIX + 5 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.RAIN_DROP_PREFIX + 6 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.RAIN_DROP_PREFIX + 7 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.TEXTURE_RAIN_SPLASH, Texture.class);
+        manager.load(PropManager.TEXTURE_RAIN_SPLASH_LEFT, Texture.class);
+        manager.load(PropManager.TEXTURE_RAIN_SPLASH_RIGHT, Texture.class);
+        manager.load(PropManager.TEXTURE_SCREEN_UNLOCKED, Texture.class);
+        manager.load(PropManager.TEXTURE_TEXT_GAME_OVER, Texture.class);
+        manager.load(PropManager.TEXTURE_TEXT_LEVEL_COMPLETE, Texture.class);
+        manager.load(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
+        manager.load(PropManager.TEXTURE_TEXT_PERFECT_LEVEL, Texture.class);
+        manager.load(PropManager.TEXTURE_HEALTHPACK_DROP, Texture.class);
+        manager.load(PropManager.TEXTURE_HEALTHPACK_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class);
+        manager.load(PropManager.TEXTURE_MULTIPLIER_UNLOCK, Texture.class);
+        manager.load(PropManager.POWER_DROP_PREFIX + 2 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.POWER_DROP_PREFIX + 3 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.POWER_DROP_PREFIX + 4 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.POWER_DROP_PREFIX + 5 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.POWER_DROP_PREFIX + 6 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.TEXTURE_UMBRELLA_DROP, Texture.class);
+        manager.load(PropManager.TEXTURE_UMBRELLA_LEFT, Texture.class);
+        manager.load(PropManager.TEXTURE_UMBRELLA_RIGHT, Texture.class);
+        manager.load(PropManager.TEXTURE_UMBRELLA_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class);
     }
 
     /**
      * Load Button assets
      */
     private void loadButtons() {
-        manager.load("buttons/closeButton.png", Texture.class);
-        manager.load("buttons/helpButton.png", Texture.class);
-        manager.load("buttons/pauseButton.png", Texture.class);
-        manager.load("buttons/playButton.png", Texture.class);
-        manager.load("buttons/soundOffButton.png", Texture.class);
-        manager.load("buttons/soundOnButton.png", Texture.class);
-        manager.load("buttons/startButton.png", Texture.class);
-        manager.load("buttons/stopButton.png", Texture.class);
-        manager.load("buttons/unlockButton.png", Texture.class);
+        manager.load(PropManager.BUTTON_CLOSE, Texture.class);
+        manager.load(PropManager.BUTTON_HELP, Texture.class);
+        manager.load(PropManager.BUTTON_PAUSE, Texture.class);
+        manager.load(PropManager.BUTTON_PLAY, Texture.class);
+        manager.load(PropManager.BUTTON_SOUND_OFF, Texture.class);
+        manager.load(PropManager.BUTTON_SOUND_ON, Texture.class);
+        manager.load(PropManager.BUTTON_START, Texture.class);
+        manager.load(PropManager.BUTTON_STOP, Texture.class);
+        manager.load(PropManager.BUTTON_UNLOCK, Texture.class);
     }
 
     /**
      * Load Sound Assets
      */
     private void loadSounds() {
-        manager.load("sounds/acidDrop.mp3", Sound.class);
-        manager.load("sounds/birds.wav", Music.class);
-        manager.load("sounds/levelWin.mp3", Sound.class);
-        manager.load("sounds/powerup.wav", Sound.class);
-        manager.load("sounds/rainDrop.mp3", Sound.class);
-        manager.load("sounds/sideSplat.mp3", Sound.class);
-        manager.load("sounds/siren.wav", Sound.class);
-        manager.load("sounds/thunderCrack.wav", Sound.class);
-        manager.load("sounds/thunderstorm.mp3", Music.class);
+        manager.load(PropManager.AUDIO_ACID_DROP, Sound.class);
+        manager.load(PropManager.AUDIO_BIRDS, Sound.class);
+        manager.load(PropManager.AUDIO_LEVEL_WIN, Sound.class);
+        manager.load(PropManager.AUDIO_POWERUP, Sound.class);
+        manager.load(PropManager.AUDIO_RAIN_DROP, Sound.class);
+        manager.load(PropManager.AUDIO_SIDE_SPLAT, Sound.class);
+        manager.load(PropManager.AUDIO_SIREN, Sound.class);
+        manager.load(PropManager.AUDIO_THUNDERCRACK, Sound.class);
+        manager.load(PropManager.AUDIO_THUNDERSTORM, Sound.class);
     }
-
-    /**
-     * Determine if the assets have finished loading. Dependent on final asset loaded
-     * @return Boolean value representing asset manager load finish status
-     */
-    public boolean isFinished() { return manager.isLoaded(PropManager.AUDIO_THUNDERSTORM); }
 }

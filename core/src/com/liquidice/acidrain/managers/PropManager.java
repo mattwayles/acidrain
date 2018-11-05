@@ -11,6 +11,20 @@ public class PropManager {
     //TODO: Organize this a little better, name things better, it'll be a big effort
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////// UNLOCKABLE PROPERTIES //////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public static int UNLOCKABLE_MULTIPLIERS = 0;
+    public static int UNLOCKABLE_HEALTHPACK = 1;
+    public static int UNLOCKABLE_UMBRELLA = 2;
+    public static int UNLOCK_1_LEVEL = 1;
+    public static int UNLOCK_2_LEVEL = 3;
+    public static int UNLOCK_3_LEVEL = 5;
+    public static int UNLOCK_4_LEVEL = 20;
+    public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
+    public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// MANAGER PROPERTIES //////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //GAMEPLAY PROPERTIES
@@ -19,12 +33,14 @@ public class PropManager {
      static int DEFAULT_MIN_SPEED = 2;
      static int DEFAULT_RAIN_FREQUENCY = 90;
      static int DEFAULT_ACID_FREQUENCY = 140;
+     static int DEFAULT_WIN_SCORE = 100;
+     static int DEFAULT_LOSE_SCORE = 150;
      static int CUTOFF_LEVEL = 10;
-     static float SPEED_L1_9_INCREASE = .3f;
-     static float SPEED_L10_INCREASE = .1f;
-     static float RAIN_L1_9_INCREASE = 5f;
-     static float RAIN_L10_DECREASE = 2f;
-     static float ACID_L1_9_INCREASE = 10f;
+     static float SPEED_L1_9_INCREASE = .2f;
+     static float SPEED_L10_INCREASE = .05f;
+     static float RAIN_L1_9_DECREASE = 3f;
+     static float RAIN_L10_DECREASE = 1.5f;
+     static float ACID_L1_9_INCREASE = 5f;
      static float ACID_L10_INCREASE = 2f;
      static int SCORE_L1_9_INCREASE = 10;
      static int SCORE_L10_INCREASE = 1;
@@ -38,20 +54,6 @@ public class PropManager {
     //SCORE PROPERTIES
      public static Color SCORE_BLUE_COLOR = Color.valueOf("#53c0e0");
      public static Color SCORE_RED_COLOR = Color.valueOf("#bf2020");
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////// UNLOCKABLE PROPERTIES //////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    public static int UNLOCKABLE_MULTIPLIERS = 0;
-    public static int UNLOCKABLE_HEALTHPACK = 1;
-    public static int UNLOCKABLE_UMBRELLA = 2;
-    public static int UNLOCK_1_LEVEL = 3;
-    public static int UNLOCK_2_LEVEL = 5;
-    public static int UNLOCK_3_LEVEL = 8;
-    public static int UNLOCK_4_LEVEL = 20;
-    public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
-    public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,7 +86,7 @@ public class PropManager {
     public static String POWERUP_UMBRELLA_DESC = "Extra Protection for 30 seconds";
     public static int POWERUP_ANIMATION_TIME = 10;
     public static String ITEM_UNLOCKED_TEXT = "Powerup Unlocked!";
-    public static String UNLOCKED_HOLD_TEXT = "Long touch to play Level ";
+    public static String UNLOCKED_HOLD_TEXT = "Touch anywhere to play Level ";
     public static int UNLOCKED_ITEM_ANIMATION_HEIGHT = 800;
     public static int UNLOCKED_ITEM_HEADER_HEIGHT = 200;
     public static int UNLOCKED_ITEM_TITLE_HEIGHT = 900;
@@ -257,7 +259,7 @@ public class PropManager {
 
     //Sound Assets
      static final String AUDIO_ACID_DROP ="sounds/acidDrop.mp3";
-     public static final String AUDIO_BIRDS = "sounds/birds.wav";
+     static final String AUDIO_BIRDS = "sounds/birds.mp3";
      static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
      static final String AUDIO_POWERUP = "sounds/powerup.wav";
      static final String AUDIO_RAIN_DROP = "sounds/rainDrop.mp3";

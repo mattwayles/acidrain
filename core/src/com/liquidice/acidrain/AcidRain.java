@@ -24,11 +24,6 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
 //TODO:
-// BUG: App still quits when exited out and resumed- investigate
-// BUG: Perfect level never reached
-// BUG: "Long touch to play level" isn't implemented
-// CLEANUP: Birds.wav is 10mb...that's a lot
-// CLEANUP: Replace AssetLoader paths with PropMgr paths
 // CLEANUP: Test on different screen sizes
 // FEATURE: Power-ups: Shield, turn all blue, Audience Participation
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
@@ -38,6 +33,8 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 // FEATURE: New buckets, new methods of catching drops
 // FEATURE: Purchase new buckets with in-app purchases
 // FEATURE: Leaderboard, multiplayer, otherwise nobody will play!
+// FEATURE: Firebase integration, React website (leaderboard, awareness competition)
+// FEATURE: iOS
 //Find a way to make it MORE fun
 //Artist attribution
 
@@ -53,7 +50,6 @@ public class AcidRain extends ApplicationAdapter {
 	// Management
 	private ScreenManager screenManager;
 	private AssetManager assetManager;
-	private AssetLoader assetLoader;
 
 	//Input
 	private static GestureDetector inputProcessor;
@@ -76,12 +72,7 @@ public class AcidRain extends ApplicationAdapter {
 
 		//Set the input processor
 		inputProcessor = new GestureDetector(new GestureManager());
-
-		//Load assets
-		if (assetLoader == null) {
-			assetLoader = new AssetLoader();
-		}
-		this.assetManager = assetLoader.getManager();
+		this.assetManager = new AssetLoader().getManager();
 		screenManager = new ScreenManager(this.assetManager);
 		SpriteManager.init(this.assetManager);
 
@@ -94,63 +85,63 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void render () {
-		if (assetLoader.isFinished()) {
-			batch.begin();
+		batch.begin();
 
-			//On every screen, draw the background, city, and bucket
-			Background.draw(batch);
-			City.draw(batch);
-			Bucket.draw(batch);
+		//On every screen, draw the background, city, and bucket
+		Background.draw(batch);
+		City.draw(batch);
+		Bucket.draw(batch);
 
-			//Render different Screens based on game state
-			switch (GameplayManager.getGameState()) {
-				case 0: /* Waiting for Input - Display StartScreen */
-					screenManager.getStartScreen().display();
-					if (Gdx.input.justTouched()) {
-						GameplayManager.setGameState(PropManager.GAME_START_STATE);
-						screenManager.getGameplayScreen().clearAll();
-					}
-					break;
-				case 1: /* Gameplay */
-					if (CountManager.getSunnyCount() == 0) {
-						//Create rain/acid/power drops
-						screenManager.getGameplayScreen().randomizeDrops();
+		//Render different Screens based on game state
+		switch (GameplayManager.getGameState()) {
+			case 0: /* Waiting for Input - Display StartScreen */
+				screenManager.getStartScreen().display();
+				if (Gdx.input.justTouched()) {
+					GameplayManager.setGameState(PropManager.GAME_START_STATE);
+					screenManager.getGameplayScreen().clearAll();
+				}
+				break;
+			case 1: /* Gameplay */
+				if (CountManager.getSunnyCount() == 0) {
+					//Create rain/acid/power drops
+					screenManager.getGameplayScreen().randomizeDrops();
 
-						//Update raindrop positions
-						screenManager.getGameplayScreen().updateDropPositions(batch);
+					//Update raindrop positions
+					screenManager.getGameplayScreen().updateDropPositions(batch);
 
-						//Check for collision
-						screenManager.getGameplayScreen().checkCollision(batch);
-					}
-					break;
-				case 2: /* Game Over */
-					screenManager.getGameOverScreen().display(batch);
-					if (Gdx.input.justTouched()) {
-						screenManager.getGameplayScreen().clearAll();
-						GameplayManager.setGameState(PropManager.GAME_START_STATE);
-					}
-					break;
-				case 3:
-					/* Level Complete */
-					screenManager.getLevelCompleteScreen().display(batch);
-					if (Gdx.input.justTouched()) { //Start new Level
-						AudioManager.stopBirds();
-						AudioManager.playThunderstorm();
-						AudioManager.playThundercrack();
-						screenManager.getGameplayScreen().clearAll();
-						GameplayManager.setGameState(1);
-					}
-					break;
-			}
-
-			//Render overlays (clouds, score, buttons)
-			if (GameplayManager.getGameState() > 0) {
-				screenManager.getGameplayOverlay().display(batch);
-				registerTouch();
-			}
-
-			batch.end();
+					//Check for collision
+					screenManager.getGameplayScreen().checkCollision(batch);
+				}
+				break;
+			case 2: /* Game Over */
+				screenManager.getGameOverScreen().display(batch);
+				if (Gdx.input.justTouched()) {
+					screenManager.getGameplayScreen().clearAll();
+					GameplayManager.setGameState(PropManager.GAME_START_STATE);
+				}
+				break;
+			case 3:
+				/* Level Complete */
+				screenManager.getLevelCompleteScreen().display(batch);
+				if (CountManager.getSunnyCount() == 100 && Gdx.input.justTouched()) { //Start new Level
+					AudioManager.stopBirds();
+					AudioManager.playThunderstorm();
+					AudioManager.playThundercrack();
+					screenManager.getGameplayScreen().clearAll();
+					GameplayManager.increaseLevel();
+					GameplayManager.resume();
+					GameplayManager.setGameState(1);
+				}
+				break;
 		}
+
+		//Render overlays (clouds, score, buttons)
+		if (GameplayManager.getGameState() > 0) {
+			screenManager.getGameplayOverlay().display(batch);
+			registerTouch();
+		}
+
+		batch.end();
 	}
 
 	/**
@@ -167,24 +158,12 @@ public class AcidRain extends ApplicationAdapter {
 	}
 
 	/**
-	 * On application pause, dispose the assets
+	 * On application pause, pause gameplay
 	 */
 	@Override
 	public void pause() {
 		GameplayManager.pause();
-		assetManager.unload(PropManager.AUDIO_BIRDS);
-		assetManager.dispose();
-		assetLoader = null;
 	}
-
-	/**
-	 * On application resume, refresh the assets
-	 */
-	@Override
-	public void resume() {
-		assetLoader = new AssetLoader();
-		assetManager = assetLoader.getManager();
-		}
 
 	/**
 	 * On application end, dispose the batch
@@ -195,6 +174,7 @@ public class AcidRain extends ApplicationAdapter {
 				&& ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
 			PreferenceManager.putInt(PropManager.PREF_LEVEL_BEST, ScoreManager.getCaughtPercentage());
 		}
+		assetManager.dispose();
 		batch.dispose();
 	}
 }
