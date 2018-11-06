@@ -30,8 +30,6 @@ public class AssetLoader {
         AudioManager.init(manager);
     }
 
-    //TODO: Replace with prop
-
     /**
      * Load Texture assets
      */
@@ -46,6 +44,7 @@ public class AssetLoader {
         manager.load(PropManager.TEXTURE_ACID_SPLASH, Texture.class);
         manager.load(PropManager.TEXTURE_ACID_SPLASH_LEFT, Texture.class);
         manager.load(PropManager.TEXTURE_ACID_SPLASH_RIGHT, Texture.class);
+        manager.load(PropManager.TEXTURE_SHIELD, Texture.class);
         manager.load(PropManager.TEXTURE_BG_STORM, Texture.class);
         manager.load(PropManager.TEXTURE_BG_LIGHTNING, Texture.class);
         manager.load(PropManager.SUNNY_SKY_PREFIX + 1 + PropManager.PNG, Texture.class);
@@ -67,7 +66,7 @@ public class AssetLoader {
         manager.load(PropManager.BUCKET_PREFIX + 6 + PropManager.PNG, Texture.class);
         manager.load(PropManager.BUCKET_PREFIX + 7 + PropManager.PNG, Texture.class);
         manager.load(PropManager.BUCKET_PREFIX + 8 + PropManager.PNG, Texture.class);
-        manager.load(PropManager.BUCKET_PREFIX + 0 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.BUCKET_PREFIX + 9 + PropManager.PNG, Texture.class);
         manager.load(PropManager.CITY_PREFIX + 1 + PropManager.PNG, Texture.class);
         manager.load(PropManager.CITY_PREFIX + 2 + PropManager.PNG, Texture.class);
         manager.load(PropManager.CITY_PREFIX + 3 + PropManager.PNG, Texture.class);
@@ -99,6 +98,8 @@ public class AssetLoader {
         manager.load(PropManager.TEXTURE_HEALTHPACK_UNLOCK, Texture.class);
         manager.load(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class);
         manager.load(PropManager.TEXTURE_MULTIPLIER_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_SHIELD_DROP, Texture.class);
+        manager.load(PropManager.TEXTURE_SHIELD_UNLOCK, Texture.class);
         manager.load(PropManager.POWER_DROP_PREFIX + 2 + PropManager.PNG, Texture.class);
         manager.load(PropManager.POWER_DROP_PREFIX + 3 + PropManager.PNG, Texture.class);
         manager.load(PropManager.POWER_DROP_PREFIX + 4 + PropManager.PNG, Texture.class);
@@ -131,13 +132,15 @@ public class AssetLoader {
      */
     private void loadSounds() {
         manager.load(PropManager.AUDIO_ACID_DROP, Sound.class);
-        manager.load(PropManager.AUDIO_BIRDS, Sound.class);
+        manager.load(PropManager.AUDIO_BIRDS, Music.class);
         manager.load(PropManager.AUDIO_LEVEL_WIN, Sound.class);
         manager.load(PropManager.AUDIO_POWERUP, Sound.class);
         manager.load(PropManager.AUDIO_RAIN_DROP, Sound.class);
+        manager.load(PropManager.AUDIO_SHIELD_SPLAT, Sound.class);
         manager.load(PropManager.AUDIO_SIDE_SPLAT, Sound.class);
         manager.load(PropManager.AUDIO_SIREN, Sound.class);
         manager.load(PropManager.AUDIO_THUNDERCRACK, Sound.class);
-        manager.load(PropManager.AUDIO_THUNDERSTORM, Sound.class);
+        manager.load(PropManager.AUDIO_THUNDERSTORM, Music.class);
+        manager.load(PropManager.AUDIO_UMBRELLA_SPLAT, Sound.class);
     }
 }

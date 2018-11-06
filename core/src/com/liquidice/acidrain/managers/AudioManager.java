@@ -14,8 +14,10 @@ public class AudioManager {
     private static Sound powerup;
     private static Sound rainDrop;
     private static Sound sideSplat;
+    private static Sound shieldSplat;
     private static Sound siren;
     private static Sound thundercrack;
+    private static Sound umbrellaSplat;
     private static Music birds;
     private static Music thunderstorm;
 
@@ -30,9 +32,11 @@ public class AudioManager {
         powerup = manager.get(PropManager.AUDIO_POWERUP, Sound.class);
         rainDrop = manager.get(PropManager.AUDIO_RAIN_DROP, Sound.class);
         sideSplat = manager.get(PropManager.AUDIO_SIDE_SPLAT, Sound.class);
+        shieldSplat = manager.get(PropManager.AUDIO_SHIELD_SPLAT, Sound.class);
         siren = manager.get(PropManager.AUDIO_SIREN, Sound.class);
         thundercrack = manager.get(PropManager.AUDIO_THUNDERCRACK, Sound.class);
         thunderstorm = manager.get(PropManager.AUDIO_THUNDERSTORM, Music.class);
+        umbrellaSplat = manager.get(PropManager.AUDIO_UMBRELLA_SPLAT, Sound.class);
     }
 
     /**
@@ -57,10 +61,17 @@ public class AudioManager {
     }
 
     /**
-     * Play the SideSplat sound when a Drop is smashed on the bucket/umbrella
+     * Play the SideSplat sound when a Drop is smashed on the bucket
      */
     public static void playSideSplat() {
         if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { sideSplat.play(); }
+    }
+
+    /**
+     * Play the ShieldSplat sound when a Drop is smashed on the shield
+     */
+    public static void playShieldSplat() {
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { shieldSplat.play(); }
     }
 
     /**
@@ -82,6 +93,13 @@ public class AudioManager {
      */
     public static void playThundercrack() {
         if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { thundercrack.play(); }
+    }
+
+    /**
+     * Play the umbrella splat sound a drop lands on an umbrella
+     */
+    public static void playUmbrellaSplat() {
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { umbrellaSplat.play(); }
     }
 
     /**

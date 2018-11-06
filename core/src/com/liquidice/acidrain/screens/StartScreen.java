@@ -62,9 +62,8 @@ public class StartScreen {
         logo = manager.get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
         setFonts();
         catchCleanLayout = new GlyphLayout(blueFont, PropManager.CATCH_BLUE_TEXT);
-        currentLevelLayout = new GlyphLayout(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
         avoidRedLayout = new GlyphLayout(redFont, PropManager.AVOID_RED_TEXT);
-        bestScoreLayout = new GlyphLayout(redFont, PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%");
+
         unlockablesScreen = new UnlockablesScreen(manager, this);
 
         //Buttons
@@ -125,6 +124,10 @@ public class StartScreen {
                         SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(avoidRedLayout.width),
                         SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
             } else {
+                //Variable layout size
+                currentLevelLayout = new GlyphLayout(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
+                bestScoreLayout = new GlyphLayout(redFont, PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%");
+
                 //Level X
                 blueFont.draw(
                         stage.getBatch(),

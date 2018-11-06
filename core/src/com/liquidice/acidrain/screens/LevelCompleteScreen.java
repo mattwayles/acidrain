@@ -53,7 +53,7 @@ public class LevelCompleteScreen {
             City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
         }
 
-        nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT + (GameplayManager.getLevel() + 1));
+        nextLevelLayout.setText(nextLevelFont, PropManager.NEXT_LEVEL_TEXT + GameplayManager.getLevel());
 
         //If a PowerupManager has been unlocked, display that window. If not, display Level Complete window
         if (!checkForPowerupUnlock()) {
@@ -75,7 +75,7 @@ public class LevelCompleteScreen {
             //Draw "Touch for next level" text
             nextLevelFont.draw(
                     batch,
-                    PropManager.NEXT_LEVEL_TEXT + (GameplayManager.getLevel() + 1),
+                    PropManager.NEXT_LEVEL_TEXT + GameplayManager.getLevel(),
                     SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(nextLevelLayout.width),
                     SpriteUtil.middleOf(Gdx.graphics.getHeight()) - SpriteUtil.middleOf(levelTexture.getHeight()));
         }
@@ -90,7 +90,8 @@ public class LevelCompleteScreen {
         if (CountManager.getSunnyCount() == PropManager.SUNNY_COUNTER &&
                 (GameplayManager.getLevel() == PropManager.UNLOCK_1_LEVEL
                         || GameplayManager.getLevel() == PropManager.UNLOCK_2_LEVEL
-                        || GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL)) {
+                        || GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL
+                        || GameplayManager.getLevel() == PropManager.UNLOCK_4_LEVEL)) {
 
             if (GameplayManager.getLevel() == PropManager.UNLOCK_1_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class), PropManager.POWERUP_MULTIPLIER_TITLE, PropManager.POWERUP_MULTIPLIER_DESC);
@@ -102,6 +103,9 @@ public class LevelCompleteScreen {
 
             else if (GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_UMBRELLA_DROP, Texture.class), PropManager.POWERUP_UMBRELLA_TITLE, PropManager.POWERUP_UMBRELLA_DESC);
+            }
+            else if (GameplayManager.getLevel() == PropManager.UNLOCK_4_LEVEL) {
+                unlockedScreen.display(manager.get(PropManager.TEXTURE_SHIELD_DROP, Texture.class), PropManager.POWERUP_SHIELD_TITLE, PropManager.POWERUP_SHIELD_DESC);
             }
             powerupLevel = true;
         }

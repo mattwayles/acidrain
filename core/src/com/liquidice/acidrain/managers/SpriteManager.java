@@ -6,6 +6,7 @@ import com.liquidice.acidrain.sprites.Background;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.City;
 import com.liquidice.acidrain.sprites.Clouds;
+import com.liquidice.acidrain.sprites.Shield;
 import com.liquidice.acidrain.sprites.Umbrella;
 
 /**
@@ -19,6 +20,7 @@ public class SpriteManager {
         Bucket.init(manager.get(PropManager.TEXTURE_BUCKET_0, Texture.class));
         Umbrella.init(manager.get(PropManager.TEXTURE_UMBRELLA_LEFT, Texture.class),
                 manager.get(PropManager.TEXTURE_UMBRELLA_RIGHT, Texture.class));
+        Shield.init(manager.get(PropManager.TEXTURE_SHIELD, Texture.class));
 
     }
 }

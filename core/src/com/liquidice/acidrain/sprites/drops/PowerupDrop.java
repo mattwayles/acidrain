@@ -53,6 +53,10 @@ public class PowerupDrop extends Drop {
                 type = 2;
                 image = manager.get(PropManager.TEXTURE_UMBRELLA_DROP, Texture.class);
                 break;
+            case 3: //Shield
+                type = 3;
+                image = manager.get(PropManager.TEXTURE_SHIELD_DROP, Texture.class);
+                break;
             default:
                 type = 0;
                 image = manager.get(PropManager.POWER_DROP_PREFIX + size + PropManager.PNG, Texture.class);
@@ -90,6 +94,10 @@ public class PowerupDrop extends Drop {
             case 2: //Umbrella - Activate umbrella and draw around bucket
                 CountManager.resetUmbrellaCount();
                 PowerupManager.activateUmbrella();
+                break;
+            case 3: //Shield - Activate umbrella and draw around bucket
+                CountManager.resetUmbrellaCount();
+                PowerupManager.activateShield();
                 break;
         }
     }

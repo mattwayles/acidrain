@@ -12,6 +12,7 @@ import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
 import com.liquidice.acidrain.sprites.Bucket;
+import com.liquidice.acidrain.sprites.Shield;
 import com.liquidice.acidrain.sprites.Umbrella;
 import com.liquidice.acidrain.sprites.drops.AcidDrop;
 import com.liquidice.acidrain.sprites.drops.Drop;
@@ -96,23 +97,18 @@ public class GameplayScreen {
             //Intersect with umbrella
             if(PowerupManager.isUmbrellaActive() && (Intersector.overlaps(Umbrella.getLeftRect(), drops.get(i).getRect()) ||
                     Intersector.overlaps(Umbrella.getRightRect(), drops.get(i).getRect()))) {
+                AudioManager.playUmbrellaSplat();
+                Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
                 batch.draw(drops.get(i).getSplash(),  drops.get(i).getX(), drops.get(i).getY());
                 drops.get(i).setSpeed(0);
 
             }
-            //Intersect with LEFT bucket rectangle
-            else if (Intersector.overlaps(Bucket.getLeftRect(), drops.get(i).getRect())) {
-                batch.draw(drops.get(i).getLeftSplash(), drops.get(i).getX(), drops.get(i).getY());
-                drops.get(i).setSpeed(0);
-                AudioManager.playSideSplat();
+            //Intersect with shield
+            else if (PowerupManager.isShieldActive() && Intersector.overlaps(Shield.getRect(), drops.get(i).getRect())) {
+                AudioManager.playShieldSplat();
                 Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
-            }
-            //Intersect with RIGHT bucket rectangle
-            else if (Intersector.overlaps(Bucket.getRightRect(), drops.get(i).getRect())) {
-                batch.draw(drops.get(i).getRightSplash(), drops.get(i).getX(), drops.get(i).getY());
+                batch.draw(drops.get(i).getSplash(),  drops.get(i).getX(), drops.get(i).getY());
                 drops.get(i).setSpeed(0);
-                AudioManager.playSideSplat();
-                Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
             }
             //Intersect with TOP bucket rectangle
             else if (Intersector.overlaps(Bucket.getTopRect(), drops.get(i).getRect())) {
@@ -140,6 +136,20 @@ public class GameplayScreen {
                     drops.remove(i);
                 }
                 break;
+            }
+            //Intersect with LEFT bucket rectangle
+            else if (Intersector.overlaps(Bucket.getLeftRect(), drops.get(i).getRect())) {
+                batch.draw(drops.get(i).getLeftSplash(), drops.get(i).getX(), drops.get(i).getY());
+                drops.get(i).setSpeed(0);
+                AudioManager.playSideSplat();
+                Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
+            }
+            //Intersect with RIGHT bucket rectangle
+            else if (Intersector.overlaps(Bucket.getRightRect(), drops.get(i).getRect())) {
+                batch.draw(drops.get(i).getRightSplash(), drops.get(i).getX(), drops.get(i).getY());
+                drops.get(i).setSpeed(0);
+                AudioManager.playSideSplat();
+                Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
             }
         }
     }
@@ -213,6 +223,9 @@ public class GameplayScreen {
             }
             else if (GameplayManager.getLevel() > PropManager.UNLOCK_3_LEVEL && (rand == PropManager.UMBRELLA_CHANCE)) { //UMBRELLA - 0.2% total chance
                 drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_UMBRELLA, x, Gdx.graphics.getHeight()));
+            }
+            else if (GameplayManager.getLevel() > PropManager.UNLOCK_4_LEVEL && (rand == PropManager.SHIELD_CHANCE)) { //Shield - 0.2% total chance
+                drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_SHIELD, x, Gdx.graphics.getHeight()));
             }
             else { // No luck this time, render random rain drop
                 size = random.nextInt((PropManager.DROP_SIZE_MAX - PropManager.DROP_SIZE_MIN) + 1) +PropManager.DROP_SIZE_MIN;

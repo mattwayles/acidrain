@@ -16,9 +16,10 @@ public class PropManager {
     public static int UNLOCKABLE_MULTIPLIERS = 0;
     public static int UNLOCKABLE_HEALTHPACK = 1;
     public static int UNLOCKABLE_UMBRELLA = 2;
-    public static int UNLOCK_1_LEVEL = 1;
-    public static int UNLOCK_2_LEVEL = 3;
-    public static int UNLOCK_3_LEVEL = 5;
+    public static int UNLOCKABLE_SHIELD = 3;
+    public static int UNLOCK_1_LEVEL = 5;
+    public static int UNLOCK_2_LEVEL = 10;
+    public static int UNLOCK_3_LEVEL = 15;
     public static int UNLOCK_4_LEVEL = 20;
     public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
     public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
@@ -33,7 +34,7 @@ public class PropManager {
      static int DEFAULT_MIN_SPEED = 2;
      static int DEFAULT_RAIN_FREQUENCY = 90;
      static int DEFAULT_ACID_FREQUENCY = 140;
-     static int DEFAULT_WIN_SCORE = 100;
+     static int DEFAULT_WIN_SCORE = 1;
      static int DEFAULT_LOSE_SCORE = 150;
      static int CUTOFF_LEVEL = 10;
      static float SPEED_L1_9_INCREASE = .2f;
@@ -84,6 +85,8 @@ public class PropManager {
     public static String POWERUP_HEALTHPACK_DESC = "Increase City Strength by 25%";
     public static String POWERUP_UMBRELLA_TITLE = "Umbrella";
     public static String POWERUP_UMBRELLA_DESC = "Extra Protection for 30 seconds";
+    public static String POWERUP_SHIELD_TITLE = "Shield";
+    public static String POWERUP_SHIELD_DESC = "Total city Protection for 30 seconds";
     public static int POWERUP_ANIMATION_TIME = 10;
     public static String ITEM_UNLOCKED_TEXT = "Powerup Unlocked!";
     public static String UNLOCKED_HOLD_TEXT = "Touch anywhere to play Level ";
@@ -127,18 +130,17 @@ public class PropManager {
     public static final int DROP_SIZE_MAX = 7;
     public static final int DROP_SIZE_MAX_POINTS = 10;
     public static final int DROP_SMASH_VIBRATE_TIME = 15;
-    public static final int RAINDROP_CAUGHT_VIBRATE_TIME = 15;
+    public static final int RAINDROP_CAUGHT_VIBRATE_TIME = 30;
     public static final int ACIDDROP_CAUGHT_VIBRATE_TIME = 250;
     public static final int POWERDROP_CAUGHT_VIBRATE_TIME = 100;
 
     //BUCKET PROPERTIES
     public static final int BUCKET_HOVER = 200;
     public static final int BUCKET_SPEED = 25;
-    public static final int BUCKET_RECT_TOP_HEIGHT = 3;
-    public static final int BUCKET_RECT_LEFT_WIDTH = 10;
-    public static final int BUCKET_RECT_RIGHT_WIDTH = 10;
-    public static final int BUCKET_TOP_OFFSET = 5;
+    public static final int BUCKET_RECT_TOP_HEIGHT = 1;
+    public static final int BUCKET_TOP_OFFSET = 55;
     public static final int BUCKET_SIDE_OFFSET = 2;
+    public static final int BUCKET_BOTTOM_OFFSET = 20;
 
 
     //CITY PROPERTIES
@@ -159,11 +161,15 @@ public class PropManager {
     public static int POWERUP_CHANCE = 15;
     public static int HEALTHPACK_CHANCE = 16;
     public static int UMBRELLA_CHANCE = 17;
+    public static int SHIELD_CHANCE = 18;
 
     //UMBRELLA PROPERTIES
     public static final int UMBRELLA_ACTIVATION_TIME = 1800;
     public static final int UMBRELLA_OFFSET = 20;
     public static final int UMBRELLA_HEIGHT = 10;
+
+    //SHIELD PROPERTIES
+    public static final int SHIELD_ACTIVATION_TIME = 1800;
 
 
 
@@ -238,6 +244,9 @@ public class PropManager {
     public static final String TEXTURE_HEALTHPACK_UNLOCK = "unlockables/healthPack/unlockableHealthPack.png";
     public static final String TEXTURE_MULTIPLIER_DROP = "unlockables/powerDrop/multipliersDrop.png";
     public static final String TEXTURE_MULTIPLIER_UNLOCK = "unlockables/powerDrop/unlockableMultipliers.png";
+    static final String TEXTURE_SHIELD = "unlockables/shield/shield.jpg";
+    public static final String TEXTURE_SHIELD_DROP = "unlockables/shield/shieldDrop.png";
+    public static final String TEXTURE_SHIELD_UNLOCK = "unlockables/shield/unlockableShield.png";
     public static final String TEXTURE_SUNNY_SKY_10 = "backgrounds/sunnySkyBackground10.png";
     public static final String TEXTURE_UMBRELLA_DROP = "unlockables/umbrella/umbrellaDrop.png";
     static final String TEXTURE_UMBRELLA_LEFT = "unlockables/umbrella/umbrellaLeft.png";
@@ -263,8 +272,10 @@ public class PropManager {
      static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
      static final String AUDIO_POWERUP = "sounds/powerup.wav";
      static final String AUDIO_RAIN_DROP = "sounds/rainDrop.mp3";
+     static final String AUDIO_SHIELD_SPLAT = "sounds/shieldSplat.wav";
      static final String AUDIO_SIDE_SPLAT = "sounds/sideSplat.mp3";
      static final String AUDIO_SIREN = "sounds/siren.wav";
      static final String AUDIO_THUNDERCRACK = "sounds/thunderCrack.wav";
     public static final String AUDIO_THUNDERSTORM = "sounds/thunderstorm.mp3";
+    static final String AUDIO_UMBRELLA_SPLAT = "sounds/umbrellaSplat.wav";
 }

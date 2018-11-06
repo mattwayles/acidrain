@@ -21,6 +21,9 @@ public class CountManager {
 
     //Umbrella activation time
     private static int umbrellaCount;
+    
+    //Shield activation time
+    private static int shieldCount;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// RAIN COUNT ///////////////////////////////////////////////
@@ -143,6 +146,27 @@ public class CountManager {
     public static void resetUmbrellaCount() { umbrellaCount = 0; }
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// SHIELD COUNT //////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Controls the length of time of shield powerup is active
+    /**
+     * Retrieve the current ShieldCount counter value
+     * @return  The current ShieldCount counter value
+     */
+    public static int getShieldCount() { return shieldCount; }
+
+    /**
+     * Increase the ShieldCount counter
+     */
+    public static void increaseShieldCount() { shieldCount++; }
+
+    /**
+     * Reset the ShieldCount counter
+     */
+    public static void resetShieldCount() { shieldCount = 0; }
+
+
     /**
      * Clear all counters
      */
@@ -152,5 +176,6 @@ public class CountManager {
         splashCount = 0;
         backgroundCount = 0;
         umbrellaCount = 0;
+        shieldCount = 0;
     }
 }

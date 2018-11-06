@@ -21,21 +21,22 @@ public class Bucket {
 
     public static void init(Texture texture) {
         image = texture;
+
         x = SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(image.getWidth());
         topRect = new Rectangle(
-                x,
+                x + PropManager.BUCKET_TOP_OFFSET,
                 PropManager.BUCKET_HOVER + image.getHeight(),
-                image.getWidth(),
+                image.getWidth() - PropManager.BUCKET_TOP_OFFSET,
                 PropManager.BUCKET_RECT_TOP_HEIGHT);
         leftRect = new Rectangle(
                 x,
                 PropManager.BUCKET_HOVER,
-                PropManager.BUCKET_RECT_LEFT_WIDTH,
+                SpriteUtil.middleOf(image.getWidth()),
                 image.getHeight());
         rightRect= new Rectangle(
-                x + image.getWidth(),
+                x + SpriteUtil.middleOf(image.getWidth()),
                 PropManager.BUCKET_HOVER,
-                PropManager.BUCKET_RECT_RIGHT_WIDTH,
+                SpriteUtil.middleOf(image.getWidth()),
                 image.getHeight());
     }
 
@@ -53,21 +54,21 @@ public class Bucket {
      */
     public static void setX(float bucketX) {
         x = bucketX;
+        topRect.set(
+                x + PropManager.BUCKET_TOP_OFFSET,
+                PropManager.BUCKET_HOVER + image.getHeight(),
+                image.getWidth() - PropManager.BUCKET_TOP_OFFSET * 2,
+                PropManager.BUCKET_RECT_TOP_HEIGHT);
         leftRect.set(
                 x,
                 PropManager.BUCKET_HOVER,
-                PropManager.BUCKET_RECT_LEFT_WIDTH,
+                SpriteUtil.middleOf(image.getWidth()),
                 image.getHeight() - PropManager.BUCKET_SIDE_OFFSET);
         rightRect.set(
-                x + image.getWidth() - PropManager.BUCKET_RECT_RIGHT_WIDTH,
+                x + image.getWidth() - SpriteUtil.middleOf(image.getWidth()),
                 PropManager.BUCKET_HOVER,
-                PropManager.BUCKET_RECT_RIGHT_WIDTH,
+                SpriteUtil.middleOf(image.getWidth()),
                 image.getHeight() - PropManager.BUCKET_SIDE_OFFSET);
-        topRect.set(
-                x + PropManager.BUCKET_SIDE_OFFSET,
-                PropManager.BUCKET_HOVER + image.getHeight()- PropManager.BUCKET_TOP_OFFSET,
-                image.getWidth() - PropManager.BUCKET_SIDE_OFFSET,
-                PropManager.BUCKET_RECT_TOP_HEIGHT);
     }
 
     /**
@@ -111,7 +112,7 @@ public class Bucket {
     public static void draw(Batch batch) {
         batch.draw(image, x, PropManager.BUCKET_HOVER, image.getWidth(), image.getHeight());
 
-        //Check umbreall powerup activity
+        //Check umbrella powerup activity
         if (PowerupManager.isUmbrellaActive()) {
 
             //Add umbrella if powerup is active
@@ -122,6 +123,16 @@ public class Bucket {
             else { //Remove umbrella if powerup expired
                 PowerupManager.deactivateUmbrella();
                 CountManager.resetUmbrellaCount();
+            }
+        }
+        //Add shield if powerup is active
+        else if (PowerupManager.isShieldActive()) {
+            if (CountManager.getShieldCount() <= PropManager.SHIELD_ACTIVATION_TIME) {
+                Shield.draw(batch);
+                CountManager.increaseShieldCount();
+            } else { //Remove shield if powerup expired
+                PowerupManager.deactivateShield();
+                CountManager.resetShieldCount();
             }
         }
     }

@@ -137,6 +137,8 @@ public class GameplayOverlay {
             if (GameplayManager.getGameState() == PropManager.GAME_PLAY_STATE) {
                 AudioManager.playLevelWin();
                 GameplayManager.setGameState(PropManager.LEVEL_COMPLETE_STATE);
+                //This is the appropriate place to increase level. If you beat a level, then go make a snack, you don't want to be returned to the previous level!
+                GameplayManager.increaseLevel();
             }
 
             //Reset for next level

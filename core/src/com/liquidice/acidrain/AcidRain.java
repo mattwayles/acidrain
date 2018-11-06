@@ -25,7 +25,9 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 //TODO:
 // CLEANUP: Test on different screen sizes
-// FEATURE: Power-ups: Shield, turn all blue, Audience Participation
+// FEATURE: (Powerup) - Audience Participation; All blue drops that land in city count toward score
+// FEATURE: (Powerup) - Water Filtration; All red drops turn blue for a short period of time
+// FEATURE: ** At least two more powerups would be nice! **
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
 // FEATURE: Tutorial
 // FEATURE: (Meh..?) Earn points to be used for upgrades
@@ -128,9 +130,8 @@ public class AcidRain extends ApplicationAdapter {
 					AudioManager.playThunderstorm();
 					AudioManager.playThundercrack();
 					screenManager.getGameplayScreen().clearAll();
-					GameplayManager.increaseLevel();
 					GameplayManager.resume();
-					GameplayManager.setGameState(1);
+					GameplayManager.setGameState(PropManager.GAME_PLAY_STATE);
 				}
 				break;
 		}

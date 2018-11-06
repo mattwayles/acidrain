@@ -111,6 +111,16 @@ public class ScoreManager {
     }
 
     /**
+     * Increase the Caught ScoreManager by a specified number of points (not percentage). This is
+     * only used when increasing the level
+     * @param points    The number of points to decrease Caught ScoreManager
+     */
+    static void increaseStrengthScore(int points) {
+        strengthScore += points;
+        calculateStrengthPercentage();
+    }
+
+    /**
      * Retrieve the current Clean Water percentage
      * @return  The current Clean Water percentage
      */

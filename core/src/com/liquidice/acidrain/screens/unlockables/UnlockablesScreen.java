@@ -64,18 +64,19 @@ public class UnlockablesScreen {
 
         //UNLOCK_1 - Multipliers
         Texture unlockableMultipliers = manager.get(PropManager.TEXTURE_MULTIPLIER_UNLOCK, Texture.class);
-        drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_1_LEVEL ? unlockableMultipliers : unlockableUnknown, PropManager.UNLOCK_1_Y);
+        drawUnlockable(GameplayManager.getLevel() >= PropManager.UNLOCK_1_LEVEL ? unlockableMultipliers : unlockableUnknown, PropManager.UNLOCK_1_Y);
 
         //UNLOCK_2 - Health Pack
         Texture unlockableHealthPack = manager.get(PropManager.TEXTURE_HEALTHPACK_UNLOCK, Texture.class);
-        drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_2_LEVEL ? unlockableHealthPack : unlockableUnknown,PropManager.UNLOCK_2_Y);
+        drawUnlockable(GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL ? unlockableHealthPack : unlockableUnknown,PropManager.UNLOCK_2_Y);
 
         //UNLOCK_3 - Umbrella
         Texture unlockableUmbrella = manager.get(PropManager.TEXTURE_UMBRELLA_UNLOCK, Texture.class);
-        drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_3_LEVEL ? unlockableUmbrella : unlockableUnknown,PropManager.UNLOCK_3_Y);
+        drawUnlockable(GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL ? unlockableUmbrella : unlockableUnknown,PropManager.UNLOCK_3_Y);
 
-        //UNLOCK_4 - ????
-        drawUnlockable(GameplayManager.getLevel() > PropManager.UNLOCK_4_LEVEL ? unlockableUnknown : unlockableUnknown,PropManager.UNLOCK_4_Y);
+        //UNLOCK_4 - Shield
+        Texture unlockableShield = manager.get(PropManager.TEXTURE_SHIELD_UNLOCK, Texture.class);
+        drawUnlockable(GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL ? unlockableShield : unlockableUnknown,PropManager.UNLOCK_4_Y);
         stage.getBatch().end();
 
         drawCloseButton();
