@@ -80,8 +80,8 @@ public class UnlockablesScreen {
 
         //TODO: Scrollpane or 'Next' button
         //UNLOCK_5 - Filtration
-//        Texture unlockableFilter = manager.get(PropManager.TEXTURE_FILTRATION_UNLOCK, Texture.class);
-//        drawUnlockable(GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL ? unlockableFilter : unlockableUnknown,PropManager.UNLOCK_5_Y);
+        Texture unlockableFilter = manager.get(PropManager.TEXTURE_FILTRATION_UNLOCK, Texture.class);
+        drawUnlockable(GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL ? unlockableFilter : unlockableUnknown,PropManager.UNLOCK_5_Y);
         stage.getBatch().end();
 
         drawCloseButton();

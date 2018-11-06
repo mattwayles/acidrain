@@ -236,7 +236,7 @@ public class PropManager {
     public static final String TEXTURE_CITY_10 = "city/city10.png";
     static final String TEXTURE_CLOUDS = "clouds.png";
     public static final String TEXTURE_FILTRATION_DROP = "unlockables/filtration/filtrationDrop.png";
-    static final String TEXTURE_FILTRATION_UNLOCK = "unlockables/filtration/unlockableFiltration.png";
+    public static final String TEXTURE_FILTRATION_UNLOCK = "unlockables/filtration/unlockableFiltration.png";
     public static final String TEXTURE_PLACEHOLDER = "placeholder.png";
     public static final String TEXTURE_RAIN_SPLASH = "rain/splash/rainSplash.png";
     public static final String TEXTURE_RAIN_SPLASH_LEFT = "rain/splash/rainSplashLeft.png";
