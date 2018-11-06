@@ -79,6 +79,8 @@ public class AssetLoader {
         manager.load(PropManager.CITY_PREFIX + 10 + PropManager.PNG, Texture.class);
         manager.load(PropManager.TEXTURE_CLOUDS, Texture.class);
         manager.load(PropManager.TEXTURE_PLACEHOLDER, Texture.class);
+        manager.load(PropManager.TEXTURE_FILTRATION_DROP, Texture.class);
+        manager.load(PropManager.TEXTURE_FILTRATION_UNLOCK, Texture.class);
         manager.load(PropManager.RAIN_DROP_PREFIX + 1 + PropManager.PNG, Texture.class);
         manager.load(PropManager.RAIN_DROP_PREFIX + 2 + PropManager.PNG, Texture.class);
         manager.load(PropManager.RAIN_DROP_PREFIX + 3 + PropManager.PNG, Texture.class);

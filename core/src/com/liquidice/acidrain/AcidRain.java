@@ -29,15 +29,13 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 // FEATURE: (Powerup) - Water Filtration; All red drops turn blue for a short period of time
 // FEATURE: ** At least two more powerups would be nice! **
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
-// FEATURE: Tutorial
-// FEATURE: (Meh..?) Earn points to be used for upgrades
 // FEATURE:Purchase powerups with in-app purchases
 // FEATURE: New buckets, new methods of catching drops
 // FEATURE: Purchase new buckets with in-app purchases
 // FEATURE: Leaderboard, multiplayer, otherwise nobody will play!
 // FEATURE: Firebase integration, React website (leaderboard, awareness competition)
-// FEATURE: iOS
-//Find a way to make it MORE fun
+// FEATURE: When I have a perfect, beautiful app with auto-updating React leaderboards, buy Mac & port to iOS
+// Internal Discussion: Should points/coins be implemented in any way?
 //Artist attribution
 
 /**

@@ -107,6 +107,9 @@ public class LevelCompleteScreen {
             else if (GameplayManager.getLevel() == PropManager.UNLOCK_4_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_SHIELD_DROP, Texture.class), PropManager.POWERUP_SHIELD_TITLE, PropManager.POWERUP_SHIELD_DESC);
             }
+            else if (GameplayManager.getLevel() == PropManager.UNLOCK_5_LEVEL) {
+                unlockedScreen.display(manager.get(PropManager.TEXTURE_FILTRATION_DROP, Texture.class), PropManager.POWERUP_FILTRATION_TITLE, PropManager.POWERUP_FILTRATION_DESC);
+            }
             powerupLevel = true;
         }
         return powerupLevel;

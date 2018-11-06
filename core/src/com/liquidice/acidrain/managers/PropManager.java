@@ -17,10 +17,12 @@ public class PropManager {
     public static int UNLOCKABLE_HEALTHPACK = 1;
     public static int UNLOCKABLE_UMBRELLA = 2;
     public static int UNLOCKABLE_SHIELD = 3;
-    public static int UNLOCK_1_LEVEL = 5;
-    public static int UNLOCK_2_LEVEL = 10;
-    public static int UNLOCK_3_LEVEL = 15;
-    public static int UNLOCK_4_LEVEL = 20;
+    public static int UNLOCKABLE_FILTRATION = 4;
+    public static int UNLOCK_1_LEVEL = 6;
+    public static int UNLOCK_2_LEVEL = 11;
+    public static int UNLOCK_3_LEVEL = 16;
+    public static int UNLOCK_4_LEVEL = 21;
+    public static int UNLOCK_5_LEVEL = 26;
     public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
     public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
 
@@ -34,14 +36,14 @@ public class PropManager {
      static int DEFAULT_MIN_SPEED = 2;
      static int DEFAULT_RAIN_FREQUENCY = 90;
      static int DEFAULT_ACID_FREQUENCY = 140;
-     static int DEFAULT_WIN_SCORE = 1;
+     static int DEFAULT_WIN_SCORE = 100;
      static int DEFAULT_LOSE_SCORE = 150;
      static int CUTOFF_LEVEL = 10;
-     static float SPEED_L1_9_INCREASE = .2f;
+     static float SPEED_L1_9_INCREASE = .4f;
      static float SPEED_L10_INCREASE = .05f;
      static float RAIN_L1_9_DECREASE = 3f;
      static float RAIN_L10_DECREASE = 1.5f;
-     static float ACID_L1_9_INCREASE = 5f;
+     static float ACID_L1_9_INCREASE = 7.5f;
      static float ACID_L10_INCREASE = 2f;
      static int SCORE_L1_9_INCREASE = 10;
      static int SCORE_L10_INCREASE = 1;
@@ -76,17 +78,20 @@ public class PropManager {
     public static int UNLOCK_2_Y = 710;
     public static int UNLOCK_3_Y = 1020;
     public static int UNLOCK_4_Y = 1330;
+    public static int UNLOCK_5_Y = 1740;
     public static String UNLOCKED_ITEMS_TEXT = "Unlocked Items";
 
     //Unlocked Screen
-    public static String POWERUP_MULTIPLIER_TITLE = "Score Multipliers";
+    public static String POWERUP_MULTIPLIER_TITLE = "SCORE MULTIPLIERS";
     public static String POWERUP_MULTIPLIER_DESC = "Earn up to x6 points from a Single Drop";
-    public static String POWERUP_HEALTHPACK_TITLE = "Health Pack";
+    public static String POWERUP_HEALTHPACK_TITLE = "HEALTH PACK";
     public static String POWERUP_HEALTHPACK_DESC = "Increase City Strength by 25%";
-    public static String POWERUP_UMBRELLA_TITLE = "Umbrella";
+    public static String POWERUP_UMBRELLA_TITLE = "UMBRELLA";
     public static String POWERUP_UMBRELLA_DESC = "Extra Protection for 30 seconds";
-    public static String POWERUP_SHIELD_TITLE = "Shield";
+    public static String POWERUP_SHIELD_TITLE = "SHIELD";
     public static String POWERUP_SHIELD_DESC = "Total city Protection for 30 seconds";
+    public static String POWERUP_FILTRATION_TITLE = "FILTRATION SYSTEM";
+    public static String POWERUP_FILTRATION_DESC = "Filter acid from rain for 15 seconds";
     public static int POWERUP_ANIMATION_TIME = 10;
     public static String ITEM_UNLOCKED_TEXT = "Powerup Unlocked!";
     public static String UNLOCKED_HOLD_TEXT = "Touch anywhere to play Level ";
@@ -140,7 +145,6 @@ public class PropManager {
     public static final int BUCKET_RECT_TOP_HEIGHT = 1;
     public static final int BUCKET_TOP_OFFSET = 55;
     public static final int BUCKET_SIDE_OFFSET = 2;
-    public static final int BUCKET_BOTTOM_OFFSET = 20;
 
 
     //CITY PROPERTIES
@@ -231,6 +235,8 @@ public class PropManager {
     public static final String TEXTURE_CITY_1 = "city/city1.png";
     public static final String TEXTURE_CITY_10 = "city/city10.png";
     static final String TEXTURE_CLOUDS = "clouds.png";
+    public static final String TEXTURE_FILTRATION_DROP = "unlockables/filtration/filtrationDrop.png";
+    static final String TEXTURE_FILTRATION_UNLOCK = "unlockables/filtration/unlockableFiltration.png";
     public static final String TEXTURE_PLACEHOLDER = "placeholder.png";
     public static final String TEXTURE_RAIN_SPLASH = "rain/splash/rainSplash.png";
     public static final String TEXTURE_RAIN_SPLASH_LEFT = "rain/splash/rainSplashLeft.png";

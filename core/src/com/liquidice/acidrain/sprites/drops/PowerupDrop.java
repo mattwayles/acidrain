@@ -57,6 +57,10 @@ public class PowerupDrop extends Drop {
                 type = 3;
                 image = manager.get(PropManager.TEXTURE_SHIELD_DROP, Texture.class);
                 break;
+            case 4: //Filtration
+                type = 4;
+                image = manager.get(PropManager.TEXTURE_FILTRATION_DROP, Texture.class);
+                break;
             default:
                 type = 0;
                 image = manager.get(PropManager.POWER_DROP_PREFIX + size + PropManager.PNG, Texture.class);
@@ -95,7 +99,11 @@ public class PowerupDrop extends Drop {
                 CountManager.resetUmbrellaCount();
                 PowerupManager.activateUmbrella();
                 break;
-            case 3: //Shield - Activate umbrella and draw around bucket
+            case 3: //Shield - Activate shield and draw under bucket
+                CountManager.resetShieldCount();
+                PowerupManager.activateShield();
+                break;
+            case 4: //Filtration: Turn all AcidDrops to RainDrops
                 CountManager.resetUmbrellaCount();
                 PowerupManager.activateShield();
                 break;

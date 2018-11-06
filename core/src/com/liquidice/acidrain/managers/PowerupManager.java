@@ -6,6 +6,7 @@ package com.liquidice.acidrain.managers;
 public class PowerupManager {
     private static boolean umbrellaActive;
     private static boolean shieldActive;
+    private static boolean filterActive;
 
     /**
      * Deactivate ALL Powerups
@@ -13,6 +14,7 @@ public class PowerupManager {
     public static void deactivateAllPowerups() {
         umbrellaActive = false;
         shieldActive = false;
+        filterActive = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,4 +56,24 @@ public class PowerupManager {
      * Deactivate the Shield Powerup
      */
     public static void deactivateShield() { shieldActive = false; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////// FILTRATION /////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Determine Active status of the Filter Powerup
+     * @return Boolean determining Active status of the Filter Powerup
+     */
+    public static boolean isFilterActive() { return shieldActive; }
+
+    /**
+     * Activate the Filter Powerup
+     */
+    public static void activateFilter() { filterActive = true; }
+
+    /**
+     * Deactivate the Filter Powerup
+     */
+    public static void deactivateFilter() { filterActive = false; }
 }

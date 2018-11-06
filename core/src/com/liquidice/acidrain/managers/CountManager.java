@@ -25,6 +25,9 @@ public class CountManager {
     //Shield activation time
     private static int shieldCount;
 
+    //Filtration activation time
+    private static int filterCount;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// RAIN COUNT ///////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,6 +169,25 @@ public class CountManager {
      */
     public static void resetShieldCount() { shieldCount = 0; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////// FILTRATION COUNT /////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Controls the length of time of filtration powerup is active
+    /**
+     * Retrieve the current FilterCount counter value
+     * @return  The current FilterCount counter value
+     */
+    public static int getFilterCount() { return filterCount; }
+
+    /**
+     * Increase the FilterCount counter
+     */
+    public static void increaseFilterCount() { filterCount++; }
+
+    /**
+     * Reset the FilterCount counter
+     */
+    public static void resetFilterCount() { filterCount = 0; }
 
     /**
      * Clear all counters
@@ -177,5 +199,6 @@ public class CountManager {
         backgroundCount = 0;
         umbrellaCount = 0;
         shieldCount = 0;
+        filterCount = 0;
     }
 }
