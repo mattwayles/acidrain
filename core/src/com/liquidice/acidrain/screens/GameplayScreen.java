@@ -70,6 +70,11 @@ public class GameplayScreen {
         for (int i = 0; i < drops.size(); i++) {
             Drop drop = drops.get(i);
 
+            //Check Filtration status
+            if (PowerupManager.isFilterActive() && drops.get(i) instanceof AcidDrop) {
+                drops.set(i, new RainDrop(manager, drop.getX(), drop.getY(), drop.getPoints(), drop.getSpeed()));
+            }
+
             //If drop has landed in the city
             if (drop.getY() <= SpriteUtil.middleOf(PropManager.CITY_HEIGHT)) {
                 renderSplash(batch, drop);
@@ -86,6 +91,8 @@ public class GameplayScreen {
                 drops.remove(drop);
             }
         }
+
+        manageFilterStatus();
     }
 
     /**
@@ -227,6 +234,9 @@ public class GameplayScreen {
             else if (GameplayManager.getLevel() > PropManager.UNLOCK_4_LEVEL && (rand == PropManager.SHIELD_CHANCE)) { //Shield - 0.2% total chance
                 drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_SHIELD, x, Gdx.graphics.getHeight()));
             }
+            else if (GameplayManager.getLevel() > PropManager.UNLOCK_5_LEVEL && (rand == PropManager.FILTER_CHANCE)) { //Filter - 0.2% total chance
+                drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_FILTRATION, x, Gdx.graphics.getHeight()));
+            }
             else { // No luck this time, render random rain drop
                 size = random.nextInt((PropManager.DROP_SIZE_MAX - PropManager.DROP_SIZE_MIN) + 1) +PropManager.DROP_SIZE_MIN;
                 drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
@@ -260,6 +270,21 @@ public class GameplayScreen {
         else {
             CountManager.resetSplashCount();
             drops.remove(drop);
+        }
+    }
+
+
+    /**
+     * Check the status of the Filter powerup and modify if necessary
+     */
+    private void manageFilterStatus() {
+        if (PowerupManager.isFilterActive()) {
+            if (CountManager.getFilterCount() <= PropManager.FILTER_ACTIVATION_TIME) {
+                CountManager.increaseFilterCount();
+            } else { //Remove Filter if powerup expired
+                PowerupManager.deactivateFilter();
+                CountManager.resetFilterCount();
+            }
         }
     }
 }

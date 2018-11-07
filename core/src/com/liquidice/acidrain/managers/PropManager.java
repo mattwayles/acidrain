@@ -18,11 +18,12 @@ public class PropManager {
     public static int UNLOCKABLE_UMBRELLA = 2;
     public static int UNLOCKABLE_SHIELD = 3;
     public static int UNLOCKABLE_FILTRATION = 4;
-    public static int UNLOCK_1_LEVEL = 6;
-    public static int UNLOCK_2_LEVEL = 11;
-    public static int UNLOCK_3_LEVEL = 16;
-    public static int UNLOCK_4_LEVEL = 21;
-    public static int UNLOCK_5_LEVEL = 26;
+
+    public static int UNLOCK_1_LEVEL = 5;
+    public static int UNLOCK_2_LEVEL = 10;
+    public static int UNLOCK_3_LEVEL = 15;
+    public static int UNLOCK_4_LEVEL = 20;
+    public static int UNLOCK_5_LEVEL = 25;
     public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
     public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
 
@@ -37,11 +38,10 @@ public class PropManager {
      static int DEFAULT_RAIN_FREQUENCY = 90;
      static int DEFAULT_ACID_FREQUENCY = 140;
      static int DEFAULT_WIN_SCORE = 100;
-     static int DEFAULT_LOSE_SCORE = 150;
+     static int DEFAULT_LOSE_SCORE = 120;
      static int CUTOFF_LEVEL = 10;
-     static float SPEED_L1_9_INCREASE = .4f;
+     static float SPEED_L1_9_INCREASE = .5f;
      static float SPEED_L10_INCREASE = .05f;
-     static float RAIN_L1_9_DECREASE = 3f;
      static float RAIN_L10_DECREASE = 1.5f;
      static float ACID_L1_9_INCREASE = 7.5f;
      static float ACID_L10_INCREASE = 2f;
@@ -74,11 +74,8 @@ public class PropManager {
 
     //Unlockable items screen
     public static int UNLOCKED_ITEMS_Y = Gdx.graphics.getHeight() - 200;
-    public static int UNLOCK_1_Y = 400;
-    public static int UNLOCK_2_Y = 710;
-    public static int UNLOCK_3_Y = 1020;
-    public static int UNLOCK_4_Y = 1330;
-    public static int UNLOCK_5_Y = 1740;
+    public static int UNLOCKED_ITEMS_SCROLL_Y = 400;
+    public static int UNLOCKED_ITEMS_SCROLL_OFFSET = 20;
     public static String UNLOCKED_ITEMS_TEXT = "Unlocked Items";
 
     //Unlocked Screen
@@ -91,7 +88,7 @@ public class PropManager {
     public static String POWERUP_SHIELD_TITLE = "SHIELD";
     public static String POWERUP_SHIELD_DESC = "Total city Protection for 30 seconds";
     public static String POWERUP_FILTRATION_TITLE = "FILTRATION SYSTEM";
-    public static String POWERUP_FILTRATION_DESC = "Filter acid from rain for 15 seconds";
+    public static String POWERUP_FILTRATION_DESC = "Filter acid from rain for 10 seconds";
     public static int POWERUP_ANIMATION_TIME = 10;
     public static String ITEM_UNLOCKED_TEXT = "Powerup Unlocked!";
     public static String UNLOCKED_HOLD_TEXT = "Touch anywhere to play Level ";
@@ -166,6 +163,7 @@ public class PropManager {
     public static int HEALTHPACK_CHANCE = 16;
     public static int UMBRELLA_CHANCE = 17;
     public static int SHIELD_CHANCE = 18;
+    public static int FILTER_CHANCE = 19;
 
     //UMBRELLA PROPERTIES
     public static final int UMBRELLA_ACTIVATION_TIME = 1800;
@@ -174,6 +172,9 @@ public class PropManager {
 
     //SHIELD PROPERTIES
     public static final int SHIELD_ACTIVATION_TIME = 1800;
+
+    //FILTER PROPERTIES
+    public static final int FILTER_ACTIVATION_TIME = 600;
 
 
 

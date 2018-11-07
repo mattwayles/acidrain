@@ -8,6 +8,7 @@ import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
+import com.liquidice.acidrain.screens.GameplayScreen;
 
 /**
  * Render a new Powerup drop
@@ -104,8 +105,8 @@ public class PowerupDrop extends Drop {
                 PowerupManager.activateShield();
                 break;
             case 4: //Filtration: Turn all AcidDrops to RainDrops
-                CountManager.resetUmbrellaCount();
-                PowerupManager.activateShield();
+                CountManager.resetFilterCount();
+                PowerupManager.activateFilter();
                 break;
         }
     }

@@ -18,7 +18,7 @@ public class RainDrop extends Drop {
      * @param size  The size value of this raindrop
      * @param speed The speed of this raindrop
      */
-    public RainDrop(AssetManager manager, float x, int y, int size, float speed) {
+    public RainDrop(AssetManager manager, float x, float y, int size, float speed) {
         Texture image = manager.get(PropManager.RAIN_DROP_PREFIX + size + PropManager.PNG, Texture.class);
         super.setX(x);
         super.setY(y);

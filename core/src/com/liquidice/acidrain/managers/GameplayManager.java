@@ -1,5 +1,7 @@
 package com.liquidice.acidrain.managers;
 
+import com.badlogic.gdx.Gdx;
+
 /**
  * GameplayManager Controller - Manage Gameplay elements and increase level difficulty
  */
@@ -24,20 +26,31 @@ public class GameplayManager {
         increaseMinSpeed(getLevel() < PropManager.CUTOFF_LEVEL ? getMinSpeed() + PropManager.SPEED_L1_9_INCREASE : getMinSpeed() + PropManager.SPEED_L10_INCREASE);
 
         //Control Drop Frequency
-        if (getLevel() % 2 == 0) {
-            decreaseRainFreq(getLevel() < PropManager.CUTOFF_LEVEL ? getRainFreq() - PropManager.RAIN_L1_9_DECREASE : getRainFreq() + PropManager.RAIN_L10_DECREASE);
+        if (getLevel() % 2 == 0 && getLevel() > PropManager.CUTOFF_LEVEL) {
+            decreaseRainFreq(getRainFreq() + PropManager.RAIN_L10_DECREASE);
         }
         increaseAcidFreq(getLevel() < PropManager.CUTOFF_LEVEL ? getAcidFreq() - PropManager.ACID_L1_9_INCREASE : getAcidFreq() - PropManager.ACID_L10_INCREASE);
 
         //Control Win/Lose Scores
         ScoreManager.increaseWinScore(getLevel() < PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L1_9_INCREASE : PropManager.SCORE_L10_INCREASE);
-        ScoreManager.increaseLoseScore(getLevel() < PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L1_9_INCREASE : PropManager.SCORE_L10_INCREASE);
         ScoreManager.increaseCaughtScore(getLevel() < PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L1_9_INCREASE : PropManager.SCORE_L10_INCREASE);
-        ScoreManager.increaseStrengthScore(getLevel() < PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L1_9_INCREASE : PropManager.SCORE_L10_INCREASE);
+        ScoreManager.increaseLoseScore(getLevel() > PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L10_INCREASE : 0);
+        ScoreManager.increaseStrengthScore(getLevel() > PropManager.CUTOFF_LEVEL ? PropManager.SCORE_L10_INCREASE : 0);
 
         //Set New Level Data
         PreferenceManager.putInt(PropManager.PREF_LEVEL, getLevel() + 1);
         setLevelBest(0);
+
+        //DEBUG Data
+        Gdx.app.log("NEW LEVEL: ", String.valueOf(getLevel()));
+        Gdx.app.log("MAX SPEED: ", String.valueOf(getMaxSpeed()));
+        Gdx.app.log("MIN SPEED: ", String.valueOf(getMinSpeed()));
+        Gdx.app.log("RAIN FREQ: ", String.valueOf(getRainFreq()));
+        Gdx.app.log("ACID FREQ: ", String.valueOf(getAcidFreq()));
+        Gdx.app.log("WIN SCORE: ", String.valueOf(ScoreManager.getWinScore()));
+        Gdx.app.log("LOSE SCORE: ", String.valueOf(ScoreManager.getLoseScore()));
+
+
     }
 
 

@@ -35,8 +35,6 @@ public class StartScreen {
     private BitmapFont blueFont;
     private GlyphLayout avoidRedLayout;
     private GlyphLayout catchCleanLayout;
-    private GlyphLayout currentLevelLayout;
-    private GlyphLayout bestScoreLayout;
     private ImageButton soundOffButton;
     private ImageButton soundOnButton;
     private ImageButton soundButton;
@@ -47,6 +45,7 @@ public class StartScreen {
     private ImageButton.ImageButtonStyle soundOnButtonStyle;
     private TextureRegionDrawable soundOffButtonStyleUp;
     private TextureRegionDrawable soundOnButtonStyleUp;
+    private Table table;
     private boolean soundOn;
     private boolean unlockedScreenOpen;
     private UnlockablesScreen unlockablesScreen;
@@ -63,8 +62,6 @@ public class StartScreen {
         setFonts();
         catchCleanLayout = new GlyphLayout(blueFont, PropManager.CATCH_BLUE_TEXT);
         avoidRedLayout = new GlyphLayout(redFont, PropManager.AVOID_RED_TEXT);
-
-        unlockablesScreen = new UnlockablesScreen(manager, this);
 
         //Buttons
         ImageButton.ImageButtonStyle unlockButtonStyle = new ImageButton.ImageButtonStyle();
@@ -85,6 +82,8 @@ public class StartScreen {
         unlockButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_UNLOCK, Texture.class)));
         helpButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_HELP, Texture.class)));
         startButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_START, Texture.class)));
+
+        table = new Table();
 
         //Listeners
         addButtonListeners();
@@ -125,8 +124,8 @@ public class StartScreen {
                         SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
             } else {
                 //Variable layout size
-                currentLevelLayout = new GlyphLayout(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
-                bestScoreLayout = new GlyphLayout(redFont, PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%");
+                GlyphLayout currentLevelLayout = new GlyphLayout(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
+                GlyphLayout bestScoreLayout = new GlyphLayout(redFont, PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%");
 
                 //Level X
                 blueFont.draw(
@@ -153,7 +152,7 @@ public class StartScreen {
             displaySoundButton();
 
             //Create table, add & draw stage
-            Table table = createButtonTable();
+            table = createButtonTable();
             stage.addActor(table);
             stage.draw();
         } else {
@@ -193,8 +192,7 @@ public class StartScreen {
      * @return  A table of all buttons needed for the Start ScreenManager
      */
     private Table createButtonTable() {
-        //Create a new table
-        Table table = new Table();
+        table.clear();
 
         //Span the whole parent
         table.setFillParent(true);
@@ -233,6 +231,7 @@ public class StartScreen {
      * Add touch listeners to each button
      */
     private void addButtonListeners() {
+        final StartScreen parent = this;
         //Start Button Listener
         startButton.addListener(new ChangeListener() {
             @Override
@@ -243,11 +242,13 @@ public class StartScreen {
         });
 
         //Unlock Button Listener
-        unlockButton.addListener(new ChangeListener() {
+        unlockButton.clearListeners();
+        unlockButton.addListener(new InputListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                unlockablesScreen.display();
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                unlockablesScreen = new UnlockablesScreen(manager, parent);
                 unlockedScreenOpen = true;
+                return false;
             }
         });
 

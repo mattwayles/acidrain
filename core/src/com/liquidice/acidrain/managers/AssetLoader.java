@@ -100,8 +100,8 @@ public class AssetLoader {
         manager.load(PropManager.TEXTURE_HEALTHPACK_UNLOCK, Texture.class);
         manager.load(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class);
         manager.load(PropManager.TEXTURE_MULTIPLIER_UNLOCK, Texture.class);
-        manager.load(PropManager.TEXTURE_SHIELD_DROP, Texture.class);
         manager.load(PropManager.TEXTURE_SHIELD_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_SHIELD_DROP, Texture.class);
         manager.load(PropManager.POWER_DROP_PREFIX + 2 + PropManager.PNG, Texture.class);
         manager.load(PropManager.POWER_DROP_PREFIX + 3 + PropManager.PNG, Texture.class);
         manager.load(PropManager.POWER_DROP_PREFIX + 4 + PropManager.PNG, Texture.class);

@@ -65,7 +65,7 @@ public class PowerupManager {
      * Determine Active status of the Filter Powerup
      * @return Boolean determining Active status of the Filter Powerup
      */
-    public static boolean isFilterActive() { return shieldActive; }
+    public static boolean isFilterActive() { return filterActive; }
 
     /**
      * Activate the Filter Powerup

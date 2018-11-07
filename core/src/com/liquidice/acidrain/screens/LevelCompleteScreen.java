@@ -87,11 +87,14 @@ public class LevelCompleteScreen {
      */
     private boolean checkForPowerupUnlock() {
         boolean powerupLevel = false;
+
+        //TODO: Maybe use a loop or something rather than this ugly conditional
         if (CountManager.getSunnyCount() == PropManager.SUNNY_COUNTER &&
                 (GameplayManager.getLevel() == PropManager.UNLOCK_1_LEVEL
                         || GameplayManager.getLevel() == PropManager.UNLOCK_2_LEVEL
                         || GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL
-                        || GameplayManager.getLevel() == PropManager.UNLOCK_4_LEVEL)) {
+                        || GameplayManager.getLevel() == PropManager.UNLOCK_4_LEVEL
+                        || GameplayManager.getLevel() == PropManager.UNLOCK_5_LEVEL)) {
 
             if (GameplayManager.getLevel() == PropManager.UNLOCK_1_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class), PropManager.POWERUP_MULTIPLIER_TITLE, PropManager.POWERUP_MULTIPLIER_DESC);
