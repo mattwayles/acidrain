@@ -35,9 +35,9 @@ public class PropManager {
      static int DEFAULT_START_LEVEL = 1;
      static int DEFAULT_MAX_SPEED = 5;
      static int DEFAULT_MIN_SPEED = 2;
-     static int DEFAULT_RAIN_FREQUENCY = 90;
+     static int DEFAULT_RAIN_FREQUENCY = 45;
      static int DEFAULT_ACID_FREQUENCY = 140;
-     static int DEFAULT_WIN_SCORE = 100;
+     static int DEFAULT_WIN_SCORE = 180;
      static int DEFAULT_LOSE_SCORE = 120;
      static int CUTOFF_LEVEL = 10;
      static float SPEED_L1_9_INCREASE = .5f;
