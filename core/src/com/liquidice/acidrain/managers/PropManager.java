@@ -33,18 +33,18 @@ public class PropManager {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //GAMEPLAY PROPERTIES
      static int DEFAULT_START_LEVEL = 1;
-     static int DEFAULT_MAX_SPEED = 5;
-     static int DEFAULT_MIN_SPEED = 2;
+     static float DEFAULT_MAX_SPEED = 4f;
+     static float DEFAULT_MIN_SPEED = 1.5f;
      static int DEFAULT_RAIN_FREQUENCY = 50;
      static int DEFAULT_ACID_FREQUENCY = 140;
      static int DEFAULT_WIN_SCORE = 150;
-     static int DEFAULT_LOSE_SCORE = 120;
+     static int DEFAULT_LOSE_SCORE = 150;
      static int CUTOFF_LEVEL = 10;
-     static float SPEED_L1_9_INCREASE = .5f;
+     static float SPEED_L1_9_INCREASE = .3f;
      static float SPEED_L10_INCREASE = .05f;
-     static float RAIN_L10_DECREASE = 1.5f;
-     static float ACID_L1_9_INCREASE = 10f;
-     static float ACID_L10_INCREASE = 2f;
+     static float RAIN_L10_DECREASE = 1f;
+     static float ACID_L1_9_INCREASE = 7f;
+     static float ACID_L10_INCREASE = 1f;
      static int SCORE_L1_9_INCREASE = 10;
      static int SCORE_L10_INCREASE = 1;
 
@@ -276,6 +276,7 @@ public class PropManager {
     //Sound Assets
      static final String AUDIO_ACID_DROP ="sounds/acidDrop.mp3";
      static final String AUDIO_BIRDS = "sounds/birds.mp3";
+     static final String AUDIO_GAME_OVER = "sounds/gameOver.mp3";
      static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
      static final String AUDIO_POWERUP = "sounds/powerup.wav";
      static final String AUDIO_RAIN_DROP = "sounds/rainDrop.mp3";

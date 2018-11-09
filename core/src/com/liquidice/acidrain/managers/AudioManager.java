@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Sound;
 public class AudioManager {
     //All app sound/music files
     private static Sound acidDrop;
+    private static Sound gameOver;
     private static Sound levelWin;
     private static Sound powerup;
     private static Sound rainDrop;
@@ -28,6 +29,7 @@ public class AudioManager {
     static void init(AssetManager manager) {
         acidDrop = manager.get(PropManager.AUDIO_ACID_DROP, Sound.class);
         birds = manager.get(PropManager.AUDIO_BIRDS, Music.class);
+        gameOver = manager.get(PropManager.AUDIO_GAME_OVER, Sound.class);
         levelWin = manager.get(PropManager.AUDIO_LEVEL_WIN, Sound.class);
         powerup = manager.get(PropManager.AUDIO_POWERUP, Sound.class);
         rainDrop = manager.get(PropManager.AUDIO_RAIN_DROP, Sound.class);
@@ -44,6 +46,13 @@ public class AudioManager {
      */
     public static void playAcidDrop() {
         if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { acidDrop.play(); }
+    }
+
+    /**
+     * Play the Game Over sound when game over
+     */
+    public static void playGameOver() {
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { gameOver.play(); }
     }
 
     /**
@@ -86,6 +95,13 @@ public class AudioManager {
      */
     public static void playSiren() {
         if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { siren.play(); }
+    }
+
+    /**
+     * Stop the Siren sound at level complete or game over
+     */
+    public static void stopSiren() {
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { siren.stop(); }
     }
 
     /**

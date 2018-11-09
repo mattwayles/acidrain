@@ -136,8 +136,8 @@ public class GameplayOverlay {
             //Initiate level complete
             if (GameplayManager.getGameState() == PropManager.GAME_PLAY_STATE) {
                 AudioManager.playLevelWin();
+                AudioManager.stopSiren();
                 GameplayManager.setGameState(PropManager.LEVEL_COMPLETE_STATE);
-                //This is the appropriate place to increase level. If you beat a level, then go make a snack, you don't want to be returned to the previous level!
                 GameplayManager.increaseLevel();
             }
 
@@ -148,6 +148,8 @@ public class GameplayOverlay {
         }
         else if (strength <= 0) { //Check if game lost
             sirenPlayed = false;
+            AudioManager.stopSiren();
+            AudioManager.playGameOver();
             City.setImage(manager.get(PropManager.TEXTURE_CITY_1, Texture.class));
             GameplayManager.setGameState(PropManager.GAME_OVER_STATE);
         }

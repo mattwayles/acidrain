@@ -135,6 +135,7 @@ public class AssetLoader {
     private void loadSounds() {
         manager.load(PropManager.AUDIO_ACID_DROP, Sound.class);
         manager.load(PropManager.AUDIO_BIRDS, Music.class);
+        manager.load(PropManager.AUDIO_GAME_OVER, Sound.class);
         manager.load(PropManager.AUDIO_LEVEL_WIN, Sound.class);
         manager.load(PropManager.AUDIO_POWERUP, Sound.class);
         manager.load(PropManager.AUDIO_RAIN_DROP, Sound.class);
