@@ -25,7 +25,8 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 //TODO:
 // CLEANUP: Screen size management is all jacked up
-// FEATURE: I need to know when a powerup is near expiration
+// BUG: What happens to countdown when multiple powerups are active?
+// FEATURE: Countdown sound?
 // FEATURE: (Powerup) - Audience Participation; All blue drops that land in city count toward score
 // FEATURE: (Powerup) - Purple rain; turn acid purple, damage is halved for X seconds. Make fun with guitar drop & sounds
 // FEATURE: (Powerup) - Super Healthpack, or something like that; completely restore city strength

@@ -1,7 +1,10 @@
 package com.liquidice.acidrain.managers;
 
 import com.badlogic.gdx.Gdx;
-import com.liquidice.acidrain.sprites.drops.PowerupDrop;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.liquidice.acidrain.sprites.Bucket;
+import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
  * Manager Powerup State
@@ -10,6 +13,17 @@ public class PowerupManager {
     private static boolean umbrellaActive;
     private static boolean shieldActive;
     private static boolean filterActive;
+    private static BitmapFont countdown;
+
+    /**
+     * Initialize the countdown Font
+     */
+    public static void init() {
+        countdown = new BitmapFont(
+                Gdx.files.internal(PropManager.FONT_PLAY_100),
+                Gdx.files.internal(PropManager.FONT_PLAY_100_PNG),
+                false);
+    }
 
     /**
      * Deactivate ALL Powerups
@@ -105,5 +119,28 @@ public class PowerupManager {
         }
 
         return num;
+    }
+
+    /**
+     * Draw a countdown on the screen is powerup is nearing expiration
+     * @param batch The batch to draw this font on
+     * @param activationTime The activation time to use for countdown reference
+     */
+    public static void checkCountdown(Batch batch, int activationTime) {
+        int count = PowerupManager.isUmbrellaActive() ? CountManager.getUmbrellaCount()
+                : PowerupManager.isShieldActive() ? CountManager.getShieldCount() : CountManager.getFilterCount();
+
+        if (count > activationTime - PropManager.ONE_SECOND) {
+            countdown.draw(batch, PropManager.ONE, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
+                    PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
+        }
+        else if (count > activationTime - PropManager.TWO_SECONDS) {
+            countdown.draw(batch, PropManager.TWO, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
+                    PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
+        }
+        else if (count > activationTime - PropManager.THREE_SECONDS) {
+            countdown.draw(batch, PropManager.THREE, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
+                    PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
+        }
     }
 }

@@ -11,4 +11,8 @@ public class SpriteUtil {
         return fullSize / 2;
     }
 
+    /**
+     * Double an integer value
+     */
+    public static int timesTwo(int num) { return num * 2; }
 }

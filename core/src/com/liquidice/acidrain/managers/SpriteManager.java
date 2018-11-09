@@ -21,6 +21,7 @@ public class SpriteManager {
         Umbrella.init(manager.get(PropManager.TEXTURE_UMBRELLA_LEFT, Texture.class),
                 manager.get(PropManager.TEXTURE_UMBRELLA_RIGHT, Texture.class));
         Shield.init(manager.get(PropManager.TEXTURE_SHIELD, Texture.class));
+        PowerupManager.init();
 
     }
 }

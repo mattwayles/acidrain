@@ -96,7 +96,7 @@ public class GameplayScreen {
             }
         }
 
-        manageFilterStatus();
+        manageFilterStatus(batch);
     }
 
     /**
@@ -297,10 +297,11 @@ public class GameplayScreen {
     /**
      * Check the status of the Filter powerup and modify if necessary
      */
-    private void manageFilterStatus() {
+    private void manageFilterStatus(Batch batch) {
         if (PowerupManager.isFilterActive()) {
             if (CountManager.getFilterCount() <= PropManager.FILTER_ACTIVATION_TIME) {
                 CountManager.increaseFilterCount();
+                PowerupManager.checkCountdown(batch, PropManager.FILTER_ACTIVATION_TIME);
             } else { //Remove Filter if powerup expired
                 PowerupManager.deactivateFilter();
                 CountManager.resetFilterCount();

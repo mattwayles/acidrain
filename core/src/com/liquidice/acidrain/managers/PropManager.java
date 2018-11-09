@@ -176,6 +176,17 @@ public class PropManager {
     //FILTER PROPERTIES
     public static final int FILTER_ACTIVATION_TIME = 600;
 
+    //COUNTDOWN
+     static final int COUNTDOWN_OFFSET = 5;
+
+    //SECONDS
+     static final int ONE_SECOND = 60;
+     static final String ONE = "1";
+     static final int TWO_SECONDS = 120;
+     static final String TWO = "2";
+     static final int THREE_SECONDS = 180;
+     static final String THREE = "3";
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

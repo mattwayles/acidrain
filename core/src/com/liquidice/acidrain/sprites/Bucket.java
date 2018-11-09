@@ -3,6 +3,7 @@ package com.liquidice.acidrain.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.PowerupManager;
@@ -119,6 +120,7 @@ public class Bucket {
             if (CountManager.getUmbrellaCount() <= PropManager.UMBRELLA_ACTIVATION_TIME) {
                 Umbrella.draw(batch);
                 CountManager.increaseUmbrellaCount();
+                PowerupManager.checkCountdown(batch, PropManager.UMBRELLA_ACTIVATION_TIME);
             }
             else { //Remove umbrella if powerup expired
                 PowerupManager.deactivateUmbrella();
@@ -126,14 +128,17 @@ public class Bucket {
             }
         }
         //Add shield if powerup is active
-        else if (PowerupManager.isShieldActive()) {
+        if (PowerupManager.isShieldActive()) {
             if (CountManager.getShieldCount() <= PropManager.SHIELD_ACTIVATION_TIME) {
                 Shield.draw(batch);
                 CountManager.increaseShieldCount();
+                PowerupManager.checkCountdown(batch, PropManager.SHIELD_ACTIVATION_TIME);
             } else { //Remove shield if powerup expired
                 PowerupManager.deactivateShield();
                 CountManager.resetShieldCount();
             }
         }
     }
+
+
 }
