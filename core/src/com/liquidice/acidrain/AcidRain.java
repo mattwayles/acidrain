@@ -25,7 +25,6 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 //TODO:
 // CLEANUP: Screen size management is all jacked up
-// FEATURE: After unlocking a powerup, make it the first drop in the next level
 // FEATURE: I need to know when a powerup is near expiration
 // FEATURE: (Powerup) - Audience Participation; All blue drops that land in city count toward score
 // FEATURE: (Powerup) - Purple rain; turn acid purple, damage is halved for X seconds. Make fun with guitar drop & sounds

@@ -1,5 +1,8 @@
 package com.liquidice.acidrain.managers;
 
+import com.badlogic.gdx.Gdx;
+import com.liquidice.acidrain.sprites.drops.PowerupDrop;
+
 /**
  * Manager Powerup State
  */
@@ -76,4 +79,31 @@ public class PowerupManager {
      * Deactivate the Filter Powerup
      */
     public static void deactivateFilter() { filterActive = false; }
+
+    /**
+     * Determine if current level is immediately after a powerup unlock
+     * @return int indicating if current level is immediately after a powerup unlock
+     */
+    public static int checkPowerupLevel() {
+        int num = -1;
+
+        int level = GameplayManager.getLevel();
+        if (level == PropManager.UNLOCK_1_LEVEL) {
+            num = 6;
+        }
+        else if (level == PropManager.UNLOCK_2_LEVEL) {
+            num = PropManager.HEALTHPACK_CHANCE;
+        }
+        else if(level == PropManager.UNLOCK_3_LEVEL) {
+            num = PropManager.UMBRELLA_CHANCE;
+        }
+        else if (level == PropManager.UNLOCK_4_LEVEL) {
+            num = PropManager.SHIELD_CHANCE;
+        }
+        else if (level == PropManager.UNLOCK_5_LEVEL) {
+            num = PropManager.FILTER_CHANCE;
+        }
+
+        return num;
+    }
 }
