@@ -35,16 +35,16 @@ public class PropManager {
      static int DEFAULT_START_LEVEL = 1;
      static float DEFAULT_MAX_SPEED = 4f;
      static float DEFAULT_MIN_SPEED = 1.5f;
-     static int DEFAULT_RAIN_FREQUENCY = 50;
+     static int DEFAULT_RAIN_FREQUENCY = 40;
      static int DEFAULT_ACID_FREQUENCY = 140;
      static int DEFAULT_WIN_SCORE = 150;
      static int DEFAULT_LOSE_SCORE = 150;
      static int CUTOFF_LEVEL = 10;
      static float SPEED_L1_9_INCREASE = .3f;
-     static float SPEED_L10_INCREASE = .05f;
+     static float SPEED_L10_INCREASE = .075f;
      static float RAIN_L10_DECREASE = 1f;
      static float ACID_L1_9_INCREASE = 7f;
-     static float ACID_L10_INCREASE = 1f;
+     static float ACID_L10_INCREASE = 2f;
      static int SCORE_L1_9_INCREASE = 10;
      static int SCORE_L10_INCREASE = 1;
 
@@ -158,7 +158,7 @@ public class PropManager {
     ////////////////////////////////// POWERUP PROPERTIES //////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //CHANCE
-    public static int POWERUP_CHANCE_TOTAL = 25;
+    public static int POWERUP_CHANCE_TOTAL = 30;
     public static int POWERUP_CHANCE = 15;
     public static int HEALTHPACK_CHANCE = 16;
     public static int UMBRELLA_CHANCE = 17;
