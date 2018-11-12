@@ -25,9 +25,9 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 //TODO:
 // CLEANUP: Screen size management is all jacked up
-// BUG: What happens to countdown when multiple powerups are active?
-// FEATURE: Countdown sound?
-// FEATURE: (Powerup) - Audience Participation; All blue drops that land in city count toward score
+// TEST: Correct countdown when multiple powerups are active
+// TEST: Countdown sound?
+// BUG: No city on Start Screen
 // FEATURE: (Powerup) - Purple rain; turn acid purple, damage is halved for X seconds. Make fun with guitar drop & sounds
 // FEATURE: (Powerup) - Super Healthpack, or something like that; completely restore city strength
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
@@ -95,8 +95,8 @@ public class AcidRain extends ApplicationAdapter {
 
 		//On every screen, draw the background, city, and bucket
 		Background.draw(batch);
-		City.draw(batch);
 		Bucket.draw(batch);
+		City.draw(batch);
 
 		//Render different Screens based on game state
 		switch (GameplayManager.getGameState()) {

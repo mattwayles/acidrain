@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Sound;
 public class AudioManager {
     //All app sound/music files
     private static Sound acidDrop;
+    private static Sound countdown;
     private static Sound gameOver;
     private static Sound levelWin;
     private static Sound powerup;
@@ -29,6 +30,7 @@ public class AudioManager {
     static void init(AssetManager manager) {
         acidDrop = manager.get(PropManager.AUDIO_ACID_DROP, Sound.class);
         birds = manager.get(PropManager.AUDIO_BIRDS, Music.class);
+        countdown = manager.get(PropManager.AUDIO_COUNTDOWN, Sound.class);
         gameOver = manager.get(PropManager.AUDIO_GAME_OVER, Sound.class);
         levelWin = manager.get(PropManager.AUDIO_LEVEL_WIN, Sound.class);
         powerup = manager.get(PropManager.AUDIO_POWERUP, Sound.class);
@@ -46,6 +48,13 @@ public class AudioManager {
      */
     public static void playAcidDrop() {
         if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { acidDrop.play(); }
+    }
+
+    /**
+     * Play the Countdown sound when an a countdown is occurring
+     */
+   static void playCountdown() {
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { countdown.play(); }
     }
 
     /**

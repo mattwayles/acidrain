@@ -18,12 +18,14 @@ public class PropManager {
     public static int UNLOCKABLE_UMBRELLA = 2;
     public static int UNLOCKABLE_SHIELD = 3;
     public static int UNLOCKABLE_FILTRATION = 4;
+    public static int UNLOCKABLE_TEAMWORK = 5;
 
     public static int UNLOCK_1_LEVEL = 5;
     public static int UNLOCK_2_LEVEL = 10;
     public static int UNLOCK_3_LEVEL = 15;
     public static int UNLOCK_4_LEVEL = 20;
     public static int UNLOCK_5_LEVEL = 25;
+    public static int UNLOCK_6_LEVEL = 2;
     public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
     public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
 
@@ -93,6 +95,9 @@ public class PropManager {
     public static String POWERUP_SHIELD_DESC = "Total city Protection for 30 seconds";
     public static String POWERUP_FILTRATION_TITLE = "FILTRATION SYSTEM";
     public static String POWERUP_FILTRATION_DESC = "Filter acid from rain for 10 seconds";
+    public static String POWERUP_TEAMWORK_TITLE = "TEAMWORK";
+    public static String POWERUP_TEAMWORK_DESC = "Clean drops landing in city increase";
+    public static String POWERUP_TEAMWORK_DESC2 = "score for 30 seconds";
     public static int POWERUP_ANIMATION_TIME = 10;
     public static String ITEM_UNLOCKED_TEXT = "Powerup Unlocked!";
     public static String UNLOCKED_HOLD_TEXT = "Touch anywhere to play Level ";
@@ -100,6 +105,7 @@ public class PropManager {
     public static int UNLOCKED_ITEM_HEADER_HEIGHT = 200;
     public static int UNLOCKED_ITEM_TITLE_HEIGHT = 900;
     public static int UNLOCKED_ITEM_POWER_HEIGHT = 1150;
+    public static int UNLOCKED_ITEM_POWER_LINE2_HEIGHT = 1200;
     public static int UNLOCKED_ITEM_HOLD_HEIGHT = 1450;
     public static int UNLOCKED_ITEM_SIZE_MULTIPLIER = 4;
     public static int UNLOCKED_ITEM_BOUNCE = 6;
@@ -168,6 +174,7 @@ public class PropManager {
     public static int UMBRELLA_CHANCE = 17;
     public static int SHIELD_CHANCE = 18;
     public static int FILTER_CHANCE = 19;
+    public static int TEAMWORK_CHANCE = 20;
 
     //UMBRELLA PROPERTIES
     public static final int UMBRELLA_ACTIVATION_TIME = 1800;
@@ -179,6 +186,9 @@ public class PropManager {
 
     //FILTER PROPERTIES
     public static final int FILTER_ACTIVATION_TIME = 600;
+
+    //TEAMWORK ACTIVATION TIME
+    public static final int TEAMWORK_ACTIVATION_TIME = 1800;
 
     //COUNTDOWN
      static final int COUNTDOWN_OFFSET = 5;
@@ -270,6 +280,9 @@ public class PropManager {
     public static final String TEXTURE_SHIELD_DROP = "unlockables/shield/shieldDrop.png";
     public static final String TEXTURE_SHIELD_UNLOCK = "unlockables/shield/unlockableShield.png";
     public static final String TEXTURE_SUNNY_SKY_10 = "backgrounds/sunnySkyBackground10.png";
+    public static final String TEXTURE_TEAMWORK_DROP = "unlockables/teamwork/teamworkDrop.png";
+    public static final String TEXTURE_TEAMWORK_UNLOCK = "unlockables/teamwork/unlockableTeamwork.png";
+    static final String TEXTURE_TEAMWORK = "unlockables/teamwork/teamwork.png";
     public static final String TEXTURE_UMBRELLA_DROP = "unlockables/umbrella/umbrellaDrop.png";
     static final String TEXTURE_UMBRELLA_LEFT = "unlockables/umbrella/umbrellaLeft.png";
     static final String TEXTURE_UMBRELLA_RIGHT = "unlockables/umbrella/umbrellaRight.png";
@@ -291,6 +304,7 @@ public class PropManager {
     //Sound Assets
      static final String AUDIO_ACID_DROP ="sounds/acidDrop.mp3";
      static final String AUDIO_BIRDS = "sounds/birds.mp3";
+     static final String AUDIO_COUNTDOWN = "sounds/countdown.mp3";
      static final String AUDIO_GAME_OVER = "sounds/gameOver.mp3";
      static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
      static final String AUDIO_POWERUP = "sounds/powerup.wav";

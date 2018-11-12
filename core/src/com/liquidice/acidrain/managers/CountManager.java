@@ -28,6 +28,9 @@ public class CountManager {
     //Filtration activation time
     private static int filterCount;
 
+    //Teamwork activation time
+    private static int teamworkCount;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// RAIN COUNT ///////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -188,6 +191,27 @@ public class CountManager {
      * Reset the FilterCount counter
      */
     public static void resetFilterCount() { filterCount = 0; }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// TEAMWORK COUNT /////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Controls the length of time of teamwork powerup is active
+    /**
+     * Retrieve the current TeamworkCount counter value
+     * @return  The current TeamworkCount counter value
+     */
+    public static int getTeamworkCount() { return teamworkCount; }
+
+    /**
+     * Increase the TeamworkCount counter
+     */
+    public static void increaseTeamworkCount() { teamworkCount++; }
+
+    /**
+     * Reset the FilterCount counter
+     */
+    public static void resetTeamworkCount() { teamworkCount = 0; }
 
     /**
      * Clear all counters

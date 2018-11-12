@@ -13,6 +13,7 @@ public class PowerupManager {
     private static boolean umbrellaActive;
     private static boolean shieldActive;
     private static boolean filterActive;
+    private static boolean teamworkActive;
     private static BitmapFont countdown;
 
     /**
@@ -32,6 +33,7 @@ public class PowerupManager {
         umbrellaActive = false;
         shieldActive = false;
         filterActive = false;
+        teamworkActive = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,6 +96,28 @@ public class PowerupManager {
      */
     public static void deactivateFilter() { filterActive = false; }
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////../// TEAMWORK /////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Determine Active status of the Teamwork Powerup
+     * @return Boolean determining Active status of the Teamwork Powerup
+     */
+    public static boolean isTeamworkActive() { return teamworkActive; }
+
+    /**
+     * Activate the Teamwork Powerup
+     */
+    public static void activateTeamwork() {
+        teamworkActive = true; }
+
+    /**
+     * Deactivate the Teamwork Powerup
+     */
+    public static void deactivateTeamwork() { teamworkActive = false; }
+
     /**
      * Determine if current level is immediately after a powerup unlock
      * @return int indicating if current level is immediately after a powerup unlock
@@ -117,6 +141,9 @@ public class PowerupManager {
         else if (level == PropManager.UNLOCK_5_LEVEL) {
             num = PropManager.FILTER_CHANCE;
         }
+        else if (level == PropManager.UNLOCK_6_LEVEL) {
+            num = PropManager.TEAMWORK_CHANCE;
+        }
 
         return num;
     }
@@ -127,20 +154,34 @@ public class PowerupManager {
      * @param activationTime The activation time to use for countdown reference
      */
     public static void checkCountdown(Batch batch, int activationTime) {
-        int count = PowerupManager.isUmbrellaActive() ? CountManager.getUmbrellaCount()
-                : PowerupManager.isShieldActive() ? CountManager.getShieldCount() : CountManager.getFilterCount();
+        int count = getClosestExpiringPowerup();
 
         if (count > activationTime - PropManager.ONE_SECOND) {
+            if (count == PropManager.ONE_SECOND) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.ONE, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
         }
         else if (count > activationTime - PropManager.TWO_SECONDS) {
+            if (count == PropManager.TWO_SECONDS) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.TWO, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
         }
         else if (count > activationTime - PropManager.THREE_SECONDS) {
+            if (count == PropManager.THREE_SECONDS) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.THREE, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
         }
+    }
+
+    /**
+     * Retrieve correct coundown time
+     */
+    private static int getClosestExpiringPowerup() {
+        int max = umbrellaActive ? CountManager.getUmbrellaCount() : 0;
+        max = shieldActive && CountManager.getShieldCount() > max ? CountManager.getShieldCount() : max;
+        max = filterActive && CountManager.getFilterCount() > max ? CountManager.getFilterCount() : max;
+        max = teamworkActive && CountManager.getTeamworkCount() > max ? CountManager.getTeamworkCount() : max;
+
+        return max;
     }
 }

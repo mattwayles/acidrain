@@ -3,9 +3,9 @@ package com.liquidice.acidrain.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.liquidice.acidrain.managers.CountManager;
+import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.utilities.SpriteUtil;
@@ -111,8 +111,6 @@ public class Bucket {
      * @param batch The active sprite batch to include the bucket in
      */
     public static void draw(Batch batch) {
-        batch.draw(image, x, PropManager.BUCKET_HOVER, image.getWidth(), image.getHeight());
-
         //Check umbrella powerup activity
         if (PowerupManager.isUmbrellaActive()) {
 
@@ -121,8 +119,7 @@ public class Bucket {
                 Umbrella.draw(batch);
                 CountManager.increaseUmbrellaCount();
                 PowerupManager.checkCountdown(batch, PropManager.UMBRELLA_ACTIVATION_TIME);
-            }
-            else { //Remove umbrella if powerup expired
+            } else { //Remove umbrella if powerup expired
                 PowerupManager.deactivateUmbrella();
                 CountManager.resetUmbrellaCount();
             }
@@ -138,7 +135,20 @@ public class Bucket {
                 CountManager.resetShieldCount();
             }
         }
+
+        if (PowerupManager.isTeamworkActive()) {
+            if (CountManager.getTeamworkCount() <= PropManager.TEAMWORK_ACTIVATION_TIME) {
+                Teamwork.draw(batch);
+                CountManager.increaseTeamworkCount();
+                PowerupManager.checkCountdown(batch, PropManager.TEAMWORK_ACTIVATION_TIME);
+            } else { //Remove teamwork if powerup expired
+                PowerupManager.deactivateTeamwork();
+                CountManager.resetTeamworkCount();
+            }
+        }
+
+        if (GameplayManager.getGameState() == PropManager.GAME_PLAY_STATE) {
+            batch.draw(image, x, PropManager.BUCKET_HOVER, image.getWidth(), image.getHeight());
+        }
     }
-
-
 }

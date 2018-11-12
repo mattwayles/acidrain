@@ -13,6 +13,7 @@ import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.Shield;
+import com.liquidice.acidrain.sprites.Teamwork;
 import com.liquidice.acidrain.sprites.Umbrella;
 import com.liquidice.acidrain.sprites.drops.AcidDrop;
 import com.liquidice.acidrain.sprites.drops.Drop;
@@ -120,6 +121,15 @@ public class GameplayScreen {
                 Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
                 batch.draw(drops.get(i).getSplash(),  drops.get(i).getX(), drops.get(i).getY());
                 drops.get(i).setSpeed(0);
+            }
+            //Intersect with teamwork rainbow
+            else if (PowerupManager.isTeamworkActive() && Intersector.overlaps(Teamwork.getRect(), drops.get(i).getRect())) {
+                if (drops.get(i) instanceof RainDrop) {
+                    ScoreManager.increaseCaughtScore(drops.get(i).getPoints());
+                    AudioManager.playRainDrop();
+                    Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
+                    drops.remove(i);
+                }
             }
             //Intersect with TOP bucket rectangle
             else if (Intersector.overlaps(Bucket.getTopRect(), drops.get(i).getRect())) {
@@ -262,6 +272,10 @@ public class GameplayScreen {
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL && (rand == PropManager.FILTER_CHANCE)) { //Filter - 0.16% total chance
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_FILTRATION, x, Gdx.graphics.getHeight()));
+            isDropped = true;
+        }
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL && (rand == PropManager.TEAMWORK_CHANCE)) { //Teamwork - 0.16% total chance
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_TEAMWORK, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         return isDropped;

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GameplayManager;
-import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
 import com.liquidice.acidrain.screens.unlockables.UnlockedScreen;
@@ -91,7 +90,9 @@ public class LevelCompleteScreen {
                         || GameplayManager.getLevel() == PropManager.UNLOCK_2_LEVEL
                         || GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL
                         || GameplayManager.getLevel() == PropManager.UNLOCK_4_LEVEL
-                        || GameplayManager.getLevel() == PropManager.UNLOCK_5_LEVEL)) {
+                        || GameplayManager.getLevel() == PropManager.UNLOCK_5_LEVEL
+                        || GameplayManager.getLevel() == PropManager.UNLOCK_6_LEVEL
+                )) {
 
             if (GameplayManager.getLevel() == PropManager.UNLOCK_1_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class), PropManager.POWERUP_MULTIPLIER_TITLE, PropManager.POWERUP_MULTIPLIER_DESC);
@@ -109,6 +110,9 @@ public class LevelCompleteScreen {
             }
             else if (GameplayManager.getLevel() == PropManager.UNLOCK_5_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_FILTRATION_DROP, Texture.class), PropManager.POWERUP_FILTRATION_TITLE, PropManager.POWERUP_FILTRATION_DESC);
+            }
+            else if (GameplayManager.getLevel() == PropManager.UNLOCK_6_LEVEL) {
+                unlockedScreen.display(manager.get(PropManager.TEXTURE_TEAMWORK_DROP, Texture.class), PropManager.POWERUP_TEAMWORK_TITLE, PropManager.POWERUP_TEAMWORK_DESC, PropManager.POWERUP_TEAMWORK_DESC2);
             }
             powerupLevel = true;
         }

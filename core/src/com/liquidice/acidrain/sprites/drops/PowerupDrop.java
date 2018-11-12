@@ -62,6 +62,10 @@ public class PowerupDrop extends Drop {
                 type = 4;
                 image = manager.get(PropManager.TEXTURE_FILTRATION_DROP, Texture.class);
                 break;
+            case 5: //Teamwork
+                type = 5;
+                image = manager.get(PropManager.TEXTURE_TEAMWORK_DROP, Texture.class);
+                break;
             default:
                 type = 0;
                 image = manager.get(PropManager.POWER_DROP_PREFIX + size + PropManager.PNG, Texture.class);
@@ -107,6 +111,10 @@ public class PowerupDrop extends Drop {
             case 4: //Filtration: Turn all AcidDrops to RainDrops
                 CountManager.resetFilterCount();
                 PowerupManager.activateFilter();
+                break;
+            case 5: //Teamwork
+                CountManager.resetTeamworkCount();
+                PowerupManager.activateTeamwork();
                 break;
         }
     }

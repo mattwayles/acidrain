@@ -99,6 +99,7 @@ public class UnlockablesScreen {
         Image unlockableUmbrella = new Image(manager.get(PropManager.TEXTURE_UMBRELLA_UNLOCK, Texture.class));
         Image unlockableShield = new Image(manager.get(PropManager.TEXTURE_SHIELD_UNLOCK, Texture.class));
         Image unlockableFilter = new Image(manager.get(PropManager.TEXTURE_FILTRATION_UNLOCK, Texture.class));
+        Image unlockableTeamwork = new Image(manager.get(PropManager.TEXTURE_TEAMWORK_UNLOCK, Texture.class));
 
         //Populate inner table with images
         Table table = new Table();
@@ -107,6 +108,7 @@ public class UnlockablesScreen {
         table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL ? unlockableUmbrella : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
         table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL ? unlockableShield :new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
         table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL ? unlockableFilter : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
+        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL ? unlockableTeamwork : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
         table.pack();
         table.setTransform(true);  //clipping enabled
 

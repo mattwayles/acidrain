@@ -48,6 +48,16 @@ public class UnlockedScreen {
      * @param power The powerup power
      */
     public void display(Texture image, String title, String power) {
+        display(image, title, power, null);
+    }
+
+    /**
+     * Display the Unlocked Item screen
+     * @param image The powerup image
+     * @param title The popwerup title
+     * @param power The powerup power
+     */
+    public void display(Texture image, String title, String power, String line2) {
         holdLayout.setText(holdFont, PropManager.UNLOCKED_HOLD_TEXT + GameplayManager.getLevel());
 
         batch.begin();
@@ -84,6 +94,15 @@ public class UnlockedScreen {
                 power,
                 SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(powerupLayout.width),
                 Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_POWER_HEIGHT);
+
+        //Draw second line (if applicable)
+        if (line2 != null) {
+            powerupFont.draw(
+                    batch,
+                    line2,
+                    SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(powerupLayout.width),
+                    Gdx.graphics.getHeight() - PropManager.UNLOCKED_ITEM_POWER_LINE2_HEIGHT);
+        }
 
         //Draw "Hold to Continue"
         holdFont.draw(
