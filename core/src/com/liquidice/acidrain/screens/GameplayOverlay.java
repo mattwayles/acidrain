@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GameplayManager;
+import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
 import com.liquidice.acidrain.sprites.Bucket;
@@ -135,6 +136,7 @@ public class GameplayOverlay {
         if (score >= 100) { //Check if game won
             //Initiate level complete
             if (GameplayManager.getGameState() == PropManager.GAME_PLAY_STATE) {
+                PowerupManager.deactivateAllPowerups();
                 AudioManager.playLevelWin();
                 AudioManager.stopSiren();
                 GameplayManager.setGameState(PropManager.LEVEL_COMPLETE_STATE);
@@ -146,10 +148,11 @@ public class GameplayOverlay {
             City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
             Bucket.setImage(manager.get(PropManager.TEXTURE_BUCKET_9, Texture.class));
         }
-        else if (strength <= 0) { //Check if game lost
+        else if (strength <= 0 && GameplayManager.getGameState() == PropManager.GAME_PLAY_STATE) { //Check if game lost
             sirenPlayed = false;
             AudioManager.stopSiren();
             AudioManager.playGameOver();
+            PowerupManager.deactivateAllPowerups();
             City.setImage(manager.get(PropManager.TEXTURE_CITY_1, Texture.class));
             GameplayManager.setGameState(PropManager.GAME_OVER_STATE);
         }

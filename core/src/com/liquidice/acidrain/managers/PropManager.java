@@ -33,20 +33,24 @@ public class PropManager {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //GAMEPLAY PROPERTIES
      static int DEFAULT_START_LEVEL = 1;
-     static float DEFAULT_MAX_SPEED = 4f;
-     static float DEFAULT_MIN_SPEED = 1.5f;
+     static float DEFAULT_MAX_SPEED = 4.5f;
+     static float DEFAULT_MIN_SPEED = 2f;
      static int DEFAULT_RAIN_FREQUENCY = 50;
-     static int DEFAULT_ACID_FREQUENCY = 125;
+     static int DEFAULT_ACID_FREQUENCY = 140;
      static int DEFAULT_WIN_SCORE = 150;
      static int DEFAULT_LOSE_SCORE = 150;
      static int CUTOFF_LEVEL = 10;
+
+     //LEVELS 1-9 DIFFICULTY
      static float SPEED_L1_9_INCREASE = .3f;
-     static float SPEED_L10_INCREASE = .075f;
-     static float RAIN_L10_DECREASE = 1f;
      static float ACID_L1_9_INCREASE = 7f;
-     static float ACID_L10_INCREASE = 2f;
      static int SCORE_L1_9_INCREASE = 10;
-     static int SCORE_L10_INCREASE = 1;
+
+     //LEVELS 10+ DIFFICULTY
+    static float RAIN_L10_DECREASE = .5f;
+    static float ACID_L10_INCREASE = 1f;
+    static float SPEED_L10_INCREASE = .05f;
+    static int SCORE_L10_INCREASE = 5;
 
     //BACKGROUND PROPERTIES
     public static final int LIGHTNING_FREQUENCY = 500;

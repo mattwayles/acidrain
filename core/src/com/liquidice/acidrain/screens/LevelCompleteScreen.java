@@ -58,9 +58,6 @@ public class LevelCompleteScreen {
         //If a PowerupManager has been unlocked, display that window. If not, display Level Complete window
         if (!checkForPowerupUnlock()) {
 
-            //Deactivate any active powerups
-            PowerupManager.deactivateAllPowerups();
-
             //Determine if level was completed with a perfect score
             Texture levelTexture = ScoreManager.getStrengthPercentage() < PropManager.PERFECT_SCORE ?
                     manager.get(PropManager.TEXTURE_TEXT_LEVEL_COMPLETE, Texture.class) :
