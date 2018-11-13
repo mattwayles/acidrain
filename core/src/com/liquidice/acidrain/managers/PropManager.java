@@ -20,12 +20,13 @@ public class PropManager {
     public static int UNLOCKABLE_FILTRATION = 4;
     public static int UNLOCKABLE_TEAMWORK = 5;
 
-    public static int UNLOCK_1_LEVEL = 5;
+    //TODO: Change unlock levels: Multipliers, Teamwork, Health Pack, Umbrella, Shield, Filter
+    public static int UNLOCK_1_LEVEL = 30;
     public static int UNLOCK_2_LEVEL = 10;
     public static int UNLOCK_3_LEVEL = 15;
     public static int UNLOCK_4_LEVEL = 20;
     public static int UNLOCK_5_LEVEL = 25;
-    public static int UNLOCK_6_LEVEL = 2;
+    public static int UNLOCK_6_LEVEL = 5;
     public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
     public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
 
@@ -37,15 +38,15 @@ public class PropManager {
      static int DEFAULT_START_LEVEL = 1;
      static float DEFAULT_MAX_SPEED = 4.5f;
      static float DEFAULT_MIN_SPEED = 2f;
-     static int DEFAULT_RAIN_FREQUENCY = 50;
+     static int DEFAULT_RAIN_FREQUENCY = 60;
      static int DEFAULT_ACID_FREQUENCY = 140;
      static int DEFAULT_WIN_SCORE = 150;
      static int DEFAULT_LOSE_SCORE = 150;
      static int CUTOFF_LEVEL = 10;
 
      //LEVELS 1-9 DIFFICULTY
-     static float SPEED_L1_9_INCREASE = .3f;
-     static float ACID_L1_9_INCREASE = 7f;
+     static float SPEED_L1_9_INCREASE = .4f;
+     static float ACID_L1_9_INCREASE = 9f;
      static int SCORE_L1_9_INCREASE = 10;
 
      //LEVELS 10+ DIFFICULTY

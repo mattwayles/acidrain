@@ -14,13 +14,13 @@ public class Teamwork {
     private static Texture image;
     private static Rectangle rect;
 
-    public static void init(Texture rainbow) {
-        image = rainbow;
+    public static void init(Texture hands) {
+        image = hands;
         rect = new Rectangle(
                 0,
                 0,
                 Gdx.graphics.getWidth(),
-                rainbow.getHeight() - 10);
+                SpriteUtil.middleOf(hands.getHeight()) + 10);
     }
 
     /**
