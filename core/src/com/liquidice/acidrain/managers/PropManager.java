@@ -21,12 +21,12 @@ public class PropManager {
     public static int UNLOCKABLE_TEAMWORK = 5;
 
     //TODO: Change unlock levels: Multipliers, Teamwork, Health Pack, Umbrella, Shield, Filter
-    public static int UNLOCK_1_LEVEL = 30;
-    public static int UNLOCK_2_LEVEL = 10;
-    public static int UNLOCK_3_LEVEL = 15;
-    public static int UNLOCK_4_LEVEL = 20;
-    public static int UNLOCK_5_LEVEL = 25;
-    public static int UNLOCK_6_LEVEL = 5;
+    public static int UNLOCK_1_LEVEL = 6;
+    public static int UNLOCK_2_LEVEL = 21;
+    public static int UNLOCK_3_LEVEL = 31;
+    public static int UNLOCK_4_LEVEL = 41;
+    public static int UNLOCK_5_LEVEL = 51;
+    public static int UNLOCK_6_LEVEL = 11;
     public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
     public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
 
