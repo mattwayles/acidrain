@@ -28,6 +28,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 // TEST: Correct countdown when multiple powerups are active
 // TEST: Countdown sound?
 // BUG: No city on Start Screen
+// CLEANUP: Switch around Powerup unlock levels
 // FEATURE: (Powerup) - Purple rain; turn acid purple, damage is halved for X seconds. Make fun with guitar drop & sounds
 // FEATURE: (Powerup) - Super Healthpack, or something like that; completely restore city strength
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
