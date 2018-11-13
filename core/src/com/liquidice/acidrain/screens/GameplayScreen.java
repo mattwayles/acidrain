@@ -106,33 +106,8 @@ public class GameplayScreen {
      */
     public void checkCollision(Batch batch) {
         for (int i = 0; i < drops.size(); i++) {
-            //Intersect with umbrella
-            if(PowerupManager.isUmbrellaActive() && (Intersector.overlaps(Umbrella.getLeftRect(), drops.get(i).getRect()) ||
-                    Intersector.overlaps(Umbrella.getRightRect(), drops.get(i).getRect()))) {
-                AudioManager.playUmbrellaSplat();
-                Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
-                batch.draw(drops.get(i).getSplash(),  drops.get(i).getX(), drops.get(i).getY());
-                drops.get(i).setSpeed(0);
-
-            }
-            //Intersect with shield
-            else if (PowerupManager.isShieldActive() && Intersector.overlaps(Shield.getRect(), drops.get(i).getRect())) {
-                AudioManager.playShieldSplat();
-                Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
-                batch.draw(drops.get(i).getSplash(),  drops.get(i).getX(), drops.get(i).getY());
-                drops.get(i).setSpeed(0);
-            }
-            //Intersect with teamwork rainbow
-            else if (PowerupManager.isTeamworkActive() && Intersector.overlaps(Teamwork.getRect(), drops.get(i).getRect())) {
-                if (drops.get(i) instanceof RainDrop) {
-                    ScoreManager.increaseCaughtScore(drops.get(i).getPoints());
-                    AudioManager.playRainDrop();
-                    Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
-                    drops.remove(i);
-                }
-            }
             //Intersect with TOP bucket rectangle
-            else if (Intersector.overlaps(Bucket.getTopRect(), drops.get(i).getRect())) {
+            if (Intersector.overlaps(Bucket.getTopRect(), drops.get(i).getRect())) {
                 //RainDrop - consume
                 if (drops.get(i) instanceof RainDrop) {
                     ScoreManager.increaseCaughtScore(drops.get(i).getPoints());
@@ -171,6 +146,35 @@ public class GameplayScreen {
                 drops.get(i).setSpeed(0);
                 AudioManager.playSideSplat();
                 Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
+            }
+            //Intersect with umbrella
+            else if(PowerupManager.isUmbrellaActive() && (Intersector.overlaps(Umbrella.getLeftRect(), drops.get(i).getRect()) ||
+                    Intersector.overlaps(Umbrella.getRightRect(), drops.get(i).getRect()))) {
+                AudioManager.playUmbrellaSplat();
+                Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
+                batch.draw(drops.get(i).getSplash(),  drops.get(i).getX(), drops.get(i).getY());
+                drops.get(i).setSpeed(0);
+
+            }
+            //Intersect with shield
+            else if (PowerupManager.isShieldActive() && Intersector.overlaps(Shield.getRect(), drops.get(i).getRect())) {
+                AudioManager.playShieldSplat();
+                Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
+                batch.draw(drops.get(i).getSplash(),  drops.get(i).getX(), drops.get(i).getY());
+                drops.get(i).setSpeed(0);
+            }
+            //Intersect with teamwork rainbow
+            else if (PowerupManager.isTeamworkActive() && Intersector.overlaps(Teamwork.getRect(), drops.get(i).getRect())) {
+                if (!(drops.get(i) instanceof AcidDrop)) {
+                    if (drops.get(i) instanceof PowerupDrop) {
+                        ((PowerupDrop) drops.get(i)).executePowerup();
+                    } else {
+                        ScoreManager.increaseCaughtScore(drops.get(i).getPoints());
+                    }
+                    AudioManager.playRainDrop();
+                    Gdx.input.vibrate(PropManager.DROP_SMASH_VIBRATE_TIME);
+                    drops.remove(i);
+                }
             }
         }
     }
@@ -258,24 +262,24 @@ public class GameplayScreen {
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_MULTIPLIERS, x, Gdx.graphics.getHeight(), rand));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL && (rand == PropManager.HEALTHPACK_CHANCE)) { //HEALTHPACK - .16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL && (rand == PropManager.TEAMWORK_CHANCE)) { //Teamwork - 0.16% total chance
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_TEAMWORK, x, Gdx.graphics.getHeight()));
+            isDropped = true;
+        }
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL && (rand == PropManager.HEALTHPACK_CHANCE)) { //HEALTHPACK - .16% total chance
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_HEALTHPACK, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL && (rand == PropManager.UMBRELLA_CHANCE)) { //UMBRELLA - .16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL && (rand == PropManager.UMBRELLA_CHANCE)) { //UMBRELLA - .16% total chance
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_UMBRELLA, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL && (rand == PropManager.SHIELD_CHANCE)) { //Shield - .16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL && (rand == PropManager.SHIELD_CHANCE)) { //Shield - .16% total chance
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_SHIELD, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL && (rand == PropManager.FILTER_CHANCE)) { //Filter - 0.16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL && (rand == PropManager.FILTER_CHANCE)) { //Filter - 0.16% total chance
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_FILTRATION, x, Gdx.graphics.getHeight()));
-            isDropped = true;
-        }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL && (rand == PropManager.TEAMWORK_CHANCE)) { //Teamwork - 0.16% total chance
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_TEAMWORK, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         return isDropped;

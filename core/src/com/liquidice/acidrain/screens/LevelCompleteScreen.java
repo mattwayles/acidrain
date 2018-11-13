@@ -97,22 +97,20 @@ public class LevelCompleteScreen {
             if (GameplayManager.getLevel() == PropManager.UNLOCK_1_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class), PropManager.POWERUP_MULTIPLIER_TITLE, PropManager.POWERUP_MULTIPLIER_DESC);
             }
-
             else if (GameplayManager.getLevel() == PropManager.UNLOCK_2_LEVEL) {
+                unlockedScreen.display(manager.get(PropManager.TEXTURE_TEAMWORK_DROP, Texture.class), PropManager.POWERUP_TEAMWORK_TITLE, PropManager.POWERUP_TEAMWORK_DESC, PropManager.POWERUP_TEAMWORK_DESC2);
+            }
+            else if (GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_HEALTHPACK_DROP, Texture.class), PropManager.POWERUP_HEALTHPACK_TITLE, PropManager.POWERUP_HEALTHPACK_DESC);
             }
-
-            else if (GameplayManager.getLevel() == PropManager.UNLOCK_3_LEVEL) {
+            else if (GameplayManager.getLevel() == PropManager.UNLOCK_4_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_UMBRELLA_DROP, Texture.class), PropManager.POWERUP_UMBRELLA_TITLE, PropManager.POWERUP_UMBRELLA_DESC);
             }
-            else if (GameplayManager.getLevel() == PropManager.UNLOCK_4_LEVEL) {
+            else if (GameplayManager.getLevel() == PropManager.UNLOCK_5_LEVEL) {
                 unlockedScreen.display(manager.get(PropManager.TEXTURE_SHIELD_DROP, Texture.class), PropManager.POWERUP_SHIELD_TITLE, PropManager.POWERUP_SHIELD_DESC);
             }
-            else if (GameplayManager.getLevel() == PropManager.UNLOCK_5_LEVEL) {
-                unlockedScreen.display(manager.get(PropManager.TEXTURE_FILTRATION_DROP, Texture.class), PropManager.POWERUP_FILTRATION_TITLE, PropManager.POWERUP_FILTRATION_DESC);
-            }
             else if (GameplayManager.getLevel() == PropManager.UNLOCK_6_LEVEL) {
-                unlockedScreen.display(manager.get(PropManager.TEXTURE_TEAMWORK_DROP, Texture.class), PropManager.POWERUP_TEAMWORK_TITLE, PropManager.POWERUP_TEAMWORK_DESC, PropManager.POWERUP_TEAMWORK_DESC2);
+                unlockedScreen.display(manager.get(PropManager.TEXTURE_FILTRATION_DROP, Texture.class), PropManager.POWERUP_FILTRATION_TITLE, PropManager.POWERUP_FILTRATION_DESC);
             }
             powerupLevel = true;
         }

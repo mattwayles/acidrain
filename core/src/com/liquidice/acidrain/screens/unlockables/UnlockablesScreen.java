@@ -104,11 +104,12 @@ public class UnlockablesScreen {
         //Populate inner table with images
         Table table = new Table();
         table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_1_LEVEL ? unlockableMultipliers : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
-        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL ? unlockableHealthPack : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
-        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL ? unlockableUmbrella : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
-        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL ? unlockableShield :new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
-        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL ? unlockableFilter : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
-        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL ? unlockableTeamwork : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
+        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL ? unlockableTeamwork : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
+        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL ? unlockableHealthPack : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
+        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL ? unlockableUmbrella : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
+        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL ? unlockableShield :new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
+        table.add(GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL ? unlockableFilter : new Image(manager.get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class))).padTop(10).row();
+
         table.pack();
         table.setTransform(true);  //clipping enabled
 

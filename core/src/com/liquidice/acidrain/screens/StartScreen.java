@@ -146,7 +146,6 @@ public class StartScreen {
             City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
 
             stage.getBatch().end();
-
             //Draw Stage w/ Buttons
             Gdx.input.setInputProcessor(stage);
             displaySoundButton();

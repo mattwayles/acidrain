@@ -3,6 +3,7 @@ package com.liquidice.acidrain;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
@@ -27,8 +28,6 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 // CLEANUP: Screen size management is all jacked up
 // TEST: Correct countdown when multiple powerups are active
 // TEST: Countdown sound?
-// BUG: No city on Start Screen
-// CLEANUP: Switch around Powerup unlock levels
 // FEATURE: (Powerup) - Purple rain; turn acid purple, damage is halved for X seconds. Make fun with guitar drop & sounds
 // FEATURE: (Powerup) - Super Healthpack, or something like that; completely restore city strength
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
@@ -96,12 +95,13 @@ public class AcidRain extends ApplicationAdapter {
 
 		//On every screen, draw the background, city, and bucket
 		Background.draw(batch);
-		Bucket.draw(batch);
 		City.draw(batch);
+		Bucket.draw(batch);
 
 		//Render different Screens based on game state
 		switch (GameplayManager.getGameState()) {
 			case 0: /* Waiting for Input - Display StartScreen */
+				batch.draw(assetManager.get(PropManager.TEXTURE_PLACEHOLDER, Texture.class), 0,0,0,0);
 				screenManager.getStartScreen().display();
 				if (Gdx.input.justTouched()) {
 					GameplayManager.setGameState(PropManager.GAME_START_STATE);

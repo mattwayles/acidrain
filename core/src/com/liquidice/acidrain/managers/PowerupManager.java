@@ -130,19 +130,19 @@ public class PowerupManager {
             num = 6;
         }
         else if (level == PropManager.UNLOCK_2_LEVEL) {
+            num = PropManager.TEAMWORK_CHANCE;
+        }
+        else if (level == PropManager.UNLOCK_3_LEVEL) {
             num = PropManager.HEALTHPACK_CHANCE;
         }
-        else if(level == PropManager.UNLOCK_3_LEVEL) {
+        else if(level == PropManager.UNLOCK_4_LEVEL) {
             num = PropManager.UMBRELLA_CHANCE;
         }
-        else if (level == PropManager.UNLOCK_4_LEVEL) {
+        else if (level == PropManager.UNLOCK_5_LEVEL) {
             num = PropManager.SHIELD_CHANCE;
         }
-        else if (level == PropManager.UNLOCK_5_LEVEL) {
-            num = PropManager.FILTER_CHANCE;
-        }
         else if (level == PropManager.UNLOCK_6_LEVEL) {
-            num = PropManager.TEAMWORK_CHANCE;
+            num = PropManager.FILTER_CHANCE;
         }
 
         return num;
@@ -156,17 +156,17 @@ public class PowerupManager {
     public static void checkCountdown(Batch batch, int activationTime) {
         int count = getClosestExpiringPowerup();
 
-        if (count > activationTime - PropManager.ONE_SECOND) {
+        if (count >= activationTime - PropManager.ONE_SECOND) {
             if (count == PropManager.ONE_SECOND) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.ONE, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
         }
-        else if (count > activationTime - PropManager.TWO_SECONDS) {
+        else if (count >= activationTime - PropManager.TWO_SECONDS) {
             if (count == PropManager.TWO_SECONDS) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.TWO, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
         }
-        else if (count > activationTime - PropManager.THREE_SECONDS) {
+        else if (count >= activationTime - PropManager.THREE_SECONDS) {
             if (count == PropManager.THREE_SECONDS) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.THREE, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));

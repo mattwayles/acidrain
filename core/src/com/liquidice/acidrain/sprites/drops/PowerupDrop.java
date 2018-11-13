@@ -8,7 +8,6 @@ import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
-import com.liquidice.acidrain.screens.GameplayScreen;
 
 /**
  * Render a new Powerup drop
