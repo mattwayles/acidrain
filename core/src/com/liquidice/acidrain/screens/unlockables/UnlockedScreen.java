@@ -116,10 +116,10 @@ public class UnlockedScreen {
         //Draw Bouncing PowerupManager Image
         batch.draw(
                 image,
-                (SpriteUtil.middleOf(Gdx.graphics.getWidth())) - (SpriteUtil.middleOf((image.getWidth() * PropManager.UNLOCKED_ITEM_SIZE_MULTIPLIER))),
+                SpriteUtil.middleOf(Gdx.graphics.getWidth() - image.getWidth()),
                 bounceY,
-                image.getWidth() * PropManager.UNLOCKED_ITEM_SIZE_MULTIPLIER,
-                image.getHeight() * PropManager.UNLOCKED_ITEM_SIZE_MULTIPLIER);
+                image.getWidth(),
+                image.getHeight());
 
         batch.end();
     }

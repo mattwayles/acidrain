@@ -31,6 +31,9 @@ public class CountManager {
     //Teamwork activation time
     private static int teamworkCount;
 
+    //Purple rain activation time
+    private static int purpleRainCount;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// RAIN COUNT ///////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -212,6 +215,26 @@ public class CountManager {
      * Reset the FilterCount counter
      */
     public static void resetTeamworkCount() { teamworkCount = 0; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// PURPLE RAIN COUNT //////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Controls the length of time of purple rain powerup is active
+    /**
+     * Retrieve the current PurpleRainCount counter value
+     * @return  The current PurpleRainCount counter value
+     */
+    public static int getPurpleRainCount() { return purpleRainCount; }
+
+    /**
+     * Increase the TeamworkCount counter
+     */
+    public static void increasePurpleRainCount() { purpleRainCount++; }
+
+    /**
+     * Reset the FilterCount counter
+     */
+    public static void resetPurpleRainCount() { purpleRainCount = 0; }
 
     /**
      * Clear all counters

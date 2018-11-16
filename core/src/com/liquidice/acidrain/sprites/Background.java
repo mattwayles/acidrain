@@ -3,29 +3,35 @@ package com.liquidice.acidrain.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PropManager;
+import com.liquidice.acidrain.utilities.GifDecoder;
 
 /**
  * Render the appropriate background image
  */
 public class Background {
     private static AssetManager manager;
-    private static Texture background;
+
+    //Animation
+    private static Animation<TextureRegion> animation;
+    private static float elapsed = 0;
+
+    public static void init(AssetManager mgr) {
+        setManager(mgr);
+        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("backgrounds/rainBackground.gif").read());
+        animation.setFrameDuration(0.1f);
+    }
 
     /**
      * Set the asset manager to control the assets this class uses
      * @param mgr   The Asset Manager containing assets required for this class
      */
     public static void setManager(AssetManager mgr) { manager = mgr; }
-
-    /**
-     * Set a new background image
-     * @param image   The new background image
-     */
-    private static void setBackground(Texture image) { background = image; }
 
     /**
      * Draw the background image on the batch
@@ -36,13 +42,13 @@ public class Background {
         //Draw the Storm background
         if (CountManager.getBackgroundCount() < PropManager.LIGHTNING_FREQUENCY) {
             CountManager.increaseBackgroundCount();
-            Background.setBackground(manager.get(PropManager.TEXTURE_BG_STORM, Texture.class));
+            elapsed += Gdx.graphics.getDeltaTime();
+            batch.draw(animation.getKeyFrame(elapsed), 0, 0, Gdx.graphics.getWidth() + 50, Gdx.graphics.getHeight());
         }
         else { //Draw a lightning flash
             CountManager.resetBackgroundCount();
-            Background.setBackground(manager.get(PropManager.TEXTURE_BG_LIGHTNING, Texture.class));
+            batch.draw(manager.get(PropManager.TEXTURE_BG_LIGHTNING, Texture.class), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
-        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         //Check for level complete and draw sunny background
         drawSunnyBackground(batch, GameplayManager.getGameState() == PropManager.LEVEL_COMPLETE_STATE);

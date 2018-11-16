@@ -18,6 +18,7 @@ import com.liquidice.acidrain.sprites.Umbrella;
 import com.liquidice.acidrain.sprites.drops.AcidDrop;
 import com.liquidice.acidrain.sprites.drops.Drop;
 import com.liquidice.acidrain.sprites.drops.PowerupDrop;
+import com.liquidice.acidrain.sprites.drops.PurpleRainDrop;
 import com.liquidice.acidrain.sprites.drops.RainDrop;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
@@ -97,7 +98,7 @@ public class GameplayScreen {
             }
         }
 
-        manageFilterStatus(batch);
+        managePowerupCount(batch);
     }
 
     /**
@@ -109,7 +110,7 @@ public class GameplayScreen {
             //Intersect with TOP bucket rectangle
             if (Intersector.overlaps(Bucket.getTopRect(), drops.get(i).getRect())) {
                 //RainDrop - consume
-                if (drops.get(i) instanceof RainDrop) {
+                if (drops.get(i) instanceof RainDrop || drops.get(i) instanceof PurpleRainDrop) {
                     ScoreManager.increaseCaughtScore(drops.get(i).getPoints());
                     AudioManager.playRainDrop();
                     Gdx.input.vibrate(PropManager.RAINDROP_CAUGHT_VIBRATE_TIME);
@@ -222,7 +223,11 @@ public class GameplayScreen {
         if (isRain) {
             renderDrop(size, x, speed);
         } else if (!GameplayManager.isPaused()) {
-            drops.add(new AcidDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
+            if (PowerupManager.isPurpleRainActive() && size <= 4) {
+                drops.add(new PurpleRainDrop(manager, x, Gdx.graphics.getHeight(), speed));
+            } else {
+                drops.add(new AcidDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
+            }
         }
     }
 
@@ -257,29 +262,38 @@ public class GameplayScreen {
      * @return Boolean value indicating whether a powerup was dropped
      */
     private boolean renderPowerupDrop(int rand, float x) {
+
+        //Reel in corner drops
+        int corner = Gdx.graphics.getWidth() -  PropManager.PAGE_WIDTH_OFFSET;
+        x = x > corner ? corner : x;
+
         boolean isDropped = false;
         if (GameplayManager.getLevel() >= PropManager.UNLOCK_1_LEVEL && (rand > 1 && rand < 7)) { // MULTIPLIER - .16% total chance
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_MULTIPLIERS, x, Gdx.graphics.getHeight(), rand));
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_MULTIPLIERS_TYPE, x, Gdx.graphics.getHeight(), rand));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL && (rand == PropManager.TEAMWORK_CHANCE)) { //Teamwork - 0.16% total chance
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_TEAMWORK, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_TEAMWORK_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL && (rand == PropManager.HEALTHPACK_CHANCE)) { //HEALTHPACK - .16% total chance
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_HEALTHPACK, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_HEALTHPACK_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL && (rand == PropManager.UMBRELLA_CHANCE)) { //UMBRELLA - .16% total chance
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_UMBRELLA, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_UMBRELLA_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL && (rand == PropManager.SHIELD_CHANCE)) { //Shield - .16% total chance
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_SHIELD, x, Gdx.graphics.getHeight()));
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL && (rand == PropManager.PURPLE_RAIN_CHANCE)) { //Purple Rain - 0.16% total chance
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_PURPLE_RAIN_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL && (rand == PropManager.FILTER_CHANCE)) { //Filter - 0.16% total chance
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_FILTRATION, x, Gdx.graphics.getHeight()));
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL && (rand == PropManager.SHIELD_CHANCE)) { //Shield - .16% total chance
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_SHIELD_TYPE, x, Gdx.graphics.getHeight()));
+            isDropped = true;
+        }
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_7_LEVEL && (rand == PropManager.FILTER_CHANCE)) { //Filter - 0.16% total chance
+            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_FILTRATION_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         return isDropped;
@@ -295,8 +309,14 @@ public class GameplayScreen {
         batch.draw(drop.getSplash(), drop.getX(), drop.getY());
 
         //If splash is acid, decrease strength
-        if (CountManager.getSplashCount() == 0 && drop instanceof AcidDrop) {
-            ScoreManager.decreaseStrengthScore(drop.getPoints());
+        if (CountManager.getSplashCount() == 0) {
+            if (drop instanceof AcidDrop) {
+                ScoreManager.decreaseStrengthScore(drop.getPoints());
+            }
+            else if (drop instanceof PurpleRainDrop) {
+                //Purple Rain will only decrease half of a large acid drop
+                ScoreManager.decreaseStrengthScore(3);
+            }
         }
 
         //Continue rendering splash until counter hits max
@@ -313,9 +333,9 @@ public class GameplayScreen {
 
 
     /**
-     * Check the status of the Filter powerup and modify if necessary
+     * Check the status of active powerups and modify if necessary
      */
-    private void manageFilterStatus(Batch batch) {
+    private void managePowerupCount(Batch batch) {
         if (PowerupManager.isFilterActive()) {
             if (CountManager.getFilterCount() <= PropManager.FILTER_ACTIVATION_TIME) {
                 CountManager.increaseFilterCount();
@@ -323,6 +343,15 @@ public class GameplayScreen {
             } else { //Remove Filter if powerup expired
                 PowerupManager.deactivateFilter();
                 CountManager.resetFilterCount();
+            }
+        }
+        if (PowerupManager.isPurpleRainActive()) {
+            if (CountManager.getPurpleRainCount() <= PropManager.PURPLE_RAIN_ACTIVATION_TIME) {
+                CountManager.increasePurpleRainCount();
+                PowerupManager.checkCountdown(batch, PropManager.PURPLE_RAIN_ACTIVATION_TIME);
+            } else { //Remove Purple Rain if powerup expired
+                PowerupManager.deactivatePurpleRain();
+                CountManager.resetPurpleRainCount();
             }
         }
     }

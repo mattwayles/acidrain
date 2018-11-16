@@ -25,17 +25,21 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
 //TODO:
+
 // CLEANUP: Screen size management is all jacked up
-// TEST: Correct countdown when multiple powerups are active
-// BUG: Rain is lagging. Is this just too much rendered, slow processing, or something else?
-// BUG: Countdown sound not working
-// FEATURE: Raining background animation
-// FEATURE: (Powerup) - Purple rain; turn acid purple, damage is halved for X seconds. Make fun with guitar drop & sounds
+
+// BUG: Why do two powerups usually fall at a time?
+// BUG: Game appears to lag when not shut down for a while, indicating bad resource release
+
 // FEATURE: (Powerup) - Super Healthpack, or something like that; completely restore city strength
-// FEATURE: Snow levels. SNOW LEVELS!
-// FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water
-// FEATURE: Tornado; drops rotate, X position changes
-// FEATURE:Purchase powerups with in-app purchases
+// FEATURE: (Powerup) - Something that gives immunity against catching acid for the rest of the level!
+// FEATURE: Snowstorm levels. SNOW STORM LEVELS!
+// FEATURE: Tornado levels; drops rotate, X position changes
+// FEATURE: Point system. Gain points when rain caught/levels completed/random coin drops/offline/etc.
+	// that can be used to increase raindrop power, decrease acid power, increase coin worth, and increase offline earnings. Display points on main screen and gameplay screen
+	// lifetime points can be a badge earner, leaderboard category
+// FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water - make them unlock backgrounds, raindrops, acid drops, buckets, cities, etc!
+// FEATURE: Purchase powerups with in-app purchases
 // FEATURE: Implement Android Leaderboard API to track leader
 // FEATURE: If no go on Android Leaderboard: Firebase integration, React website (leaderboard, awareness competition)
 // FEATURE: Moar powerups
@@ -43,8 +47,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 // FEATURE: Purchase new buckets with in-app purchases
 // FEATURE: Multiplayer, otherwise nobody will play!
 // FEATURE: When I have a perfect, beautiful app with auto-updating React leaderboards, buy Mac & port to iOS
-// Internal Discussion: Should points/coins be implemented in any way?
-//Artist attribution
+// Artist attribution
 
 /**
  * Play Acid Rain, a game where you protect your city by filling a bucket of clean water while
@@ -61,6 +64,8 @@ public class AcidRain extends ApplicationAdapter {
 
 	//Input
 	private static GestureDetector inputProcessor;
+
+
 
 
 	/**
@@ -94,12 +99,9 @@ public class AcidRain extends ApplicationAdapter {
 	@Override
 	public void render () {
 		batch.begin();
-
-		//On every screen, draw the background, city, and bucket
 		Background.draw(batch);
-		City.draw(batch);
-		Bucket.draw(batch);
-
+        City.draw(batch);
+        Bucket.draw(batch);
 		//Render different Screens based on game state
 		switch (GameplayManager.getGameState()) {
 			case 0: /* Waiting for Input - Display StartScreen */

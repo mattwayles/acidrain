@@ -14,6 +14,7 @@ public class PowerupManager {
     private static boolean shieldActive;
     private static boolean filterActive;
     private static boolean teamworkActive;
+    private static boolean purpleRainActive;
     private static BitmapFont countdown;
 
     /**
@@ -34,6 +35,7 @@ public class PowerupManager {
         shieldActive = false;
         filterActive = false;
         teamworkActive = false;
+        purpleRainActive = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +100,7 @@ public class PowerupManager {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////../// TEAMWORK /////////////////////////////////////////////
+    ///////////////////////////////////////// TEAMWORK /////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -117,6 +119,32 @@ public class PowerupManager {
      * Deactivate the Teamwork Powerup
      */
     public static void deactivateTeamwork() { teamworkActive = false; }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////// PURPLE RAIN //////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Determine Active status of the Purple Rain Powerup
+     * @return Boolean determining Active status of the Purple Rain Powerup
+     */
+    public static boolean isPurpleRainActive() { return purpleRainActive; }
+
+    /**
+     * Activate the Teamwork Powerup
+     */
+    public static void activatePurpleRain() {
+        purpleRainActive = true; }
+
+    /**
+     * Deactivate the Teamwork Powerup
+     */
+    public static void deactivatePurpleRain() { purpleRainActive = false; }
+
+
+
+
 
     /**
      * Determine if current level is immediately after a powerup unlock
@@ -139,9 +167,12 @@ public class PowerupManager {
             num = PropManager.UMBRELLA_CHANCE;
         }
         else if (level == PropManager.UNLOCK_5_LEVEL) {
-            num = PropManager.SHIELD_CHANCE;
+            num = PropManager.PURPLE_RAIN_CHANCE;
         }
         else if (level == PropManager.UNLOCK_6_LEVEL) {
+            num = PropManager.SHIELD_CHANCE;
+        }
+        else if (level == PropManager.UNLOCK_7_LEVEL) {
             num = PropManager.FILTER_CHANCE;
         }
 
@@ -157,17 +188,17 @@ public class PowerupManager {
         int count = getClosestExpiringPowerup();
 
         if (count >= activationTime - PropManager.ONE_SECOND) {
-            if (count == PropManager.ONE_SECOND) { AudioManager.playCountdown(); }
+            if (count == activationTime - PropManager.ONE_SECOND) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.ONE, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
         }
         else if (count >= activationTime - PropManager.TWO_SECONDS) {
-            if (count == PropManager.TWO_SECONDS) { AudioManager.playCountdown(); }
+            if (count == activationTime - PropManager.TWO_SECONDS) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.TWO, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
         }
         else if (count >= activationTime - PropManager.THREE_SECONDS) {
-            if (count == PropManager.THREE_SECONDS) { AudioManager.playCountdown(); }
+            if (count == activationTime - PropManager.THREE_SECONDS) { AudioManager.playCountdown(); }
             countdown.draw(batch, PropManager.THREE, SpriteUtil.middleOf(Gdx.graphics.getWidth()) - PropManager.COUNTDOWN_OFFSET,
                     PropManager.BUCKET_HOVER + SpriteUtil.timesTwo(Bucket.getImage().getHeight()));
         }
@@ -181,6 +212,7 @@ public class PowerupManager {
         max = shieldActive && CountManager.getShieldCount() > max ? CountManager.getShieldCount() : max;
         max = filterActive && CountManager.getFilterCount() > max ? CountManager.getFilterCount() : max;
         max = teamworkActive && CountManager.getTeamworkCount() > max ? CountManager.getTeamworkCount() : max;
+        max = purpleRainActive && CountManager.getPurpleRainCount() > max ? CountManager.getPurpleRainCount() : max;
 
         return max;
     }

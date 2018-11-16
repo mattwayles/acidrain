@@ -45,7 +45,6 @@ public class AssetLoader {
         manager.load(PropManager.TEXTURE_ACID_SPLASH_LEFT, Texture.class);
         manager.load(PropManager.TEXTURE_ACID_SPLASH_RIGHT, Texture.class);
         manager.load(PropManager.TEXTURE_SHIELD, Texture.class);
-        manager.load(PropManager.TEXTURE_BG_STORM, Texture.class);
         manager.load(PropManager.TEXTURE_BG_LIGHTNING, Texture.class);
         manager.load(PropManager.SUNNY_SKY_PREFIX + 1 + PropManager.PNG, Texture.class);
         manager.load(PropManager.SUNNY_SKY_PREFIX + 2 + PropManager.PNG, Texture.class);
@@ -79,6 +78,7 @@ public class AssetLoader {
         manager.load(PropManager.CITY_PREFIX + 10 + PropManager.PNG, Texture.class);
         manager.load(PropManager.TEXTURE_CLOUDS, Texture.class);
         manager.load(PropManager.TEXTURE_PLACEHOLDER, Texture.class);
+        manager.load(PropManager.TEXTURE_FILTRATION_BOUNCE, Texture.class);
         manager.load(PropManager.TEXTURE_FILTRATION_DROP, Texture.class);
         manager.load(PropManager.TEXTURE_FILTRATION_UNLOCK, Texture.class);
         manager.load(PropManager.RAIN_DROP_PREFIX + 1 + PropManager.PNG, Texture.class);
@@ -96,12 +96,20 @@ public class AssetLoader {
         manager.load(PropManager.TEXTURE_TEXT_LEVEL_COMPLETE, Texture.class);
         manager.load(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
         manager.load(PropManager.TEXTURE_TEXT_PERFECT_LEVEL, Texture.class);
+        manager.load(PropManager.TEXTURE_HEALTHPACK_BOUNCE, Texture.class);
         manager.load(PropManager.TEXTURE_HEALTHPACK_DROP, Texture.class);
         manager.load(PropManager.TEXTURE_HEALTHPACK_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_MULTIPLIER_BOUNCE, Texture.class);
         manager.load(PropManager.TEXTURE_MULTIPLIER_DROP, Texture.class);
         manager.load(PropManager.TEXTURE_MULTIPLIER_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_PURPLE_RAIN, Texture.class);
+        manager.load(PropManager.TEXTURE_PURPLE_RAIN_BOUNCE, Texture.class);
+        manager.load(PropManager.TEXTURE_PURPLE_RAIN_DROP, Texture.class);
+        manager.load(PropManager.TEXTURE_PURPLE_RAIN_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_SHIELD_BOUNCE, Texture.class);
         manager.load(PropManager.TEXTURE_SHIELD_UNLOCK, Texture.class);
         manager.load(PropManager.TEXTURE_SHIELD_DROP, Texture.class);
+        manager.load(PropManager.TEXTURE_TEAMWORK_BOUNCE, Texture.class);
         manager.load(PropManager.TEXTURE_TEAMWORK_DROP, Texture.class);
         manager.load(PropManager.TEXTURE_TEAMWORK_UNLOCK, Texture.class);
         manager.load(PropManager.TEXTURE_TEAMWORK, Texture.class);
@@ -110,6 +118,7 @@ public class AssetLoader {
         manager.load(PropManager.POWER_DROP_PREFIX + 4 + PropManager.PNG, Texture.class);
         manager.load(PropManager.POWER_DROP_PREFIX + 5 + PropManager.PNG, Texture.class);
         manager.load(PropManager.POWER_DROP_PREFIX + 6 + PropManager.PNG, Texture.class);
+        manager.load(PropManager.TEXTURE_UMBRELLA_BOUNCE, Texture.class);
         manager.load(PropManager.TEXTURE_UMBRELLA_DROP, Texture.class);
         manager.load(PropManager.TEXTURE_UMBRELLA_LEFT, Texture.class);
         manager.load(PropManager.TEXTURE_UMBRELLA_RIGHT, Texture.class);
@@ -140,6 +149,7 @@ public class AssetLoader {
         manager.load(PropManager.AUDIO_BIRDS, Music.class);
         manager.load(PropManager.AUDIO_COUNTDOWN, Sound.class);
         manager.load(PropManager.AUDIO_GAME_OVER, Sound.class);
+        manager.load(PropManager.AUDIO_GUITAR, Sound.class);
         manager.load(PropManager.AUDIO_LEVEL_WIN, Sound.class);
         manager.load(PropManager.AUDIO_POWERUP, Sound.class);
         manager.load(PropManager.AUDIO_RAIN_DROP, Sound.class);

@@ -13,19 +13,21 @@ public class PropManager {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// UNLOCKABLE PROPERTIES //////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public static int UNLOCKABLE_MULTIPLIERS = 0;
-    public static int UNLOCKABLE_HEALTHPACK = 1;
-    public static int UNLOCKABLE_UMBRELLA = 2;
-    public static int UNLOCKABLE_SHIELD = 3;
-    public static int UNLOCKABLE_FILTRATION = 4;
-    public static int UNLOCKABLE_TEAMWORK = 5;
+    public static int UNLOCKABLE_MULTIPLIERS_TYPE = 0;
+    public static int UNLOCKABLE_TEAMWORK_TYPE = 1;
+    public static int UNLOCKABLE_HEALTHPACK_TYPE = 2;
+    public static int UNLOCKABLE_UMBRELLA_TYPE = 3;
+    public static int UNLOCKABLE_PURPLE_RAIN_TYPE = 4;
+    public static int UNLOCKABLE_SHIELD_TYPE = 5;
+    public static int UNLOCKABLE_FILTRATION_TYPE = 6;
 
     public static int UNLOCK_1_LEVEL = 6;
     public static int UNLOCK_2_LEVEL = 11;
-    public static int UNLOCK_3_LEVEL = 21;
-    public static int UNLOCK_4_LEVEL = 31;
-    public static int UNLOCK_5_LEVEL = 41;
-    public static int UNLOCK_6_LEVEL = 51;
+    public static int UNLOCK_3_LEVEL = 19;
+    public static int UNLOCK_4_LEVEL = 26;
+    public static int UNLOCK_5_LEVEL = 33;
+    public static int UNLOCK_6_LEVEL = 41;
+    public static int UNLOCK_7_LEVEL = 51;
     public static int UNLOCKABLE_SCORE_MULTIPLIER = 10;
     public static double UNLOCKABLE_HEALTHPACK_MULTIPLIER = .25;
 
@@ -39,6 +41,7 @@ public class PropManager {
      static float DEFAULT_MIN_SPEED = 2f;
      static int DEFAULT_RAIN_FREQUENCY = 60;
      static int DEFAULT_ACID_FREQUENCY = 140;
+
      static int DEFAULT_WIN_SCORE = 150;
      static int DEFAULT_LOSE_SCORE = 150;
      static int CUTOFF_LEVEL = 10;
@@ -85,19 +88,22 @@ public class PropManager {
     public static String UNLOCKED_ITEMS_TEXT = "Unlocked Items";
 
     //Unlocked Screen
-    public static String POWERUP_MULTIPLIER_TITLE = "SCORE MULTIPLIERS";
-    public static String POWERUP_MULTIPLIER_DESC = "Earn up to x6 points from a Single Drop";
-    public static String POWERUP_HEALTHPACK_TITLE = "HEALTH PACK";
-    public static String POWERUP_HEALTHPACK_DESC = "Increase City Strength by 25%";
-    public static String POWERUP_UMBRELLA_TITLE = "UMBRELLA";
-    public static String POWERUP_UMBRELLA_DESC = "Extra Protection for 30 seconds";
-    public static String POWERUP_SHIELD_TITLE = "SHIELD";
-    public static String POWERUP_SHIELD_DESC = "Total city Protection for 30 seconds";
     public static String POWERUP_FILTRATION_TITLE = "FILTRATION SYSTEM";
     public static String POWERUP_FILTRATION_DESC = "Filter acid from rain for 10 seconds";
+    public static String POWERUP_HEALTHPACK_TITLE = "HEALTH PACK";
+    public static String POWERUP_HEALTHPACK_DESC = "Increase City Strength by 25%";
+    public static String POWERUP_MULTIPLIER_TITLE = "SCORE MULTIPLIERS";
+    public static String POWERUP_MULTIPLIER_DESC = "Earn up to x6 points from a Single Drop";
+    public static String POWERUP_PURPLE_RAIN_TITLE = "PURPLE RAIN";
+    public static String POWERUP_PURPLE_RAIN_DESC = "Purple drops are Double Points & half";
+    public static String POWERUP_PURPLE_RAIN_DESC2 = "damage for 30 seconds";
+    public static String POWERUP_SHIELD_TITLE = "SHIELD";
+    public static String POWERUP_SHIELD_DESC = "Total city Protection for 30 seconds";
     public static String POWERUP_TEAMWORK_TITLE = "TEAMWORK";
     public static String POWERUP_TEAMWORK_DESC = "Clean drops landing in city increase";
     public static String POWERUP_TEAMWORK_DESC2 = "score for 30 seconds";
+    public static String POWERUP_UMBRELLA_TITLE = "UMBRELLA";
+    public static String POWERUP_UMBRELLA_DESC = "Extra Protection for 30 seconds";
     public static int POWERUP_ANIMATION_TIME = 10;
     public static String ITEM_UNLOCKED_TEXT = "Powerup Unlocked!";
     public static String UNLOCKED_HOLD_TEXT = "Touch anywhere to play Level ";
@@ -107,7 +113,6 @@ public class PropManager {
     public static int UNLOCKED_ITEM_POWER_HEIGHT = 1150;
     public static int UNLOCKED_ITEM_POWER_LINE2_HEIGHT = 1200;
     public static int UNLOCKED_ITEM_HOLD_HEIGHT = 1450;
-    public static int UNLOCKED_ITEM_SIZE_MULTIPLIER = 4;
     public static int UNLOCKED_ITEM_BOUNCE = 6;
 
     //Level Complete Screen
@@ -126,6 +131,8 @@ public class PropManager {
     public static int LABEL_Y = 30;
     public static int SCORE_Y = 120;
     public static int STRENGTH_SCORE_X = Gdx.graphics.getWidth() - 400;
+
+    public static int PAGE_WIDTH_OFFSET = 90;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,6 +182,7 @@ public class PropManager {
     public static int SHIELD_CHANCE = 18;
     public static int FILTER_CHANCE = 19;
     public static int TEAMWORK_CHANCE = 20;
+    public static int PURPLE_RAIN_CHANCE = 21;
 
     //UMBRELLA PROPERTIES
     public static final int UMBRELLA_ACTIVATION_TIME = 1800;
@@ -189,6 +197,9 @@ public class PropManager {
 
     //TEAMWORK ACTIVATION TIME
     public static final int TEAMWORK_ACTIVATION_TIME = 1800;
+
+    //PURPLE RAIN ACTIVATION TIME
+    public static final int PURPLE_RAIN_ACTIVATION_TIME = 1800;
 
     //COUNTDOWN
      static final int COUNTDOWN_OFFSET = 5;
@@ -256,11 +267,11 @@ public class PropManager {
     public static final String TEXTURE_ACID_SPLASH_RIGHT = "acid/splash/acidSplashRight.png";
     public static final String TEXTURE_BUCKET_0 = "bucket/bucket0.png";
     public static final String TEXTURE_BUCKET_9 = "bucket/bucket9.png";
-    public static final String TEXTURE_BG_STORM = "backgrounds/stormBackground.png";
     public static final String TEXTURE_BG_LIGHTNING = "backgrounds/lightningBackground.jpg";
     public static final String TEXTURE_CITY_1 = "city/city1.png";
     public static final String TEXTURE_CITY_10 = "city/city10.png";
     static final String TEXTURE_CLOUDS = "clouds.png";
+    public static final String TEXTURE_FILTRATION_BOUNCE = "unlockables/filtration/filtrationBounce.png";
     public static final String TEXTURE_FILTRATION_DROP = "unlockables/filtration/filtrationDrop.png";
     public static final String TEXTURE_FILTRATION_UNLOCK = "unlockables/filtration/unlockableFiltration.png";
     public static final String TEXTURE_PLACEHOLDER = "placeholder.png";
@@ -272,17 +283,26 @@ public class PropManager {
     public static final String TEXTURE_TEXT_LEVEL_COMPLETE = "text/levelComplete.png";
     public static final String TEXTURE_TEXT_LOGO = "text/logo.png";
     public static final String TEXTURE_TEXT_PERFECT_LEVEL = "text/perfectLevel.png";
+    public static final String TEXTURE_HEALTHPACK_BOUNCE = "unlockables/healthPack/healthPackBounce.png";
     public static final String TEXTURE_HEALTHPACK_DROP = "unlockables/healthPack/healthPackDrop.png";
     public static final String TEXTURE_HEALTHPACK_UNLOCK = "unlockables/healthPack/unlockableHealthPack.png";
-    public static final String TEXTURE_MULTIPLIER_DROP = "unlockables/powerDrop/multipliersDrop.png";
+    public static final String TEXTURE_MULTIPLIER_BOUNCE = "unlockables/powerDrop/multipliersBounce.png";
+    static final String TEXTURE_MULTIPLIER_DROP = "unlockables/powerDrop/multipliersDrop.png";
     public static final String TEXTURE_MULTIPLIER_UNLOCK = "unlockables/powerDrop/unlockableMultipliers.png";
+    public static final String TEXTURE_PURPLE_RAIN = "unlockables/purpleRain/purpleRain.png";
+    public static final String TEXTURE_PURPLE_RAIN_BOUNCE = "unlockables/purpleRain/purpleRainBounce.png";
+    public static final String TEXTURE_PURPLE_RAIN_DROP = "unlockables/purpleRain/purpleRainDrop.png";
+    public static final String TEXTURE_PURPLE_RAIN_UNLOCK = "unlockables/purpleRain/unlockablePurpleRain.png";
     static final String TEXTURE_SHIELD = "unlockables/shield/shield.jpg";
+    public static final String TEXTURE_SHIELD_BOUNCE = "unlockables/shield/shieldBounce.png";
     public static final String TEXTURE_SHIELD_DROP = "unlockables/shield/shieldDrop.png";
     public static final String TEXTURE_SHIELD_UNLOCK = "unlockables/shield/unlockableShield.png";
     public static final String TEXTURE_SUNNY_SKY_10 = "backgrounds/sunnySkyBackground10.png";
+    public static final String TEXTURE_TEAMWORK_BOUNCE = "unlockables/teamwork/teamworkBounce.png";
     public static final String TEXTURE_TEAMWORK_DROP = "unlockables/teamwork/teamworkDrop.png";
     public static final String TEXTURE_TEAMWORK_UNLOCK = "unlockables/teamwork/unlockableTeamwork.png";
     static final String TEXTURE_TEAMWORK = "unlockables/teamwork/teamwork.png";
+    public static final String TEXTURE_UMBRELLA_BOUNCE = "unlockables/umbrella/umbrellaBounce.png";
     public static final String TEXTURE_UMBRELLA_DROP = "unlockables/umbrella/umbrellaDrop.png";
     static final String TEXTURE_UMBRELLA_LEFT = "unlockables/umbrella/umbrellaLeft.png";
     static final String TEXTURE_UMBRELLA_RIGHT = "unlockables/umbrella/umbrellaRight.png";
@@ -306,6 +326,7 @@ public class PropManager {
      static final String AUDIO_BIRDS = "sounds/birds.mp3";
      static final String AUDIO_COUNTDOWN = "sounds/countdown.mp3";
      static final String AUDIO_GAME_OVER = "sounds/gameOver.mp3";
+     static final String AUDIO_GUITAR = "sounds/guitar.wav";
      static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
      static final String AUDIO_POWERUP = "sounds/powerup.wav";
      static final String AUDIO_RAIN_DROP = "sounds/rainDrop.mp3";

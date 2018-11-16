@@ -15,7 +15,7 @@ import com.liquidice.acidrain.sprites.Umbrella;
  */
 public class SpriteManager {
     public static void init(AssetManager manager) {
-        Background.setManager(manager);
+        Background.init(manager);
         Clouds.init(manager.get(PropManager.TEXTURE_CLOUDS, Texture.class));
         Bucket.init(manager.get(PropManager.TEXTURE_BUCKET_0, Texture.class));
         Umbrella.init(manager.get(PropManager.TEXTURE_UMBRELLA_LEFT, Texture.class),

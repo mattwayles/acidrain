@@ -3,6 +3,7 @@ package com.liquidice.acidrain.sprites.drops;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PowerupManager;
@@ -45,29 +46,33 @@ public class PowerupDrop extends Drop {
                 image = manager.get(PropManager.POWER_DROP_PREFIX + size + PropManager.PNG, Texture.class);
                 this.size = size;
                 break;
-            case 1: //Health Pack
+            case 1: //Teamwork
                 type = 1;
+                image = manager.get(PropManager.TEXTURE_TEAMWORK_DROP, Texture.class);
+                break;
+            case 2: //Health Pack
+                type = 2;
                 image = manager.get(PropManager.TEXTURE_HEALTHPACK_DROP, Texture.class);
                 break;
-            case 2: //Umbrella
-                type = 2;
+            case 3: //Umbrella
+                type = 3;
                 image = manager.get(PropManager.TEXTURE_UMBRELLA_DROP, Texture.class);
                 break;
-            case 3: //Shield
-                type = 3;
+            case 4: //Purple Rain
+                type = 4;
+                image = manager.get(PropManager.TEXTURE_PURPLE_RAIN_DROP, Texture.class);
+                break;
+            case 5: //Shield
+                type = 5;
                 image = manager.get(PropManager.TEXTURE_SHIELD_DROP, Texture.class);
                 break;
-            case 4: //Filtration
-                type = 4;
+            case 6: //Filtration
+                type = 6;
                 image = manager.get(PropManager.TEXTURE_FILTRATION_DROP, Texture.class);
-                break;
-            case 5: //Teamwork
-                type = 5;
-                image = manager.get(PropManager.TEXTURE_TEAMWORK_DROP, Texture.class);
                 break;
             default:
                 type = 0;
-                image = manager.get(PropManager.POWER_DROP_PREFIX + size + PropManager.PNG, Texture.class);
+                image = manager.get(PropManager.POWER_DROP_PREFIX + 2 + PropManager.PNG, Texture.class);
         }
 
         //Set Drop properties
@@ -91,7 +96,11 @@ public class PowerupDrop extends Drop {
             case 0: //Multipliers - Add drop.size * multiplier to score
                 ScoreManager.increaseCaughtScore(size * PropManager.UNLOCKABLE_SCORE_MULTIPLIER);
                 break;
-            case 1: // HealthPack - Add healthpack_multiplier to city strength percentage
+            case 1: //Teamwork
+                CountManager.resetTeamworkCount();
+                PowerupManager.activateTeamwork();
+                break;
+            case 2: // HealthPack - Add healthpack_multiplier to city strength percentage
                 double strengthRestorePercent = ScoreManager.getLoseScore() * PropManager.UNLOCKABLE_HEALTHPACK_MULTIPLIER;
                 if (ScoreManager.getStrengthScore() + strengthRestorePercent < ScoreManager.getLoseScore()) {
                     ScoreManager.setStrengthScore(ScoreManager.getStrengthScore() + (int) strengthRestorePercent);
@@ -99,21 +108,22 @@ public class PowerupDrop extends Drop {
                     ScoreManager.setStrengthScore(ScoreManager.getLoseScore());
                 }
                 break;
-            case 2: //Umbrella - Activate umbrella and draw around bucket
+            case 3: //Umbrella - Activate umbrella and draw around bucket
                 CountManager.resetUmbrellaCount();
                 PowerupManager.activateUmbrella();
                 break;
-            case 3: //Shield - Activate shield and draw under bucket
+            case 4: //Purple Rain: Purple drops are double points, half damage
+                AudioManager.playGuitar();
+                CountManager.resetPurpleRainCount();
+                PowerupManager.activatePurpleRain();
+                break;
+            case 5: //Shield - Activate shield and draw under bucket
                 CountManager.resetShieldCount();
                 PowerupManager.activateShield();
                 break;
-            case 4: //Filtration: Turn all AcidDrops to RainDrops
+            case 6: //Filtration: Turn all AcidDrops to RainDrops
                 CountManager.resetFilterCount();
                 PowerupManager.activateFilter();
-                break;
-            case 5: //Teamwork
-                CountManager.resetTeamworkCount();
-                PowerupManager.activateTeamwork();
                 break;
         }
     }

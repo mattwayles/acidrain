@@ -135,7 +135,7 @@ public class Bucket {
                 CountManager.resetShieldCount();
             }
         }
-
+        //Add teamwork hands if powerup is active
         if (PowerupManager.isTeamworkActive()) {
             if (CountManager.getTeamworkCount() <= PropManager.TEAMWORK_ACTIVATION_TIME) {
                 Teamwork.draw(batch);

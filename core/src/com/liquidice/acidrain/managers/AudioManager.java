@@ -12,6 +12,7 @@ public class AudioManager {
     private static Sound acidDrop;
     private static Sound countdown;
     private static Sound gameOver;
+    private static Sound guitar;
     private static Sound levelWin;
     private static Sound powerup;
     private static Sound rainDrop;
@@ -32,6 +33,7 @@ public class AudioManager {
         birds = manager.get(PropManager.AUDIO_BIRDS, Music.class);
         countdown = manager.get(PropManager.AUDIO_COUNTDOWN, Sound.class);
         gameOver = manager.get(PropManager.AUDIO_GAME_OVER, Sound.class);
+        guitar = manager.get(PropManager.AUDIO_GUITAR, Sound.class);
         levelWin = manager.get(PropManager.AUDIO_LEVEL_WIN, Sound.class);
         powerup = manager.get(PropManager.AUDIO_POWERUP, Sound.class);
         rainDrop = manager.get(PropManager.AUDIO_RAIN_DROP, Sound.class);
@@ -62,6 +64,13 @@ public class AudioManager {
      */
     public static void playGameOver() {
         if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { gameOver.play(); }
+    }
+
+    /**
+     * Play the Guitar sound when a Guitar powerup is caught
+     */
+    public static void playGuitar() {
+        if (PreferenceManager.getBoolean(PropManager.PREF_SOUND_ON, true)) { guitar.play(); }
     }
 
     /**

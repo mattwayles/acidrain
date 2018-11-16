@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.liquidice.acidrain.AcidRain;
 import com.liquidice.acidrain.managers.GameplayManager;
+import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PreferenceManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
@@ -126,6 +127,7 @@ class GameplayButtonOverlay {
                 if (ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
                     PreferenceManager.putInt(PropManager.PREF_LEVEL_BEST, ScoreManager.getCaughtPercentage());
                 }
+                PowerupManager.deactivateAllPowerups();
                 GameplayManager.resume();
                 GameplayManager.setGameState(PropManager.GAME_START_STATE);
                 return false;
