@@ -1,0 +1,26 @@
+ADD AN UNLOCKABLE PROCESS:
+
+-Add UNLOCK_X_LEVEL, POWERUP_X_TITLE, POWERUP_X_DESC, X_CHANCE, X_ACTIVATION_TIME, UNLOCKABLE_X_TYPE & all TEXTURES to PropManager
+-Add all TEXTURE loads to AssetLoader
+-Add new Image and table.add() to UnlockablesScreen, using UNLOCK_X_LEVEL
+-Add new  UNLOCK_X_LEVEL conditional & else if {} to LevelCompleteScreen checkForPowerupLevel()
+-IF powerup requires a counter, Add new counter and functions to CountManager
+-IF powerup requires a counter, Add activation/deactivation methods to PowerupManager & add to getClosestEpiringPowerup()
+-Add else if {} to PowerupManager.checkPowerupLevel() using PropManager.X_CHANCE
+-Add a new case to switch statement in PowerupDrop, and a new execution
+-Add to GameplayScreen.renderPowerupDrop() to actually drop the PowerupDrop, using UNLOCAKBLE_X_TYPE
+-Set up the drop execution; this will vary by drop. If something physical is rendered, put in Bucket. If special drops are rendered, handle directly in GameplayScreen.
+
+RENDERING SOMETHING LIKE A SHIELD/TEAMWORK, etc: Add to Bucket.draw() method
+RENDERING SPECIAL DROPS: Add to GameplayScreen.renderPowerupDrop(). Determine how & how often the drop will be dropped in renderDrop, and how collisions are handled. Add count handler to GameplayScreen.managerPowerupCount()
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+CHANGING UNLOCKABLE LEVEL PROCESS:
+
+-Change UNLOCKABLE_X_TYPE in PropManager
+-Rearrange table.add()s in UnlockablesScreen
+-Rearrange LevelCompleteScreen.checkForPowerupUnlock
+-Rearrange PowerupManager.checkPowerupLevel()
+-Rearrange PowerupDrop switch statement
+-Rearrange GameplayScreen.renderPowerupDrop()
