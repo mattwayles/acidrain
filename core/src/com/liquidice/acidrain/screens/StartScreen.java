@@ -1,7 +1,7 @@
 package com.liquidice.acidrain.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -16,60 +16,74 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Disposable;
+import com.liquidice.acidrain.managers.AssetLoader;
 import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PreferenceManager;
 import com.liquidice.acidrain.managers.PropManager;
-import com.liquidice.acidrain.screens.unlockables.UnlockablesScreen;
+import com.liquidice.acidrain.managers.ScreenManager;
+import com.liquidice.acidrain.sprites.Background;
+import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.City;
+import com.liquidice.acidrain.sprites.Clouds;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
 /**
  * Render a Start ScreenManager containing the logo, session information, and buttons
  */
-public class StartScreen implements Disposable {
+public class StartScreen {
     private Texture logo;
-    private AssetManager manager;
+    private AssetLoader assetLoader;
     private Stage stage = new Stage();
     private BitmapFont redFont;
     private BitmapFont blueFont;
     private GlyphLayout avoidRedLayout;
     private GlyphLayout catchCleanLayout;
+    private GlyphLayout currentLevelLayout;
+    private GlyphLayout bestScoreLayout;
     private ImageButton soundOffButton;
     private ImageButton soundOnButton;
     private ImageButton soundButton;
     private ImageButton unlockButton;
     private ImageButton startButton;
     private ImageButton helpButton;
+    private ImageButton.ImageButtonStyle unlockButtonStyle = new ImageButton.ImageButtonStyle();
+    private ImageButton.ImageButtonStyle startButtonStyle = new ImageButton.ImageButtonStyle();
+    private ImageButton.ImageButtonStyle helpButtonStyle = new ImageButton.ImageButtonStyle();
     private ImageButton.ImageButtonStyle soundOffButtonStyle;
     private ImageButton.ImageButtonStyle soundOnButtonStyle;
     private TextureRegionDrawable soundOffButtonStyleUp;
     private TextureRegionDrawable soundOnButtonStyleUp;
+    private TextureRegion soundOffTextureRegion;
+    private TextureRegion soundOnTextureRegion;
+    private TextureRegion unlockTextureRegion;
+    private TextureRegion helpTextureRegion;
+    private TextureRegion startTextureRegion;
+    private TextureRegionDrawable soundOffDrawable;
+    private TextureRegionDrawable soundOnDrawable;
+    private TextureRegionDrawable unlockDrawable;
+    private TextureRegionDrawable helpDrawable;
+    private TextureRegionDrawable startDrawable;
     private Table table;
     private boolean soundOn;
     private boolean unlockedScreenOpen;
-    private UnlockablesScreen unlockablesScreen;
 
     /**
      * Create the Start ScreenManager
-     * @param manager   AssetLoader containing the assets required for this screen
+     * @param loader   AssetLoader containing the assets required for this screen
      */
-    public StartScreen(AssetManager manager) {
-        this.manager = manager;
-
+    public StartScreen(AssetLoader loader) {
+        this.assetLoader = loader;
+        this.assetLoader.loadStartScreen();
         //Logo and Text
-        logo = manager.get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
+        logo = assetLoader.getManager().get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
         setFonts();
-        catchCleanLayout = new GlyphLayout(blueFont, PropManager.CATCH_BLUE_TEXT);
-        avoidRedLayout = new GlyphLayout(redFont, PropManager.AVOID_RED_TEXT);
+
+        //TODO: Clean up this button stuff, or consolidate into private method:
 
         //Buttons
-        ImageButton.ImageButtonStyle unlockButtonStyle = new ImageButton.ImageButtonStyle();
         soundOffButtonStyle = new ImageButton.ImageButtonStyle();
         soundOnButtonStyle = new ImageButton.ImageButtonStyle();
-        ImageButton.ImageButtonStyle startButtonStyle = new ImageButton.ImageButtonStyle();
-        ImageButton.ImageButtonStyle helpButtonStyle = new ImageButton.ImageButtonStyle();
         soundOffButton = new ImageButton(soundOffButtonStyle);
         soundOnButton = new ImageButton(soundOnButtonStyle);
         soundButton = new ImageButton(soundOnButtonStyle);
@@ -77,24 +91,77 @@ public class StartScreen implements Disposable {
         startButton = new ImageButton(startButtonStyle);
         helpButton = new ImageButton(helpButtonStyle);
 
-        //Images
-        soundOffButtonStyleUp = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_SOUND_OFF, Texture.class)));
-        soundOnButtonStyleUp = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_SOUND_ON, Texture.class)));
-        unlockButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_UNLOCK, Texture.class)));
-        helpButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_HELP, Texture.class)));
-        startButtonStyle.up = new TextureRegionDrawable(new TextureRegion(manager.get(PropManager.BUTTON_START, Texture.class)));
+        //Texture Regions
+        soundOffTextureRegion = new TextureRegion(assetLoader.getManager().get(PropManager.BUTTON_SOUND_OFF, Texture.class));
+        soundOnTextureRegion = new TextureRegion(assetLoader.getManager().get(PropManager.BUTTON_SOUND_ON, Texture.class));
+        unlockTextureRegion = new TextureRegion(assetLoader.getManager().get(PropManager.BUTTON_UNLOCK, Texture.class));
+        helpTextureRegion = new TextureRegion(assetLoader.getManager().get(PropManager.BUTTON_HELP, Texture.class));
+        startTextureRegion = new TextureRegion(assetLoader.getManager().get(PropManager.BUTTON_START, Texture.class));
 
+        //Drawables
+        soundOffDrawable = new TextureRegionDrawable(soundOffTextureRegion);
+        soundOnDrawable = new TextureRegionDrawable(soundOnTextureRegion);
+        unlockDrawable = new TextureRegionDrawable(unlockTextureRegion);
+        helpDrawable = new TextureRegionDrawable(helpTextureRegion);
+        startDrawable = new TextureRegionDrawable(startTextureRegion);
+
+        soundOffButtonStyleUp = soundOffDrawable;
+        soundOnButtonStyleUp = soundOnDrawable;
+        unlockButtonStyle.up = unlockDrawable;
+        helpButtonStyle.up = helpDrawable;
+        startButtonStyle.up = startDrawable;
         table = new Table();
 
         //Listeners
         addButtonListeners();
+
+        //Default sprites
+        Background.init(assetLoader.getManager());
+        Clouds.init(assetLoader.getManager().get(PropManager.TEXTURE_CLOUDS, Texture.class));
+        Bucket.init(assetLoader.getManager().get(PropManager.TEXTURE_BUCKET_0, Texture.class));
+        City.setImage(assetLoader.getManager().get(PropManager.TEXTURE_CITY_10, Texture.class));
+        AudioManager.setThunderstorm(assetLoader.getManager().get(PropManager.AUDIO_THUNDERSTORM, Music.class));
+    }
+
+    private void loadAssets() {
+        this.assetLoader.loadStartScreen();
+
+        //Logo and Text
+        logo = assetLoader.getManager().get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
+
+        //TODO: Clean up this button stuff, or consolidate into private method
+
+        //Regions
+        soundOffTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_SOUND_OFF, Texture.class));
+        soundOnTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_SOUND_ON, Texture.class));
+        unlockTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_UNLOCK, Texture.class));
+        helpTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_HELP, Texture.class));
+        startTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_START, Texture.class));
+
+        //Drawables
+        soundOffDrawable.setRegion(soundOffTextureRegion);
+        soundOnDrawable.setRegion(soundOnTextureRegion);
+        unlockDrawable.setRegion(unlockTextureRegion);
+        helpDrawable.setRegion(helpTextureRegion);
+        startDrawable.setRegion(startTextureRegion);
+
+        //Buttons
+        soundOffButtonStyleUp = soundOffDrawable;
+        soundOnButtonStyleUp = soundOnDrawable;
+        helpButtonStyle.up = helpDrawable;
+        unlockButtonStyle.up = unlockDrawable;
+        startButtonStyle.up = startDrawable;
     }
 
     /**
      * Set the Open status of the 'Unlocked Items' screen
      * @param open  Boolean value indicating whether the 'Unlocked Items' screen is open
      */
-    public void setUnlockScreenOpen(boolean open) { unlockedScreenOpen = open; }
+    public void setUnlockScreenOpen(boolean open) {
+        if (!open) {
+            loadAssets();
+        }
+        unlockedScreenOpen = open; }
 
     /**
      * Render the configured StartScreen sprites, actors, and stage
@@ -125,8 +192,8 @@ public class StartScreen implements Disposable {
                         SpriteUtil.middleOf(Gdx.graphics.getHeight()) - PropManager.START_SCREEN_SPACING);
             } else {
                 //Variable layout size
-                GlyphLayout currentLevelLayout = new GlyphLayout(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
-                GlyphLayout bestScoreLayout = new GlyphLayout(redFont, PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%");
+                currentLevelLayout.setText(blueFont, PropManager.CURRENT_LEVEL_TEXT + GameplayManager.getLevel());
+                bestScoreLayout.setText(redFont, PropManager.BEST_SCORE_TEXT + GameplayManager.getLevelBest() + "%");
 
                 //Level X
                 blueFont.draw(
@@ -144,7 +211,7 @@ public class StartScreen implements Disposable {
             }
 
             //City
-            City.setImage(manager.get(PropManager.TEXTURE_CITY_10, Texture.class));
+            City.setImage(assetLoader.getManager().get(PropManager.TEXTURE_CITY_10, Texture.class));
 
             stage.getBatch().end();
             //Draw Stage w/ Buttons
@@ -156,7 +223,7 @@ public class StartScreen implements Disposable {
             stage.addActor(table);
             stage.draw();
         } else {
-            unlockablesScreen.display();
+            ScreenManager.getUnlockablesScreen().display();
         }
     }
 
@@ -168,6 +235,10 @@ public class StartScreen implements Disposable {
         redFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_82), Gdx.files.internal(PropManager.FONT_PLAY_82_PNG), false);
         blueFont.setColor(PropManager.SCORE_BLUE_COLOR);
         redFont.setColor(PropManager.SCORE_RED_COLOR);
+        catchCleanLayout = new GlyphLayout(blueFont, PropManager.CATCH_BLUE_TEXT);
+        avoidRedLayout = new GlyphLayout(redFont, PropManager.AVOID_RED_TEXT);
+        currentLevelLayout = new GlyphLayout();
+        bestScoreLayout = new GlyphLayout();
     }
 
     /**
@@ -231,7 +302,6 @@ public class StartScreen implements Disposable {
      * Add touch listeners to each button
      */
     private void addButtonListeners() {
-        final StartScreen parent = this;
         //Start Button Listener
         startButton.addListener(new ChangeListener() {
             @Override
@@ -246,7 +316,12 @@ public class StartScreen implements Disposable {
         unlockButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                unlockablesScreen = new UnlockablesScreen(manager, parent);
+                assetLoader.unloadStartScreen();
+                if (ScreenManager.getUnlockablesScreen() == null) {
+                    ScreenManager.createUnlockablesScreen();
+                } else {
+                    ScreenManager.getUnlockablesScreen().loadAssets();
+                }
                 unlockedScreenOpen = true;
                 return false;
             }
@@ -278,10 +353,5 @@ public class StartScreen implements Disposable {
                 PreferenceManager.clear();
             }
         });
-    }
-
-    @Override
-    public void dispose() {
-
     }
 }

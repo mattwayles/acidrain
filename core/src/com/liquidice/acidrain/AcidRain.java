@@ -2,7 +2,6 @@ package com.liquidice.acidrain;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +16,6 @@ import com.liquidice.acidrain.sprites.Background;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GestureManager;
 import com.liquidice.acidrain.managers.ScreenManager;
-import com.liquidice.acidrain.managers.SpriteManager;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.City;
 import com.liquidice.acidrain.sprites.Clouds;
@@ -60,8 +58,7 @@ public class AcidRain extends ApplicationAdapter {
 	private Batch batch;
 
 	// Management
-	private ScreenManager screenManager;
-	private AssetManager assetManager;
+	private AssetLoader assetLoader;
 
 	//Input
 	private static GestureDetector inputProcessor;
@@ -92,9 +89,8 @@ public class AcidRain extends ApplicationAdapter {
 
 		//Set the input processor
 		inputProcessor = new GestureDetector(new GestureManager());
-		this.assetManager = new AssetLoader().getManager();
-		screenManager = new ScreenManager(this.assetManager);
-		SpriteManager.init(this.assetManager);
+		this.assetLoader = new AssetLoader();
+		ScreenManager.init(assetLoader);
 
 		//Play background music
 		AudioManager.playThunderstorm();
@@ -110,13 +106,13 @@ public class AcidRain extends ApplicationAdapter {
 	@Override
 	public void render () {
 		//TODO: Remove after analysis
-//		if (heapCount == 60) {
-//			Gdx.app.error("Java Heap Delta: ", String.valueOf(Gdx.app.getJavaHeap() - originalJavaHeap));
-//			Gdx.app.error("Native Heap Delta: ", String.valueOf(Gdx.app.getNativeHeap() - originalNativeHeap));
-//			heapCount = 0;
-//		} else {
-//			heapCount++;
-//		}
+		if (heapCount == 60) {
+			Gdx.app.error("Java Heap Delta: ", String.valueOf(Gdx.app.getJavaHeap() - originalJavaHeap));
+			Gdx.app.error("Native Heap Delta: ", String.valueOf(Gdx.app.getNativeHeap() - originalNativeHeap));
+			heapCount = 0;
+		} else {
+			heapCount++;
+		}
 
 		batch.begin();
 		Background.draw(batch);
@@ -125,40 +121,40 @@ public class AcidRain extends ApplicationAdapter {
 		//Render different Screens based on game state
 		switch (GameplayManager.getGameState()) {
 			case 0: /* Waiting for Input - Display StartScreen */
-				batch.draw(assetManager.get(PropManager.TEXTURE_PLACEHOLDER, Texture.class), 0,0,0,0);
-				screenManager.getStartScreen().display();
-				if (Gdx.input.justTouched()) {
-					GameplayManager.setGameState(PropManager.GAME_START_STATE);
-					screenManager.getGameplayScreen().clearAll();
-				}
+				batch.draw(this.assetLoader.getManager().get(PropManager.TEXTURE_PLACEHOLDER, Texture.class), 0,0,0,0);
+				ScreenManager.getStartScreen().display();
+//				if (Gdx.input.justTouched()) {
+//					GameplayManager.setGameState(PropManager.GAME_START_STATE);
+//					ScreenManager.getGameplayScreen().clearAll();
+//				}
 				break;
 			case 1: /* Gameplay */
 				if (CountManager.getSunnyCount() == 0) {
 					//Create rain/acid/power drops
-					screenManager.getGameplayScreen().randomizeDrops();
+					ScreenManager.getGameplayScreen().randomizeDrops();
 
 					//Update raindrop positions
-					screenManager.getGameplayScreen().updateDropPositions(batch);
+					ScreenManager.getGameplayScreen().updateDropPositions(batch);
 
 					//Check for collision
-					screenManager.getGameplayScreen().checkCollision(batch);
+					ScreenManager.getGameplayScreen().checkCollision(batch);
 				}
 				break;
 			case 2: /* Game Over */
-				screenManager.getGameOverScreen().display(batch);
+				ScreenManager.getGameOverScreen().display(batch);
 				if (Gdx.input.justTouched()) {
-					screenManager.getGameplayScreen().clearAll();
+					ScreenManager.getGameplayScreen().clearAll();
 					GameplayManager.setGameState(PropManager.GAME_START_STATE);
 				}
 				break;
 			case 3:
 				/* Level Complete */
-				screenManager.getLevelCompleteScreen().display(batch);
+				ScreenManager.getLevelCompleteScreen().display(batch);
 				if (CountManager.getSunnyCount() == 100 && Gdx.input.justTouched()) { //Start new Level
 					AudioManager.stopBirds();
 					AudioManager.playThunderstorm();
 					AudioManager.playThundercrack();
-					screenManager.getGameplayScreen().clearAll();
+					ScreenManager.getGameplayScreen().clearAll();
 					GameplayManager.resume();
 					GameplayManager.setGameState(PropManager.GAME_PLAY_STATE);
 				}
@@ -167,7 +163,7 @@ public class AcidRain extends ApplicationAdapter {
 
 		//Render overlays (clouds, score, buttons)
 		if (GameplayManager.getGameState() > 0) {
-			screenManager.getGameplayOverlay().display(batch);
+			ScreenManager.getGameplayOverlay().display(batch);
 			registerTouch();
 		}
 
@@ -206,7 +202,7 @@ public class AcidRain extends ApplicationAdapter {
 				&& ScoreManager.getCaughtPercentage() > GameplayManager.getLevelBest()) {
 			PreferenceManager.putInt(PropManager.PREF_LEVEL_BEST, ScoreManager.getCaughtPercentage());
 		}
-		assetManager.dispose();
+		this.assetLoader.getManager().dispose();
 		batch.dispose();
 	}
 }

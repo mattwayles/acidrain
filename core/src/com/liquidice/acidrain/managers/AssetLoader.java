@@ -4,6 +4,12 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.liquidice.acidrain.sprites.Bucket;
+import com.liquidice.acidrain.sprites.City;
+import com.liquidice.acidrain.sprites.Clouds;
 
 /**
  * Asset Manager - Manage and asynchronously load all application assets
@@ -22,12 +28,87 @@ public class AssetLoader {
      */
     public AssetLoader() {
         manager  = new AssetManager();
-        loadButtons();
-        loadTextures();
-        loadSounds();
+        loadPersistent();
+//        loadButtons();
+//        loadTextures();
+//        loadSounds();
 
+//        manager.finishLoading();
+//        AudioManager.init(manager);
+    }
+
+    /**
+     * Load persistent resources
+     */
+    private void loadPersistent() {
+        manager.load(PropManager.AUDIO_THUNDERSTORM, Music.class);
+        manager.load(PropManager.TEXTURE_BG_LIGHTNING, Texture.class);
+        manager.load(PropManager.TEXTURE_CLOUDS, Texture.class);
+        manager.load(PropManager.TEXTURE_PLACEHOLDER, Texture.class);
+        manager.load(PropManager.SUNNY_SKY_PREFIX + 1 + PropManager.PNG, Texture.class);
         manager.finishLoading();
-        AudioManager.init(manager);
+    }
+    
+    /**
+     * Load StartScreen resources
+     */
+    public void loadStartScreen() {
+        manager.load(PropManager.BUTTON_SOUND_OFF, Texture.class);
+        manager.load(PropManager.BUTTON_SOUND_ON, Texture.class);
+        manager.load(PropManager.BUTTON_UNLOCK, Texture.class);
+        manager.load(PropManager.BUTTON_HELP, Texture.class);
+        manager.load(PropManager.BUTTON_START, Texture.class);
+        manager.load(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
+        manager.load(PropManager.TEXTURE_BUCKET_0, Texture.class);
+        manager.load(PropManager.TEXTURE_CITY_10, Texture.class);
+        manager.finishLoading();
+    }
+
+    /**
+     * Unload StartScreen resources
+     */
+    public void unloadStartScreen() {
+        manager.unload(PropManager.BUTTON_SOUND_OFF);
+        manager.unload(PropManager.BUTTON_SOUND_ON);
+        manager.unload(PropManager.BUTTON_UNLOCK);
+        manager.unload(PropManager.BUTTON_HELP);
+        manager.unload(PropManager.BUTTON_START);
+        manager.unload(PropManager.TEXTURE_TEXT_LOGO);
+        manager.unload(PropManager.TEXTURE_BUCKET_0);
+        manager.unload(PropManager.TEXTURE_CITY_10);
+        manager.finishLoading();
+    }
+
+    /**
+     * Load UnlockablesScreen resources
+     */
+    public void loadUnlockablesScreen() {
+        manager.load(PropManager.BUTTON_CLOSE, Texture.class);
+        manager.load(PropManager.TEXTURE_MULTIPLIER_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_HEALTHPACK_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_UMBRELLA_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_SHIELD_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_FILTRATION_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_TEAMWORK_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_PURPLE_RAIN_UNLOCK, Texture.class);
+        manager.load(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class);
+        manager.finishLoading();
+    }
+
+    /**
+     * Unload UnlockablesScreen resources
+     */
+    public void unloadUnlockablesScreen() {
+        manager.unload(PropManager.BUTTON_CLOSE);
+        manager.unload(PropManager.TEXTURE_MULTIPLIER_UNLOCK);
+        manager.unload(PropManager.TEXTURE_HEALTHPACK_UNLOCK);
+        manager.unload(PropManager.TEXTURE_UMBRELLA_UNLOCK);
+        manager.unload(PropManager.TEXTURE_SHIELD_UNLOCK);
+        manager.unload(PropManager.TEXTURE_FILTRATION_UNLOCK);
+        manager.unload(PropManager.TEXTURE_TEAMWORK_UNLOCK);
+        manager.unload(PropManager.TEXTURE_PURPLE_RAIN_UNLOCK);
+        manager.unload(PropManager.TEXTURE_LOCKED_UNLOCK);
+        manager.finishLoading();
     }
 
     /**

@@ -6,58 +6,72 @@ import com.liquidice.acidrain.screens.GameplayOverlay;
 import com.liquidice.acidrain.screens.GameplayScreen;
 import com.liquidice.acidrain.screens.LevelCompleteScreen;
 import com.liquidice.acidrain.screens.StartScreen;
+import com.liquidice.acidrain.screens.unlockables.UnlockablesScreen;
 
 /**
  * Manage the various screesn that need to be rendered in the application, and intialize default textures
  */
 public class ScreenManager {
-    private StartScreen startScreen;
-    private GameplayScreen gameplayScreen;
-    private GameOverScreen gameOverScreen;
-    private GameplayOverlay gameplayOverlay;
-    private LevelCompleteScreen levelCompleteScreen;
+    private static AssetLoader assetLoader;
+    private static StartScreen startScreen;
+    private static UnlockablesScreen unlockablesScreen;
+    private static GameplayScreen gameplayScreen;
+    private static GameOverScreen gameOverScreen;
+    private static GameplayOverlay gameplayOverlay;
+    private static LevelCompleteScreen levelCompleteScreen;
 
     /**
      * Create a Screen Manager instance
-     * @param manager   The AssetManager used by this Screen Manager
+     * @param loader   The AssetLoader used by this Screen Manager
      */
-    public ScreenManager(AssetManager manager) {
-        startScreen = new StartScreen(manager);
-        gameplayScreen = new GameplayScreen(manager);
-        gameOverScreen = new GameOverScreen(manager);
-        gameplayOverlay = new GameplayOverlay((manager));
-        levelCompleteScreen = new LevelCompleteScreen(manager);
-   }
+    public static void init(AssetLoader loader) {
+        assetLoader = loader;
+        createStartScreen();
+    }
+
+    /**
+     * Create a StartScreen
+     */
+    private static void createStartScreen() { startScreen = new StartScreen(assetLoader); }
+
+    /**
+     * Create an UnlockablesScreen
+     */
+    public static void createUnlockablesScreen() { unlockablesScreen = new UnlockablesScreen(assetLoader); }
 
     /**
      * Retrieve the application Start Screen
      * @return The application Start Screen
      */
-   public StartScreen getStartScreen() { return startScreen; }
+   public static StartScreen getStartScreen() { return startScreen; }
+
+    /**
+     * Retrieve the application Unlockables Screen
+     * @return The application Unlockables Screen
+     */
+    public static UnlockablesScreen getUnlockablesScreen() { return unlockablesScreen; }
 
     /**
      * Retrieve the application Gameplay Screen
      * @return The application Gameplay Screen
      */
-   public GameplayScreen getGameplayScreen() { return gameplayScreen; }
+   public static GameplayScreen getGameplayScreen() { return gameplayScreen; }
 
     /**
      * Retrieve the gameplay overlay
      * @return The gameplay overlay
      */
-    public GameplayOverlay getGameplayOverlay() { return gameplayOverlay; }
+    public static GameplayOverlay getGameplayOverlay() { return gameplayOverlay; }
 
     /**
      * Retrieve the application Game Over Screen
      * @return The application Game Over Screen
      */
-   public GameOverScreen getGameOverScreen() { return gameOverScreen; }
+   public static GameOverScreen getGameOverScreen() { return gameOverScreen; }
 
     /**
      * Retrieve the application Level Complete Screen
      * @return The application Level Complete Screen
      */
-   public LevelCompleteScreen getLevelCompleteScreen() { return levelCompleteScreen; }
-
-   public void disposeStartScreen() { startScreen.dispose(); }
+   public static LevelCompleteScreen getLevelCompleteScreen() { return levelCompleteScreen; }
 }

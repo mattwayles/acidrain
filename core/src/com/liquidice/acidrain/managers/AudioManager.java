@@ -45,6 +45,8 @@ public class AudioManager {
         umbrellaSplat = manager.get(PropManager.AUDIO_UMBRELLA_SPLAT, Sound.class);
     }
 
+    public static void setThunderstorm(Music music) { thunderstorm = music; }
+
     /**
      * Play the AcidDrop sound when an Acid Drop is caught
      */

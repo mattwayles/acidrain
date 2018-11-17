@@ -271,7 +271,7 @@ public class PropManager {
     public static final String TEXTURE_BG_LIGHTNING = "backgrounds/lightningBackground.jpg";
     public static final String TEXTURE_CITY_1 = "city/city1.png";
     public static final String TEXTURE_CITY_10 = "city/city10.png";
-    static final String TEXTURE_CLOUDS = "clouds.png";
+    public static final String TEXTURE_CLOUDS = "clouds.png";
     public static final String TEXTURE_FILTRATION_BOUNCE = "unlockables/filtration/filtrationBounce.png";
     public static final String TEXTURE_FILTRATION_DROP = "unlockables/filtration/filtrationDrop.png";
     public static final String TEXTURE_FILTRATION_UNLOCK = "unlockables/filtration/unlockableFiltration.png";
