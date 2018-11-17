@@ -110,13 +110,13 @@ public class AcidRain extends ApplicationAdapter {
 	@Override
 	public void render () {
 		//TODO: Remove after analysis
-		if (heapCount == 60) {
-			Gdx.app.error("Java Heap Delta: ", String.valueOf(Gdx.app.getJavaHeap() - originalJavaHeap));
-			Gdx.app.error("Native Heap Delta: ", String.valueOf(Gdx.app.getNativeHeap() - originalNativeHeap));
-			heapCount = 0;
-		} else {
-			heapCount++;
-		}
+//		if (heapCount == 60) {
+//			Gdx.app.error("Java Heap Delta: ", String.valueOf(Gdx.app.getJavaHeap() - originalJavaHeap));
+//			Gdx.app.error("Native Heap Delta: ", String.valueOf(Gdx.app.getNativeHeap() - originalNativeHeap));
+//			heapCount = 0;
+//		} else {
+//			heapCount++;
+//		}
 
 		batch.begin();
 		Background.draw(batch);
