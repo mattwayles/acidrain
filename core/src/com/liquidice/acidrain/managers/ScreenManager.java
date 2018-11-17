@@ -58,4 +58,6 @@ public class ScreenManager {
      * @return The application Level Complete Screen
      */
    public LevelCompleteScreen getLevelCompleteScreen() { return levelCompleteScreen; }
+
+   public void disposeStartScreen() { startScreen.dispose(); }
 }

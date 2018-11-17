@@ -215,18 +215,21 @@ public class GameplayScreen {
         x = random.nextFloat() * Gdx.graphics.getWidth();
 
         //Reel in corner drops
-        int corner = Gdx.graphics.getWidth() -  (isRain ? manager.get(PropManager.RAIN_DROP_PREFIX + size + PropManager.PNG, Texture.class).getWidth()
-                : manager.get(PropManager.ACID_DROP_PREFIX + size + PropManager.PNG, Texture.class).getWidth());
+        int corner = Gdx.graphics.getWidth() -  PropManager.PAGE_WIDTH_OFFSET;
         x = x > corner ? corner : x;
 
         //Render Drop
-        if (isRain) {
-            renderDrop(size, x, speed);
-        } else if (!GameplayManager.isPaused()) {
-            if (PowerupManager.isPurpleRainActive() && size <= 4) {
-                drops.add(new PurpleRainDrop(manager, x, Gdx.graphics.getHeight(), speed));
-            } else {
-                drops.add(new AcidDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
+        if (!GameplayManager.isPaused()) {
+            if (isRain) {
+                renderDrop(size, x, speed);
+            }
+            else {
+                if (PowerupManager.isPurpleRainActive() && size <= PropManager.PURPLE_RAIN_OVERRIDE) {
+                    drops.add(new PurpleRainDrop(manager, x, Gdx.graphics.getHeight(), speed));
+                }
+                else {
+                    drops.add(new AcidDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
+                }
             }
         }
     }
@@ -238,11 +241,11 @@ public class GameplayScreen {
      * @param speed The speed of the drop
      */
     private void renderDrop(int size, float x, float speed) {
-        if (size == 7 && !GameplayManager.isPaused()) { // 17% chance of hitting a 7 and entering powerup mode
-            int rand = random.nextInt((PropManager.POWERUP_CHANCE_TOTAL - 1) + 1) + 1; //Retrieve random int 1-30
+        if (size == 7) { // 17% chance of hitting a 7 and entering powerup mode
+            int rand = random.nextInt((PropManager.POWERUP_CHANCE_TOTAL - 1) + 1) + 1;
             if (!renderPowerupDrop(rand, x)) {
-                if (rand <= PropManager.POWERUP_CHANCE) //10.2% total chance of some sort of special drop
-                 { // LARGE DROP - 4% total chance
+                if (rand <= PropManager.POWERUP_CHANCE)
+                 { // LARGE DROP
                     drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
                 } else {
                     size = random.nextInt((PropManager.DROP_SIZE_MAX - PropManager.DROP_SIZE_MIN) + 1) + PropManager.DROP_SIZE_MIN;
@@ -250,7 +253,7 @@ public class GameplayScreen {
                 }
             }
         }
-        else if (!GameplayManager.isPaused()) { //Render raindrop size 2-6
+        else { //Render raindrop size 2-6
             drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
         }
     }
@@ -268,31 +271,31 @@ public class GameplayScreen {
         x = x > corner ? corner : x;
 
         boolean isDropped = false;
-        if (GameplayManager.getLevel() >= PropManager.UNLOCK_1_LEVEL && (rand > 1 && rand < 7)) { // MULTIPLIER - .16% total chance
+        if (GameplayManager.getLevel() >= PropManager.UNLOCK_1_LEVEL && (rand > 1 && rand < 7)) {
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_MULTIPLIERS_TYPE, x, Gdx.graphics.getHeight(), rand));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL && (rand == PropManager.TEAMWORK_CHANCE)) { //Teamwork - 0.16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL && (rand == PropManager.TEAMWORK_CHANCE)) {
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_TEAMWORK_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL && (rand == PropManager.HEALTHPACK_CHANCE)) { //HEALTHPACK - .16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL && (rand == PropManager.HEALTHPACK_CHANCE)) {
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_HEALTHPACK_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL && (rand == PropManager.UMBRELLA_CHANCE)) { //UMBRELLA - .16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL && (rand == PropManager.UMBRELLA_CHANCE)) {
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_UMBRELLA_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL && (rand == PropManager.PURPLE_RAIN_CHANCE)) { //Purple Rain - 0.16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL && (rand == PropManager.PURPLE_RAIN_CHANCE)) {
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_PURPLE_RAIN_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL && (rand == PropManager.SHIELD_CHANCE)) { //Shield - .16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL && (rand == PropManager.SHIELD_CHANCE)) {
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_SHIELD_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
-        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_7_LEVEL && (rand == PropManager.FILTER_CHANCE)) { //Filter - 0.16% total chance
+        else if (GameplayManager.getLevel() >= PropManager.UNLOCK_7_LEVEL && (rand == PropManager.FILTER_CHANCE)) {
             drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_FILTRATION_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }

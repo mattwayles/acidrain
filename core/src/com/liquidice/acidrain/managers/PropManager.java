@@ -95,8 +95,8 @@ public class PropManager {
     public static String POWERUP_MULTIPLIER_TITLE = "SCORE MULTIPLIERS";
     public static String POWERUP_MULTIPLIER_DESC = "Earn up to x6 points from a Single Drop";
     public static String POWERUP_PURPLE_RAIN_TITLE = "PURPLE RAIN";
-    public static String POWERUP_PURPLE_RAIN_DESC = "Purple drops are Double Points & half";
-    public static String POWERUP_PURPLE_RAIN_DESC2 = "damage for 30 seconds";
+    public static String POWERUP_PURPLE_RAIN_DESC = "Purple drops are Double Points and";
+    public static String POWERUP_PURPLE_RAIN_DESC2 = "half damage for 30 seconds";
     public static String POWERUP_SHIELD_TITLE = "SHIELD";
     public static String POWERUP_SHIELD_DESC = "Total city Protection for 30 seconds";
     public static String POWERUP_TEAMWORK_TITLE = "TEAMWORK";
@@ -132,7 +132,7 @@ public class PropManager {
     public static int SCORE_Y = 120;
     public static int STRENGTH_SCORE_X = Gdx.graphics.getWidth() - 400;
 
-    public static int PAGE_WIDTH_OFFSET = 90;
+    public static int PAGE_WIDTH_OFFSET = 100;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ public class PropManager {
     ////////////////////////////////// POWERUP PROPERTIES //////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //CHANCE
-    public static int POWERUP_CHANCE_TOTAL = 30;
+    public static int POWERUP_CHANCE_TOTAL = 40;
     public static int POWERUP_CHANCE = 15;
     public static int HEALTHPACK_CHANCE = 16;
     public static int UMBRELLA_CHANCE = 17;
@@ -195,11 +195,12 @@ public class PropManager {
     //FILTER PROPERTIES
     public static final int FILTER_ACTIVATION_TIME = 600;
 
-    //TEAMWORK ACTIVATION TIME
+    //TEAMWORK PROPERTIES
     public static final int TEAMWORK_ACTIVATION_TIME = 1800;
 
-    //PURPLE RAIN ACTIVATION TIME
+    //PURPLE RAIN PROPERTIES
     public static final int PURPLE_RAIN_ACTIVATION_TIME = 1800;
+    public static final int PURPLE_RAIN_OVERRIDE = 6;
 
     //COUNTDOWN
      static final int COUNTDOWN_OFFSET = 5;

@@ -1,8 +1,10 @@
 package com.liquidice.acidrain.managers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.liquidice.acidrain.sprites.Bucket;
+import com.liquidice.acidrain.sprites.Clouds;
 
 /**
  * Custom Input Manager to execute operations on user input
@@ -13,7 +15,7 @@ public class GestureManager implements GestureDetector.GestureListener {
      */
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        if (!GameplayManager.isPaused()) {
+        if (!GameplayManager.isPaused() && (Gdx.graphics.getHeight() - Gdx.input.getY()) < Clouds.getY()) {
             Bucket.setX(x - Bucket.getImage().getWidth() / 2);
         }
         return false;

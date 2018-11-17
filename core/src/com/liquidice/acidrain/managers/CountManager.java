@@ -47,7 +47,7 @@ public class CountManager {
     /**
      * Increase the RainCount counter
      */
-    public static void increaseRainCount() { rainCount++; }
+    public static void increaseRainCount() { rainCount = GameplayManager.isPaused() ? rainCount : rainCount + 1; }
 
     /**
      * Reset the RainCount counter
@@ -67,7 +67,7 @@ public class CountManager {
     /**
      * Increase the AcidCount counter
      */
-    public static void increaseAcidCount() { acidCount++; }
+    public static void increaseAcidCount() { acidCount = GameplayManager.isPaused() ? acidCount : acidCount + 1; }
 
     /**
      * Reset the AcidCount counter
@@ -87,7 +87,7 @@ public class CountManager {
     /**
      * Increase the SplashCount counter
      */
-    public static void increaseSplashCount() { splashCount++; }
+    public static void increaseSplashCount() { splashCount = GameplayManager.isPaused() ? splashCount : splashCount + 1; }
 
     /**
      * Reset the SplashCount counter
@@ -107,7 +107,7 @@ public class CountManager {
     /**
      * Increase the BackgroundCount counter
      */
-    public static void increaseBackgroundCount() { backgroundCount++; }
+    public static void increaseBackgroundCount() { backgroundCount = GameplayManager.isPaused() ? backgroundCount : backgroundCount + 1; }
 
     /**
      * Reset the BackgroundCount counter
@@ -127,7 +127,7 @@ public class CountManager {
     /**
      * Increase the SunnyCount counter
      */
-    public static void increaseSunnyCount() { sunnyCount++; }
+    public static void increaseSunnyCount() { sunnyCount = GameplayManager.isPaused() ? sunnyCount : sunnyCount + 1; }
 
     /**
      * Decrease the SunnyCount counter
@@ -147,7 +147,7 @@ public class CountManager {
     /**
      * Increase the UmbrellaCount counter
      */
-    public static void increaseUmbrellaCount() { umbrellaCount++; }
+    public static void increaseUmbrellaCount() { umbrellaCount = GameplayManager.isPaused() ? umbrellaCount : umbrellaCount + 1; }
 
     /**
      * Reset the UmbrellaCount counter
@@ -168,7 +168,7 @@ public class CountManager {
     /**
      * Increase the ShieldCount counter
      */
-    public static void increaseShieldCount() { shieldCount++; }
+    public static void increaseShieldCount() { shieldCount = GameplayManager.isPaused() ? shieldCount : shieldCount + 1; }
 
     /**
      * Reset the ShieldCount counter
@@ -188,7 +188,7 @@ public class CountManager {
     /**
      * Increase the FilterCount counter
      */
-    public static void increaseFilterCount() { filterCount++; }
+    public static void increaseFilterCount() { filterCount = GameplayManager.isPaused() ? filterCount : filterCount + 1; }
 
     /**
      * Reset the FilterCount counter
@@ -209,7 +209,7 @@ public class CountManager {
     /**
      * Increase the TeamworkCount counter
      */
-    public static void increaseTeamworkCount() { teamworkCount++; }
+    public static void increaseTeamworkCount() { teamworkCount = GameplayManager.isPaused() ? teamworkCount : teamworkCount + 1; }
 
     /**
      * Reset the FilterCount counter
@@ -229,7 +229,7 @@ public class CountManager {
     /**
      * Increase the TeamworkCount counter
      */
-    public static void increasePurpleRainCount() { purpleRainCount++; }
+    public static void increasePurpleRainCount() { purpleRainCount = GameplayManager.isPaused() ? purpleRainCount : purpleRainCount + 1; }
 
     /**
      * Reset the FilterCount counter

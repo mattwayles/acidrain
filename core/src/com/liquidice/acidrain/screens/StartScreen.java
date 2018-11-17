@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Disposable;
 import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PreferenceManager;
@@ -27,7 +28,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 /**
  * Render a Start ScreenManager containing the logo, session information, and buttons
  */
-public class StartScreen {
+public class StartScreen implements Disposable {
     private Texture logo;
     private AssetManager manager;
     private Stage stage = new Stage();
@@ -277,5 +278,10 @@ public class StartScreen {
                 PreferenceManager.clear();
             }
         });
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }

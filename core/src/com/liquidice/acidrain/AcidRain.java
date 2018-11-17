@@ -20,6 +20,7 @@ import com.liquidice.acidrain.managers.ScreenManager;
 import com.liquidice.acidrain.managers.SpriteManager;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.City;
+import com.liquidice.acidrain.sprites.Clouds;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
 
@@ -28,7 +29,6 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 
 // CLEANUP: Screen size management is all jacked up
 
-// BUG: Why do two powerups usually fall at a time?
 // BUG: Game appears to lag when not shut down for a while, indicating bad resource release
 
 // FEATURE: (Powerup) - Super Healthpack, or something like that; completely restore city strength
@@ -41,6 +41,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 // FEATURE: Badges: Perfect scores, raindrops smashed, raindrops caught, tainted water - make them unlock backgrounds, raindrops, acid drops, buckets, cities, etc!
 // FEATURE: Purchase powerups with in-app purchases
 // FEATURE: Implement Android Leaderboard API to track leader
+// FEATURE: "Overall leader", an average of all leaderboard rankings
 // FEATURE: If no go on Android Leaderboard: Firebase integration, React website (leaderboard, awareness competition)
 // FEATURE: Moar powerups
 // FEATURE: New buckets, new methods of catching drops
@@ -64,6 +65,12 @@ public class AcidRain extends ApplicationAdapter {
 
 	//Input
 	private static GestureDetector inputProcessor;
+
+
+	//TODO: Remove after analysis
+	private long originalJavaHeap;
+	private long originalNativeHeap;
+	private int heapCount;
 
 
 
@@ -91,6 +98,10 @@ public class AcidRain extends ApplicationAdapter {
 
 		//Play background music
 		AudioManager.playThunderstorm();
+
+		//TODO: Remove after analysis
+		originalJavaHeap = Gdx.app.getJavaHeap();
+		originalNativeHeap = Gdx.app.getNativeHeap();
 	}
 
 	/**
@@ -98,6 +109,15 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void render () {
+		//TODO: Remove after analysis
+		if (heapCount == 60) {
+			Gdx.app.error("Java Heap Delta: ", String.valueOf(Gdx.app.getJavaHeap() - originalJavaHeap));
+			Gdx.app.error("Native Heap Delta: ", String.valueOf(Gdx.app.getNativeHeap() - originalNativeHeap));
+			heapCount = 0;
+		} else {
+			heapCount++;
+		}
+
 		batch.begin();
 		Background.draw(batch);
         City.draw(batch);
@@ -158,12 +178,14 @@ public class AcidRain extends ApplicationAdapter {
 	 * Register a touch event that moves the bucket slowly instead of transporting it
 	 */
 	private void registerTouch() {
-		if (!GameplayManager.isPaused() && Gdx.input.isTouched() && Gdx.input.getX() != Bucket.getX()) {
-			if (Gdx.input.getX() > (Bucket.getX() + PropManager.BUCKET_SPEED + SpriteUtil.middleOf(Bucket.getImage().getWidth()))) {
-				Bucket.setX(Bucket.getX() + PropManager.BUCKET_SPEED);
-			} else if (Gdx.input.getX() < (Bucket.getX() - PropManager.BUCKET_SPEED + SpriteUtil.middleOf(Bucket.getImage().getWidth()))) {
-				Bucket.setX(Bucket.getX() - PropManager.BUCKET_SPEED);
-			}
+		if (!GameplayManager.isPaused() && Gdx.input.isTouched()) {
+		    if ((Gdx.graphics.getHeight() - Gdx.input.getY()) < Clouds.getY()) {
+                if (Gdx.input.getX() > (Bucket.getX() + PropManager.BUCKET_SPEED + SpriteUtil.middleOf(Bucket.getImage().getWidth()))) {
+                    Bucket.setX(Bucket.getX() + PropManager.BUCKET_SPEED);
+                } else if (Gdx.input.getX() < (Bucket.getX() - PropManager.BUCKET_SPEED + SpriteUtil.middleOf(Bucket.getImage().getWidth()))) {
+                    Bucket.setX(Bucket.getX() - PropManager.BUCKET_SPEED);
+                }
+            }
 		}
 	}
 
