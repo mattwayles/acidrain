@@ -1,6 +1,5 @@
 package com.liquidice.acidrain.managers;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
@@ -24,28 +23,20 @@ public class AudioManager {
     private static Music birds;
     private static Music thunderstorm;
 
-    /**
-     * Initialize default files for each sound asset
-     * @param manager   The AssetManager containing the sounds used by this class
-     */
-    static void init(AssetManager manager) {
-        acidDrop = manager.get(PropManager.AUDIO_ACID_DROP, Sound.class);
-        birds = manager.get(PropManager.AUDIO_BIRDS, Music.class);
-        countdown = manager.get(PropManager.AUDIO_COUNTDOWN, Sound.class);
-        gameOver = manager.get(PropManager.AUDIO_GAME_OVER, Sound.class);
-        guitar = manager.get(PropManager.AUDIO_GUITAR, Sound.class);
-        levelWin = manager.get(PropManager.AUDIO_LEVEL_WIN, Sound.class);
-        powerup = manager.get(PropManager.AUDIO_POWERUP, Sound.class);
-        rainDrop = manager.get(PropManager.AUDIO_RAIN_DROP, Sound.class);
-        sideSplat = manager.get(PropManager.AUDIO_SIDE_SPLAT, Sound.class);
-        shieldSplat = manager.get(PropManager.AUDIO_SHIELD_SPLAT, Sound.class);
-        siren = manager.get(PropManager.AUDIO_SIREN, Sound.class);
-        thundercrack = manager.get(PropManager.AUDIO_THUNDERCRACK, Sound.class);
-        thunderstorm = manager.get(PropManager.AUDIO_THUNDERSTORM, Music.class);
-        umbrellaSplat = manager.get(PropManager.AUDIO_UMBRELLA_SPLAT, Sound.class);
-    }
-
-    public static void setThunderstorm(Music music) { thunderstorm = music; }
+    public static void setAcidDropAudio(Sound sound) { acidDrop = sound; }
+    public static void setBirdsAudio(Music music) { birds = music; }
+    public static void setCountdownAudio(Sound sound) { countdown = sound; }
+    public static void setGameOverAudio(Sound sound) { gameOver = sound; }
+    public static void setGuitarAudio(Sound sound) { guitar = sound; }
+    public static void setLevelWinAudio(Sound sound) { levelWin = sound; }
+    public static void setPowerupAudio(Sound sound) { powerup = sound; }
+    public static void setRainDropAudio(Sound sound) { rainDrop = sound; }
+    public static void setShieldSplatAudio(Sound sound) { shieldSplat = sound; }
+    public static void setSideSplatAudio(Sound sound) { sideSplat = sound; }
+    public static void setSirenAudio(Sound sound) { siren = sound; }
+    public static void setThundercrackAudio(Sound sound) { thundercrack = sound; }
+    public static void setThunderstormAudio(Music music) { thunderstorm = music; }
+    public static void setUmbrellaSplatAudio(Sound sound) { umbrellaSplat = sound; }
 
     /**
      * Play the AcidDrop sound when an Acid Drop is caught

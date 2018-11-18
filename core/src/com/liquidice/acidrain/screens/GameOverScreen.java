@@ -1,11 +1,13 @@
 package com.liquidice.acidrain.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.liquidice.acidrain.managers.AssetLoader;
+import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
@@ -16,19 +18,26 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
  * Render a Game Over screen when the City Strength is reduced to zero
  */
 public class GameOverScreen {
-    private AssetManager manager;
+    private AssetLoader assetLoader;
     private BitmapFont gameOverFont;
     private GlyphLayout gameOverLayout = new GlyphLayout();
 
     /**
      * Create a new Game Over screen
-     * @param manager   An AssetLoader Manager containing the fonts and textures used by this screen
+     * @param loader   An AssetLoader Manager containing the fonts and textures used by this screen
      */
-    public GameOverScreen(AssetManager manager) {
-        this.manager = manager;
+    public GameOverScreen(AssetLoader loader) {
+        this.assetLoader = loader;
         gameOverFont = new BitmapFont(Gdx.files.internal(PropManager.FONT_PLAY_56),
                 Gdx.files.internal(PropManager.FONT_PLAY_56_PNG), false);
         gameOverLayout.setText(gameOverFont, PropManager.GAME_OVER_TEXT);
+        AudioManager.setGameOverAudio(this.assetLoader.getManager().get(PropManager.AUDIO_GAME_OVER, Sound.class));
+        AudioManager.playGameOver();
+    }
+
+    public void loadAssets() {
+        AudioManager.setGameOverAudio(this.assetLoader.getManager().get(PropManager.AUDIO_GAME_OVER, Sound.class));
+        AudioManager.playGameOver();
     }
 
     /**
@@ -37,10 +46,10 @@ public class GameOverScreen {
      */
     public void display(Batch batch) {
         //Reset Bucket image
-        Bucket.setImage(manager.get(PropManager.TEXTURE_BUCKET_0,Texture.class));
+        Bucket.setImage(assetLoader.getManager().get(PropManager.TEXTURE_BUCKET_0,Texture.class));
 
         //Retrieve the Game Over image
-        Texture gameOverImage = manager.get(PropManager.TEXTURE_TEXT_GAME_OVER, Texture.class);
+        Texture gameOverImage = assetLoader.getManager().get(PropManager.TEXTURE_TEXT_GAME_OVER, Texture.class);
 
         //Draw the Game Over image
         batch.draw(

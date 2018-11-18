@@ -1,7 +1,5 @@
 package com.liquidice.acidrain.managers;
 
-import com.liquidice.acidrain.AcidRain;
-
 /**
  * ScoreManager Manager - Keeps track of the current clean water & city strength scores
  */

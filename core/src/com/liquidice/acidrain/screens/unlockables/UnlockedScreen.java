@@ -1,12 +1,12 @@
 package com.liquidice.acidrain.screens.unlockables;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.liquidice.acidrain.managers.AssetLoader;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.utilities.SpriteUtil;
@@ -19,7 +19,7 @@ public class UnlockedScreen {
     private int bounceY;
     private boolean desc;
     private SpriteBatch batch;
-    private AssetManager manager;
+    private AssetLoader assetLoader;
     private BitmapFont holdFont;
     private BitmapFont powerupFont;
     private BitmapFont powerupTypeFont;
@@ -31,10 +31,10 @@ public class UnlockedScreen {
 
     /**
      * Create a new UnlockedScreen for the specific powerup that has been unlocked
-     * @param manager   The AssetLoader Manager containing fonts and textures used in this screen
+     * @param loader   The AssetLoader Manager containing fonts and textures used in this screen
      */
-    public UnlockedScreen(AssetManager manager) {
-        this.manager = manager;
+    public UnlockedScreen(AssetLoader loader) {
+        this.assetLoader = loader;
         batch = new SpriteBatch();
         setFonts();
         unlockedItemLayout.setText(unlockedItemFont, PropManager.ITEM_UNLOCKED_TEXT);
@@ -64,7 +64,7 @@ public class UnlockedScreen {
 
         //Draw background
         batch.draw(
-                manager.get(PropManager.TEXTURE_SCREEN_UNLOCKED, Texture.class),
+                assetLoader.getManager().get(PropManager.TEXTURE_SCREEN_UNLOCKED, Texture.class),
                 0,
                 0,
                 Gdx.graphics.getWidth(),

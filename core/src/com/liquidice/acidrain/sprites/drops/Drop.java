@@ -16,6 +16,7 @@ public class Drop {
     private Texture splashImage;
     private Texture leftSplashImage;
     private Texture rightSplashImage;
+    private int splashCount = 0;
 
     /**
      * Retrieve the X position for this Drop
@@ -62,6 +63,21 @@ public class Drop {
      * @param points    The point value for this Drop
      */void setPoints(int points) {
         this.points = points;
+    }
+
+    /**
+     * Retrieve the current splash count of this drop
+     * @return  The current splash count of this drop
+     */
+    public int getSplashCount() {
+        return splashCount;
+    }
+
+    /**
+     * Increase the splash count for this drop
+     */
+    public void increaseSplashCount() {
+        this.splashCount++;
     }
 
     /**

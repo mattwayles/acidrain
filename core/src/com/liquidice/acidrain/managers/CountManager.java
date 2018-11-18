@@ -10,9 +10,6 @@ public class CountManager {
     //Store time between acid drops
     private static int acidCount;
 
-    //Store time before removing splashes
-    private static int splashCount;
-
     //Store time before lightning strike
     private static int backgroundCount;
 
@@ -73,26 +70,6 @@ public class CountManager {
      * Reset the AcidCount counter
      */
     public static void resetAcidCount() { acidCount = 0; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////// SPLASH COUNT ///////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Controls how long the Splash image shows when a Drop is smashed
-    /**
-     * Retrieve the current SplashCount counter value
-     * @return The current SplashCount counter value
-     */
-    public static int getSplashCount() { return splashCount; }
-
-    /**
-     * Increase the SplashCount counter
-     */
-    public static void increaseSplashCount() { splashCount = GameplayManager.isPaused() ? splashCount : splashCount + 1; }
-
-    /**
-     * Reset the SplashCount counter
-     */
-    public static void resetSplashCount() { splashCount = 0; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////// BACKGROUND COUNT /////////////////////////////////////////////
@@ -242,7 +219,6 @@ public class CountManager {
     public static void clear() {
         rainCount = 0;
         acidCount = 0;
-        splashCount = 0;
         backgroundCount = 0;
         umbrellaCount = 0;
         shieldCount = 0;

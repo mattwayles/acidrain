@@ -26,10 +26,8 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
 //TODO:
 
 // CLEANUP: Screen size management is all jacked up
-
-// BUG: Game appears to lag when not shut down for a while, indicating bad resource release
-
-// FEATURE: (Powerup) - Super Healthpack, or something like that; completely restore city strength
+// CLEANUP: IF resting memory usage is a problem, dispose all BitMapFonts, Stages, SpriteBatches when not needed, reload on loadAsset
+// FEATURE: (Powerup) - Restoration; completely restore city strength
 // FEATURE: (Powerup) - Something that gives immunity against catching acid for the rest of the level!
 // FEATURE: Snowstorm levels. SNOW STORM LEVELS!
 // FEATURE: Tornado levels; drops rotate, X position changes
@@ -63,15 +61,6 @@ public class AcidRain extends ApplicationAdapter {
 	//Input
 	private static GestureDetector inputProcessor;
 
-
-	//TODO: Remove after analysis
-	private long originalJavaHeap;
-	private long originalNativeHeap;
-	private int heapCount;
-
-
-
-
 	/**
 	 * Retrieve the application input processor
 	 * @return	The application input processor
@@ -94,10 +83,6 @@ public class AcidRain extends ApplicationAdapter {
 
 		//Play background music
 		AudioManager.playThunderstorm();
-
-		//TODO: Remove after analysis
-		originalJavaHeap = Gdx.app.getJavaHeap();
-		originalNativeHeap = Gdx.app.getNativeHeap();
 	}
 
 	/**
@@ -105,15 +90,6 @@ public class AcidRain extends ApplicationAdapter {
 	 */
 	@Override
 	public void render () {
-		//TODO: Remove after analysis
-		if (heapCount == 60) {
-			Gdx.app.error("Java Heap Delta: ", String.valueOf(Gdx.app.getJavaHeap() - originalJavaHeap));
-			Gdx.app.error("Native Heap Delta: ", String.valueOf(Gdx.app.getNativeHeap() - originalNativeHeap));
-			heapCount = 0;
-		} else {
-			heapCount++;
-		}
-
 		batch.begin();
 		Background.draw(batch);
         City.draw(batch);
@@ -123,10 +99,6 @@ public class AcidRain extends ApplicationAdapter {
 			case 0: /* Waiting for Input - Display StartScreen */
 				batch.draw(this.assetLoader.getManager().get(PropManager.TEXTURE_PLACEHOLDER, Texture.class), 0,0,0,0);
 				ScreenManager.getStartScreen().display();
-//				if (Gdx.input.justTouched()) {
-//					GameplayManager.setGameState(PropManager.GAME_START_STATE);
-//					ScreenManager.getGameplayScreen().clearAll();
-//				}
 				break;
 			case 1: /* Gameplay */
 				if (CountManager.getSunnyCount() == 0) {
@@ -144,6 +116,8 @@ public class AcidRain extends ApplicationAdapter {
 				ScreenManager.getGameOverScreen().display(batch);
 				if (Gdx.input.justTouched()) {
 					ScreenManager.getGameplayScreen().clearAll();
+					assetLoader.unloadGameOverAssets();
+					ScreenManager.getStartScreen().loadAssets();
 					GameplayManager.setGameState(PropManager.GAME_START_STATE);
 				}
 				break;
@@ -155,6 +129,9 @@ public class AcidRain extends ApplicationAdapter {
 					AudioManager.playThunderstorm();
 					AudioManager.playThundercrack();
 					ScreenManager.getGameplayScreen().clearAll();
+					assetLoader.unloadLevelCompleteAssets();
+					if (assetLoader.arePowerupAssetsLoaded()) { assetLoader.unloadUnlockedScreenAssets(); }
+					ScreenManager.getGameplayScreen().loadAssets();
 					GameplayManager.resume();
 					GameplayManager.setGameState(PropManager.GAME_PLAY_STATE);
 				}

@@ -1,6 +1,5 @@
 package com.liquidice.acidrain.managers;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.liquidice.acidrain.screens.GameOverScreen;
 import com.liquidice.acidrain.screens.GameplayOverlay;
 import com.liquidice.acidrain.screens.GameplayScreen;
@@ -39,6 +38,24 @@ public class ScreenManager {
      */
     public static void createUnlockablesScreen() { unlockablesScreen = new UnlockablesScreen(assetLoader); }
 
+    /**
+     * Create a GameplayScreen
+     */
+    public static void createGameplayScreen() {
+        gameplayScreen = new GameplayScreen(assetLoader);
+        gameplayOverlay = new GameplayOverlay(assetLoader); }
+
+    /**
+     * Create a GameOverScreen
+     */
+    public static void createGameOverScreen() {
+        gameOverScreen = new GameOverScreen(assetLoader);
+    }
+
+    /**
+     * Create a LevelComplete screen
+     */
+    public static void createLevelCompleteScreen() { levelCompleteScreen = new LevelCompleteScreen(assetLoader); }
     /**
      * Retrieve the application Start Screen
      * @return The application Start Screen

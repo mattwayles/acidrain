@@ -1,16 +1,18 @@
 package com.liquidice.acidrain.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Intersector;
+import com.liquidice.acidrain.managers.AssetLoader;
 import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PowerupManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.managers.ScoreManager;
+import com.liquidice.acidrain.managers.ScreenManager;
 import com.liquidice.acidrain.sprites.Bucket;
 import com.liquidice.acidrain.sprites.Shield;
 import com.liquidice.acidrain.sprites.Teamwork;
@@ -29,18 +31,27 @@ import java.util.Random;
  * The Gameplay Screen, where all of the gameplay drawing and actions occurs
  */
 public class GameplayScreen {
-    private AssetManager manager;
+    private AssetLoader assetLoader;
     private ArrayList<Drop> drops;
     private Random random;
 
     /**
      * Create a new gameplay screen
-     * @param manager   The Asset Manager containing the textures needed by this screen
+     * @param loader   The Asset Manager containing the textures needed by this screen
      */
-    public GameplayScreen(AssetManager manager) {
-        this.manager = manager;
+    public GameplayScreen(AssetLoader loader) {
+        this.assetLoader = loader;
+        this.assetLoader.loadGameplayScreenAssets();
         random = new Random();
         drops = new ArrayList<Drop>();
+        
+        setAudio();
+    }
+
+   public void loadAssets() {
+        assetLoader.loadGameplayScreenAssets();
+       ScreenManager.getGameplayOverlay().loadAssets();
+       setAudio();
     }
 
     /**
@@ -78,7 +89,7 @@ public class GameplayScreen {
 
             //Check Filtration status
             if (PowerupManager.isFilterActive() && drops.get(i) instanceof AcidDrop) {
-                drops.set(i, new RainDrop(manager, drop.getX(), drop.getY(), drop.getPoints(), drop.getSpeed()));
+                drops.set(i, new RainDrop(assetLoader.getManager(), drop.getX(), drop.getY(), drop.getPoints(), drop.getSpeed()));
             }
 
             //If drop has landed in the city
@@ -118,7 +129,7 @@ public class GameplayScreen {
                 }
                 //AcidDrop - clear bucket
                 else if (drops.get(i) instanceof AcidDrop) {
-                    Bucket.setImage(manager.get(PropManager.TEXTURE_BUCKET_0, Texture.class));
+                    Bucket.setImage(assetLoader.getManager().get(PropManager.TEXTURE_BUCKET_0, Texture.class));
                     AudioManager.playAcidDrop();
                     Gdx.input.vibrate(PropManager.ACIDDROP_CAUGHT_VIBRATE_TIME);
                     ScoreManager.resetScore();
@@ -188,7 +199,7 @@ public class GameplayScreen {
         CountManager.clear();
         ScoreManager.resetScore();
         ScoreManager.resetStrength();
-        Bucket.setImage(manager.get(PropManager.TEXTURE_BUCKET_0, Texture.class));
+        Bucket.setImage(assetLoader.getManager().get(PropManager.TEXTURE_BUCKET_0, Texture.class));
     }
 
     /**
@@ -225,10 +236,10 @@ public class GameplayScreen {
             }
             else {
                 if (PowerupManager.isPurpleRainActive() && size <= PropManager.PURPLE_RAIN_OVERRIDE) {
-                    drops.add(new PurpleRainDrop(manager, x, Gdx.graphics.getHeight(), speed));
+                    drops.add(new PurpleRainDrop(assetLoader.getManager(), x, Gdx.graphics.getHeight(), speed));
                 }
                 else {
-                    drops.add(new AcidDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
+                    drops.add(new AcidDrop(assetLoader.getManager(), x, Gdx.graphics.getHeight(), size, speed));
                 }
             }
         }
@@ -246,15 +257,15 @@ public class GameplayScreen {
             if (!renderPowerupDrop(rand, x)) {
                 if (rand <= PropManager.POWERUP_CHANCE)
                  { // LARGE DROP
-                    drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
+                    drops.add(new RainDrop(assetLoader.getManager(), x, Gdx.graphics.getHeight(), size, speed));
                 } else {
                     size = random.nextInt((PropManager.DROP_SIZE_MAX - PropManager.DROP_SIZE_MIN) + 1) + PropManager.DROP_SIZE_MIN;
-                    drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
+                    drops.add(new RainDrop(assetLoader.getManager(), x, Gdx.graphics.getHeight(), size, speed));
                 }
             }
         }
         else { //Render raindrop size 2-6
-            drops.add(new RainDrop(manager, x, Gdx.graphics.getHeight(), size, speed));
+            drops.add(new RainDrop(assetLoader.getManager(), x, Gdx.graphics.getHeight(), size, speed));
         }
     }
 
@@ -272,31 +283,31 @@ public class GameplayScreen {
 
         boolean isDropped = false;
         if (GameplayManager.getLevel() >= PropManager.UNLOCK_1_LEVEL && (rand > 1 && rand < 7)) {
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_MULTIPLIERS_TYPE, x, Gdx.graphics.getHeight(), rand));
+            drops.add(new PowerupDrop(assetLoader.getManager(), PropManager.UNLOCKABLE_MULTIPLIERS_TYPE, x, Gdx.graphics.getHeight(), rand));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_2_LEVEL && (rand == PropManager.TEAMWORK_CHANCE)) {
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_TEAMWORK_TYPE, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(assetLoader.getManager(), PropManager.UNLOCKABLE_TEAMWORK_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_3_LEVEL && (rand == PropManager.HEALTHPACK_CHANCE)) {
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_HEALTHPACK_TYPE, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(assetLoader.getManager(), PropManager.UNLOCKABLE_HEALTHPACK_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_4_LEVEL && (rand == PropManager.UMBRELLA_CHANCE)) {
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_UMBRELLA_TYPE, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(assetLoader.getManager(), PropManager.UNLOCKABLE_UMBRELLA_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_5_LEVEL && (rand == PropManager.PURPLE_RAIN_CHANCE)) {
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_PURPLE_RAIN_TYPE, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(assetLoader.getManager(), PropManager.UNLOCKABLE_PURPLE_RAIN_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_6_LEVEL && (rand == PropManager.SHIELD_CHANCE)) {
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_SHIELD_TYPE, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(assetLoader.getManager(), PropManager.UNLOCKABLE_SHIELD_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         else if (GameplayManager.getLevel() >= PropManager.UNLOCK_7_LEVEL && (rand == PropManager.FILTER_CHANCE)) {
-            drops.add(new PowerupDrop(manager, PropManager.UNLOCKABLE_FILTRATION_TYPE, x, Gdx.graphics.getHeight()));
+            drops.add(new PowerupDrop(assetLoader.getManager(), PropManager.UNLOCKABLE_FILTRATION_TYPE, x, Gdx.graphics.getHeight()));
             isDropped = true;
         }
         return isDropped;
@@ -312,7 +323,7 @@ public class GameplayScreen {
         batch.draw(drop.getSplash(), drop.getX(), drop.getY());
 
         //If splash is acid, decrease strength
-        if (CountManager.getSplashCount() == 0) {
+        if (drop.getSplashCount() == 0) {
             if (drop instanceof AcidDrop) {
                 ScoreManager.decreaseStrengthScore(drop.getPoints());
             }
@@ -323,13 +334,12 @@ public class GameplayScreen {
         }
 
         //Continue rendering splash until counter hits max
-        if (CountManager.getSplashCount() < PropManager.SPLASH_LENGTH) {
-            CountManager.increaseSplashCount();
+        if (drop.getSplashCount() < PropManager.SPLASH_LENGTH) {
+            drop.increaseSplashCount();
         }
 
         //Remove drop from array, stop rendering it
         else {
-            CountManager.resetSplashCount();
             drops.remove(drop);
         }
     }
@@ -357,5 +367,26 @@ public class GameplayScreen {
                 CountManager.resetPurpleRainCount();
             }
         }
+    }
+
+    /**
+     * Set audio files
+     */
+    private void setAudio() {
+        AudioManager.setAcidDropAudio(this.assetLoader.getManager().get(PropManager.AUDIO_ACID_DROP, Sound.class));
+        AudioManager.setRainDropAudio(this.assetLoader.getManager().get(PropManager.AUDIO_RAIN_DROP, Sound.class));
+        AudioManager.setSideSplatAudio(this.assetLoader.getManager().get(PropManager.AUDIO_SIDE_SPLAT, Sound.class));
+        AudioManager.setSirenAudio(this.assetLoader.getManager().get(PropManager.AUDIO_SIREN, Sound.class));
+
+        if (this.assetLoader.getManager().isLoaded(PropManager.AUDIO_COUNTDOWN)) {
+            AudioManager.setCountdownAudio(this.assetLoader.getManager().get(PropManager.AUDIO_COUNTDOWN, Sound.class));
+        }
+        if (this.assetLoader.getManager().isLoaded(PropManager.AUDIO_POWERUP)) {
+            AudioManager.setPowerupAudio(this.assetLoader.getManager().get(PropManager.AUDIO_POWERUP, Sound.class));
+        }
+        if (this.assetLoader.getManager().isLoaded(PropManager.AUDIO_GUITAR)) {
+            AudioManager.setGuitarAudio(this.assetLoader.getManager().get(PropManager.AUDIO_GUITAR, Sound.class));
+        }
+
     }
 }

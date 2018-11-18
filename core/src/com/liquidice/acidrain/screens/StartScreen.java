@@ -47,9 +47,6 @@ public class StartScreen {
     private ImageButton unlockButton;
     private ImageButton startButton;
     private ImageButton helpButton;
-    private ImageButton.ImageButtonStyle unlockButtonStyle = new ImageButton.ImageButtonStyle();
-    private ImageButton.ImageButtonStyle startButtonStyle = new ImageButton.ImageButtonStyle();
-    private ImageButton.ImageButtonStyle helpButtonStyle = new ImageButton.ImageButtonStyle();
     private ImageButton.ImageButtonStyle soundOffButtonStyle;
     private ImageButton.ImageButtonStyle soundOnButtonStyle;
     private TextureRegionDrawable soundOffButtonStyleUp;
@@ -59,11 +56,6 @@ public class StartScreen {
     private TextureRegion unlockTextureRegion;
     private TextureRegion helpTextureRegion;
     private TextureRegion startTextureRegion;
-    private TextureRegionDrawable soundOffDrawable;
-    private TextureRegionDrawable soundOnDrawable;
-    private TextureRegionDrawable unlockDrawable;
-    private TextureRegionDrawable helpDrawable;
-    private TextureRegionDrawable startDrawable;
     private Table table;
     private boolean soundOn;
     private boolean unlockedScreenOpen;
@@ -74,12 +66,10 @@ public class StartScreen {
      */
     public StartScreen(AssetLoader loader) {
         this.assetLoader = loader;
-        this.assetLoader.loadStartScreen();
+        this.assetLoader.loadStartScreenAssets();
         //Logo and Text
         logo = assetLoader.getManager().get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
         setFonts();
-
-        //TODO: Clean up this button stuff, or consolidate into private method:
 
         //Buttons
         soundOffButtonStyle = new ImageButton.ImageButtonStyle();
@@ -87,8 +77,11 @@ public class StartScreen {
         soundOffButton = new ImageButton(soundOffButtonStyle);
         soundOnButton = new ImageButton(soundOnButtonStyle);
         soundButton = new ImageButton(soundOnButtonStyle);
+        ImageButton.ImageButtonStyle unlockButtonStyle = new ImageButton.ImageButtonStyle();
         unlockButton = new ImageButton(unlockButtonStyle);
+        ImageButton.ImageButtonStyle startButtonStyle = new ImageButton.ImageButtonStyle();
         startButton = new ImageButton(startButtonStyle);
+        ImageButton.ImageButtonStyle helpButtonStyle = new ImageButton.ImageButtonStyle();
         helpButton = new ImageButton(helpButtonStyle);
 
         //Texture Regions
@@ -99,11 +92,11 @@ public class StartScreen {
         startTextureRegion = new TextureRegion(assetLoader.getManager().get(PropManager.BUTTON_START, Texture.class));
 
         //Drawables
-        soundOffDrawable = new TextureRegionDrawable(soundOffTextureRegion);
-        soundOnDrawable = new TextureRegionDrawable(soundOnTextureRegion);
-        unlockDrawable = new TextureRegionDrawable(unlockTextureRegion);
-        helpDrawable = new TextureRegionDrawable(helpTextureRegion);
-        startDrawable = new TextureRegionDrawable(startTextureRegion);
+        TextureRegionDrawable soundOffDrawable = new TextureRegionDrawable(soundOffTextureRegion);
+        TextureRegionDrawable soundOnDrawable = new TextureRegionDrawable(soundOnTextureRegion);
+        TextureRegionDrawable unlockDrawable = new TextureRegionDrawable(unlockTextureRegion);
+        TextureRegionDrawable helpDrawable = new TextureRegionDrawable(helpTextureRegion);
+        TextureRegionDrawable startDrawable = new TextureRegionDrawable(startTextureRegion);
 
         soundOffButtonStyleUp = soundOffDrawable;
         soundOnButtonStyleUp = soundOnDrawable;
@@ -118,18 +111,16 @@ public class StartScreen {
         //Default sprites
         Background.init(assetLoader.getManager());
         Clouds.init(assetLoader.getManager().get(PropManager.TEXTURE_CLOUDS, Texture.class));
-        Bucket.init(assetLoader.getManager().get(PropManager.TEXTURE_BUCKET_0, Texture.class));
+        Bucket.init(assetLoader);
         City.setImage(assetLoader.getManager().get(PropManager.TEXTURE_CITY_10, Texture.class));
-        AudioManager.setThunderstorm(assetLoader.getManager().get(PropManager.AUDIO_THUNDERSTORM, Music.class));
+        AudioManager.setThunderstormAudio(assetLoader.getManager().get(PropManager.AUDIO_THUNDERSTORM, Music.class));
     }
 
-    private void loadAssets() {
-        this.assetLoader.loadStartScreen();
+    public void loadAssets() {
+        this.assetLoader.loadStartScreenAssets();
 
         //Logo and Text
         logo = assetLoader.getManager().get(PropManager.TEXTURE_TEXT_LOGO, Texture.class);
-
-        //TODO: Clean up this button stuff, or consolidate into private method
 
         //Regions
         soundOffTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_SOUND_OFF, Texture.class));
@@ -137,20 +128,6 @@ public class StartScreen {
         unlockTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_UNLOCK, Texture.class));
         helpTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_HELP, Texture.class));
         startTextureRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_START, Texture.class));
-
-        //Drawables
-        soundOffDrawable.setRegion(soundOffTextureRegion);
-        soundOnDrawable.setRegion(soundOnTextureRegion);
-        unlockDrawable.setRegion(unlockTextureRegion);
-        helpDrawable.setRegion(helpTextureRegion);
-        startDrawable.setRegion(startTextureRegion);
-
-        //Buttons
-        soundOffButtonStyleUp = soundOffDrawable;
-        soundOnButtonStyleUp = soundOnDrawable;
-        helpButtonStyle.up = helpDrawable;
-        unlockButtonStyle.up = unlockDrawable;
-        startButtonStyle.up = startDrawable;
     }
 
     /**
@@ -303,11 +280,19 @@ public class StartScreen {
      */
     private void addButtonListeners() {
         //Start Button Listener
-        startButton.addListener(new ChangeListener() {
+        startButton.clearListeners();
+        startButton.addListener(new InputListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                assetLoader.unloadStartScreenAssets();
+                if (ScreenManager.getGameplayScreen() == null) {
+                    ScreenManager.createGameplayScreen();
+                } else {
+                    ScreenManager.getGameplayScreen().loadAssets();
+                }
                 GameplayManager.resume();
                 GameplayManager.setGameState(PropManager.GAME_PLAY_STATE);
+                return false;
             }
         });
 
@@ -316,7 +301,7 @@ public class StartScreen {
         unlockButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                assetLoader.unloadStartScreen();
+                assetLoader.unloadStartScreenAssets();
                 if (ScreenManager.getUnlockablesScreen() == null) {
                     ScreenManager.createUnlockablesScreen();
                 } else {

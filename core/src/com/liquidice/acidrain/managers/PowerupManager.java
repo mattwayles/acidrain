@@ -18,16 +18,6 @@ public class PowerupManager {
     private static BitmapFont countdown;
 
     /**
-     * Initialize the countdown Font
-     */
-    public static void init() {
-        countdown = new BitmapFont(
-                Gdx.files.internal(PropManager.FONT_PLAY_100),
-                Gdx.files.internal(PropManager.FONT_PLAY_100_PNG),
-                false);
-    }
-
-    /**
      * Deactivate ALL Powerups
      */
     public static void deactivateAllPowerups() {
@@ -186,6 +176,12 @@ public class PowerupManager {
      */
     public static void checkCountdown(Batch batch, int activationTime) {
         int count = getClosestExpiringPowerup();
+        if (countdown == null) {
+            countdown = new BitmapFont(
+                    Gdx.files.internal(PropManager.FONT_PLAY_100),
+                    Gdx.files.internal(PropManager.FONT_PLAY_100_PNG),
+                    false);
+        }
 
         if (count >= activationTime - PropManager.ONE_SECOND) {
             if (count == activationTime - PropManager.ONE_SECOND) { AudioManager.playCountdown(); }

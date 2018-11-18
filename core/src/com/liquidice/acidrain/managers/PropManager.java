@@ -20,7 +20,6 @@ public class PropManager {
     public static int UNLOCKABLE_PURPLE_RAIN_TYPE = 4;
     public static int UNLOCKABLE_SHIELD_TYPE = 5;
     public static int UNLOCKABLE_FILTRATION_TYPE = 6;
-
     public static int UNLOCK_1_LEVEL = 6;
     public static int UNLOCK_2_LEVEL = 11;
     public static int UNLOCK_3_LEVEL = 19;
@@ -294,7 +293,7 @@ public class PropManager {
     public static final String TEXTURE_PURPLE_RAIN_BOUNCE = "unlockables/purpleRain/purpleRainBounce.png";
     public static final String TEXTURE_PURPLE_RAIN_DROP = "unlockables/purpleRain/purpleRainDrop.png";
     public static final String TEXTURE_PURPLE_RAIN_UNLOCK = "unlockables/purpleRain/unlockablePurpleRain.png";
-    static final String TEXTURE_SHIELD = "unlockables/shield/shield.jpg";
+    public static final String TEXTURE_SHIELD = "unlockables/shield/shield.jpg";
     public static final String TEXTURE_SHIELD_BOUNCE = "unlockables/shield/shieldBounce.png";
     public static final String TEXTURE_SHIELD_DROP = "unlockables/shield/shieldDrop.png";
     public static final String TEXTURE_SHIELD_UNLOCK = "unlockables/shield/unlockableShield.png";
@@ -302,11 +301,11 @@ public class PropManager {
     public static final String TEXTURE_TEAMWORK_BOUNCE = "unlockables/teamwork/teamworkBounce.png";
     public static final String TEXTURE_TEAMWORK_DROP = "unlockables/teamwork/teamworkDrop.png";
     public static final String TEXTURE_TEAMWORK_UNLOCK = "unlockables/teamwork/unlockableTeamwork.png";
-    static final String TEXTURE_TEAMWORK = "unlockables/teamwork/teamwork.png";
+    public static final String TEXTURE_TEAMWORK = "unlockables/teamwork/teamwork.png";
     public static final String TEXTURE_UMBRELLA_BOUNCE = "unlockables/umbrella/umbrellaBounce.png";
     public static final String TEXTURE_UMBRELLA_DROP = "unlockables/umbrella/umbrellaDrop.png";
-    static final String TEXTURE_UMBRELLA_LEFT = "unlockables/umbrella/umbrellaLeft.png";
-    static final String TEXTURE_UMBRELLA_RIGHT = "unlockables/umbrella/umbrellaRight.png";
+    public static final String TEXTURE_UMBRELLA_LEFT = "unlockables/umbrella/umbrellaLeft.png";
+    public static final String TEXTURE_UMBRELLA_RIGHT = "unlockables/umbrella/umbrellaRight.png";
     public static final String TEXTURE_UMBRELLA_UNLOCK = "unlockables/umbrella/unlockableUmbrella.png";
     public static final String TEXTURE_LOCKED_UNLOCK = "unlockables/unlockableLocked.png";
 
@@ -323,18 +322,18 @@ public class PropManager {
     public static final String BUTTON_UNLOCK = "buttons/unlockButton.png";
 
     //Sound Assets
-     static final String AUDIO_ACID_DROP ="sounds/acidDrop.mp3";
-     static final String AUDIO_BIRDS = "sounds/birds.mp3";
-     static final String AUDIO_COUNTDOWN = "sounds/countdown.mp3";
-     static final String AUDIO_GAME_OVER = "sounds/gameOver.mp3";
-     static final String AUDIO_GUITAR = "sounds/guitar.wav";
-     static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
-     static final String AUDIO_POWERUP = "sounds/powerup.wav";
-     static final String AUDIO_RAIN_DROP = "sounds/rainDrop.mp3";
-     static final String AUDIO_SHIELD_SPLAT = "sounds/shieldSplat.wav";
-     static final String AUDIO_SIDE_SPLAT = "sounds/sideSplat.mp3";
-     static final String AUDIO_SIREN = "sounds/siren.wav";
-     static final String AUDIO_THUNDERCRACK = "sounds/thunderCrack.wav";
+    public static final String AUDIO_ACID_DROP ="sounds/acidDrop.mp3";
+    public static final String AUDIO_BIRDS = "sounds/birds.mp3";
+    public static final String AUDIO_COUNTDOWN = "sounds/countdown.mp3";
+    public static final String AUDIO_GAME_OVER = "sounds/gameOver.mp3";
+    public static final String AUDIO_GUITAR = "sounds/guitar.wav";
+    public static final String AUDIO_LEVEL_WIN = "sounds/levelWin.mp3";
+    public static final String AUDIO_POWERUP = "sounds/powerup.wav";
+    public static final String AUDIO_RAIN_DROP = "sounds/rainDrop.mp3";
+    public static final String AUDIO_SHIELD_SPLAT = "sounds/shieldSplat.wav";
+    public static final String AUDIO_SIDE_SPLAT = "sounds/sideSplat.mp3";
+    public static final String AUDIO_SIREN = "sounds/siren.wav";
+    public static final String AUDIO_THUNDERCRACK = "sounds/thunderCrack.wav";
     public static final String AUDIO_THUNDERSTORM = "sounds/thunderstorm.mp3";
-    static final String AUDIO_UMBRELLA_SPLAT = "sounds/umbrellaSplat.wav";
+    public static final String AUDIO_UMBRELLA_SPLAT = "sounds/umbrellaSplat.wav";
 }

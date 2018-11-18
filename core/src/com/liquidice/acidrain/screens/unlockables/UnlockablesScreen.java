@@ -38,23 +38,8 @@ public class UnlockablesScreen {
     private TextureRegion unlockableFilter;
     private TextureRegion unlockableTeamwork;
     private TextureRegion unlockablePurpleRain;
-    private TextureRegionDrawable unlockableMultiplierDrawable;
-    private TextureRegionDrawable unlockableTeamworkDrawable;
-    private TextureRegionDrawable unlockableHealthPackDrawable;
-    private TextureRegionDrawable unlockableUmbrellaDrawable;
-    private TextureRegionDrawable unlockablePurpleRainDrawable;
-    private TextureRegionDrawable unlockableShieldDrawable;
-    private TextureRegionDrawable unlockableFilterDrawable;
-    private Image unlockableMultipliersImg;
-    private Image unlockableHealthPackImg;
-    private Image unlockableUmbrellaImg;
-    private Image unlockableShieldImg;
-    private Image unlockableFilterImg;
-    private Image unlockableTeamworkImg;
-    private Image unlockablePurpleRainImg;
     private Table scrollableTable = new Table();
     private Table table = new Table();
-    private ScrollPane scroll = new ScrollPane(table);
 
     /**
      * Initialize the screen with text, close button, and parent handlers
@@ -63,7 +48,7 @@ public class UnlockablesScreen {
     public UnlockablesScreen(AssetLoader loader) {
         //Assets
         this.assetLoader = loader;
-        this.assetLoader.loadUnlockablesScreen();
+        this.assetLoader.loadUnlockablesScreenAssets();
         setFonts();
 
         
@@ -82,12 +67,8 @@ public class UnlockablesScreen {
     }
 
     public void loadAssets() {
-        table.clear();
-        this.assetLoader.loadUnlockablesScreen();
-        closeButtonRegion.setRegion(assetLoader.getManager().get(PropManager.BUTTON_CLOSE, Texture.class));
-
-        //TODO: Table does not render correctly on loadAsset(), Investigate and fix
-        //TODO: Clean up this image stuff, or refactor into private method
+        this.assetLoader.loadUnlockablesScreenAssets();
+        closeButtonRegion.setTexture(assetLoader.getManager().get(PropManager.BUTTON_CLOSE, Texture.class));
 
         //Texture Regions
         unlockableMultipliers.setRegion(GameplayManager.getLevel() >= PropManager.UNLOCK_1_LEVEL
@@ -111,41 +92,6 @@ public class UnlockablesScreen {
         unlockableFilter.setRegion(GameplayManager.getLevel() >= PropManager.UNLOCK_7_LEVEL
                 ? assetLoader.getManager().get(PropManager.TEXTURE_FILTRATION_UNLOCK, Texture.class)
                 : assetLoader.getManager().get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class));
-
-        //Drawables
-        unlockableMultiplierDrawable.setRegion(unlockableMultipliers);
-        unlockableTeamworkDrawable.setRegion(unlockableTeamwork);
-        unlockableHealthPackDrawable.setRegion(unlockableHealthPack);
-        unlockableUmbrellaDrawable.setRegion(unlockableUmbrella);
-        unlockablePurpleRainDrawable.setRegion(unlockablePurpleRain);
-        unlockableShieldDrawable.setRegion(unlockableShield);
-        unlockableFilterDrawable.setRegion(unlockableFilter);
-
-        //Image
-        unlockableMultipliersImg.setDrawable(unlockableMultiplierDrawable);
-        unlockableTeamworkImg.setDrawable(unlockableTeamworkDrawable);
-        unlockableHealthPackImg.setDrawable(unlockableHealthPackDrawable);
-        unlockableUmbrellaImg.setDrawable(unlockableUmbrellaDrawable);
-        unlockablePurpleRainImg.setDrawable(unlockablePurpleRainDrawable);
-        unlockableShieldImg.setDrawable(unlockableShieldDrawable);
-        unlockableFilterImg.setDrawable(unlockableFilterDrawable);
-
-        //Populate inner table with images
-
-        table.add(unlockableMultipliersImg).padTop(10).row();
-        table.add(unlockableTeamworkImg).padTop(10).row();
-        table.add(unlockableHealthPackImg).padTop(10).row();
-        table.add(unlockableUmbrellaImg).padTop(10).row();
-        table.add(unlockablePurpleRainImg).padTop(10).row();
-        table.add(unlockableShieldImg).padTop(10).row();
-        table.add(unlockableFilterImg).padTop(10).row();
-
-        table.pack();
-        table.setTransform(true);  //clipping enabled
-
-        //Add table to container
-        scrollableTable.add(scroll).expand().fill();
-
     }
 
     /**
@@ -180,9 +126,7 @@ public class UnlockablesScreen {
 
         //Add container to stage
         stage.addActor(scrollableTable);
-        
-        //TODO: Clean up this table stuff, or refactor into private method:
-        
+
         //Texture Regions
         unlockableMultipliers = new TextureRegion(GameplayManager.getLevel() >= PropManager.UNLOCK_1_LEVEL 
                 ? assetLoader.getManager().get(PropManager.TEXTURE_MULTIPLIER_UNLOCK, Texture.class) 
@@ -207,22 +151,22 @@ public class UnlockablesScreen {
                 : assetLoader.getManager().get(PropManager.TEXTURE_LOCKED_UNLOCK, Texture.class));
         
         //Drawables
-        unlockableMultiplierDrawable = new TextureRegionDrawable(unlockableMultipliers);
-        unlockableTeamworkDrawable = new TextureRegionDrawable(unlockableTeamwork);
-        unlockableHealthPackDrawable = new TextureRegionDrawable(unlockableHealthPack);
-        unlockableUmbrellaDrawable = new TextureRegionDrawable(unlockableUmbrella);
-        unlockablePurpleRainDrawable = new TextureRegionDrawable(unlockablePurpleRain);
-        unlockableShieldDrawable = new TextureRegionDrawable(unlockableShield);
-        unlockableFilterDrawable = new TextureRegionDrawable(unlockableFilter);
+        TextureRegionDrawable unlockableMultiplierDrawable = new TextureRegionDrawable(unlockableMultipliers);
+        TextureRegionDrawable unlockableTeamworkDrawable = new TextureRegionDrawable(unlockableTeamwork);
+        TextureRegionDrawable unlockableHealthPackDrawable = new TextureRegionDrawable(unlockableHealthPack);
+        TextureRegionDrawable unlockableUmbrellaDrawable = new TextureRegionDrawable(unlockableUmbrella);
+        TextureRegionDrawable unlockablePurpleRainDrawable = new TextureRegionDrawable(unlockablePurpleRain);
+        TextureRegionDrawable unlockableShieldDrawable = new TextureRegionDrawable(unlockableShield);
+        TextureRegionDrawable unlockableFilterDrawable = new TextureRegionDrawable(unlockableFilter);
         
         //Image
-        unlockableMultipliersImg = new Image(unlockableMultiplierDrawable);
-        unlockableTeamworkImg = new Image(unlockableTeamworkDrawable);
-        unlockableHealthPackImg = new Image(unlockableHealthPackDrawable);
-        unlockableUmbrellaImg = new Image(unlockableUmbrellaDrawable);
-        unlockablePurpleRainImg = new Image(unlockablePurpleRainDrawable);
-        unlockableShieldImg = new Image(unlockableShieldDrawable);
-        unlockableFilterImg = new Image(unlockableFilterDrawable);
+        Image unlockableMultipliersImg = new Image(unlockableMultiplierDrawable);
+        Image unlockableTeamworkImg = new Image(unlockableTeamworkDrawable);
+        Image unlockableHealthPackImg = new Image(unlockableHealthPackDrawable);
+        Image unlockableUmbrellaImg = new Image(unlockableUmbrellaDrawable);
+        Image unlockablePurpleRainImg = new Image(unlockablePurpleRainDrawable);
+        Image unlockableShieldImg = new Image(unlockableShieldDrawable);
+        Image unlockableFilterImg = new Image(unlockableFilterDrawable);
 
         //Populate inner table with images
 
@@ -256,7 +200,7 @@ public class UnlockablesScreen {
         closeButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                assetLoader.unloadUnlockablesScreen();
+                assetLoader.unloadUnlockablesScreenAssets();
                 ScreenManager.getStartScreen().setUnlockScreenOpen(false);
                 return false;
             }});

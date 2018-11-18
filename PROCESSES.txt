@@ -1,7 +1,8 @@
 ADD AN UNLOCKABLE PROCESS:
 
 -Add UNLOCK_X_LEVEL, POWERUP_X_TITLE, POWERUP_X_DESC, X_CHANCE, X_ACTIVATION_TIME, UNLOCKABLE_X_TYPE & all TEXTURES to PropManager
--Add all TEXTURE loads to AssetLoader
+-Add a new conditional to load TEXTURES in AssetLoader loadGameplayPowerups method
+-Add the bounce texture to AssetLoader.loadUnlockedScreenAssets/unloadUnlockedScreenAssets
 -Add new Image and table.add() to UnlockablesScreen, using UNLOCK_X_LEVEL
 -Add new  UNLOCK_X_LEVEL conditional & else if {} to LevelCompleteScreen checkForPowerupLevel()
 -IF powerup requires a counter, Add new counter and functions to CountManager
@@ -19,6 +20,8 @@ RENDERING SPECIAL DROPS: Add to GameplayScreen.renderPowerupDrop(). Determine ho
 CHANGING UNLOCKABLE LEVEL PROCESS:
 
 -Change UNLOCKABLE_X_TYPE in PropManager
+-Rearrange AssetLoader.loadGameplayPowerups()
+-Rearrange AssetLoader.loadUnlockedScreenAssets/unloadUnlockedScreenAssets
 -Rearrange table.add()s in UnlockablesScreen
 -Rearrange LevelCompleteScreen.checkForPowerupUnlock
 -Rearrange PowerupManager.checkPowerupLevel()

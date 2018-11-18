@@ -1,8 +1,11 @@
 package com.liquidice.acidrain.sprites;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
+import com.liquidice.acidrain.managers.AssetLoader;
+import com.liquidice.acidrain.managers.AudioManager;
 import com.liquidice.acidrain.managers.PropManager;
 import com.liquidice.acidrain.utilities.SpriteUtil;
 
@@ -10,6 +13,7 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
  * When an Umbrella powerup is consumed, render an umbrella on the sides of the Bucket
  */
 public class Umbrella {
+    private static AssetLoader assetLoader;
     private static Texture leftImage;
     private static Texture rightImage;
     private static float leftX;
@@ -17,9 +21,10 @@ public class Umbrella {
     private static Rectangle leftRect;
     private static Rectangle rightRect;
 
-    public static void init(Texture left, Texture right) {
-        leftImage = left;
-        rightImage = right;
+    public static void init(AssetLoader loader) {
+        assetLoader = loader;
+        leftImage = loader.getManager().get(PropManager.TEXTURE_UMBRELLA_LEFT);
+        rightImage = loader.getManager().get(PropManager.TEXTURE_UMBRELLA_RIGHT);
         leftX = Bucket.getX() - leftImage.getWidth() + PropManager.UMBRELLA_OFFSET;
         rightX = Bucket.getX() + Bucket.getImage().getWidth() - PropManager.UMBRELLA_OFFSET;
         leftRect = new Rectangle(
@@ -32,7 +37,23 @@ public class Umbrella {
                 PropManager.BUCKET_HOVER + SpriteUtil.middleOf(rightImage.getHeight()),
                 rightImage.getWidth(),
                 PropManager.UMBRELLA_HEIGHT);
+        AudioManager.setUmbrellaSplatAudio(loader.getManager().get(PropManager.AUDIO_UMBRELLA_SPLAT, Sound.class));
     }
+
+    /**
+     * Load assets
+     */
+    public static void loadAssets() {
+        leftImage = assetLoader.getManager().get(PropManager.TEXTURE_UMBRELLA_LEFT);
+        rightImage = assetLoader.getManager().get(PropManager.TEXTURE_UMBRELLA_RIGHT);
+        AudioManager.setUmbrellaSplatAudio(assetLoader.getManager().get(PropManager.AUDIO_UMBRELLA_SPLAT, Sound.class));
+    }
+
+    /**
+     * Retrieve the left umbrella image
+     * @return The left umbrella image
+     */
+    static Texture getLeftImage() { return leftImage; }
 
     /**
      * Retrieve the left umbrella rectangle for collision purposes

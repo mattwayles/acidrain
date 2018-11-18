@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
+import com.liquidice.acidrain.managers.AssetLoader;
 import com.liquidice.acidrain.managers.CountManager;
 import com.liquidice.acidrain.managers.GameplayManager;
 import com.liquidice.acidrain.managers.PowerupManager;
@@ -14,14 +15,16 @@ import com.liquidice.acidrain.utilities.SpriteUtil;
  * Render the bucket object used to catch or smash raindrops
  */
 public class Bucket {
+    private static AssetLoader assetLoader;
     private static Texture image;
     private static float x;
     private static Rectangle topRect;
     private static Rectangle leftRect;
     private static Rectangle rightRect;
 
-    public static void init(Texture texture) {
-        image = texture;
+    public static void init(AssetLoader loader) {
+        assetLoader = loader;
+        image = assetLoader.getManager().get(PropManager.TEXTURE_BUCKET_0, Texture.class);
 
         x = SpriteUtil.middleOf(Gdx.graphics.getWidth()) - SpriteUtil.middleOf(image.getWidth());
         topRect = new Rectangle(
@@ -116,6 +119,11 @@ public class Bucket {
 
             //Add umbrella if powerup is active
             if (CountManager.getUmbrellaCount() <= PropManager.UMBRELLA_ACTIVATION_TIME) {
+                if (Umbrella.getLeftImage() == null) {
+                    Umbrella.init(assetLoader);
+                } else {
+                    Umbrella.loadAssets();
+                }
                 Umbrella.draw(batch);
                 CountManager.increaseUmbrellaCount();
                 PowerupManager.checkCountdown(batch, PropManager.UMBRELLA_ACTIVATION_TIME);
@@ -127,6 +135,11 @@ public class Bucket {
         //Add shield if powerup is active
         if (PowerupManager.isShieldActive()) {
             if (CountManager.getShieldCount() <= PropManager.SHIELD_ACTIVATION_TIME) {
+                if (Shield.getImage() == null) {
+                    Shield.init(assetLoader);
+                } else {
+                    Shield.loadAssets();
+                }
                 Shield.draw(batch);
                 CountManager.increaseShieldCount();
                 PowerupManager.checkCountdown(batch, PropManager.SHIELD_ACTIVATION_TIME);
@@ -138,6 +151,11 @@ public class Bucket {
         //Add teamwork hands if powerup is active
         if (PowerupManager.isTeamworkActive()) {
             if (CountManager.getTeamworkCount() <= PropManager.TEAMWORK_ACTIVATION_TIME) {
+                if (Teamwork.getImage() == null) {
+                    Teamwork.init(assetLoader);
+                } else {
+                    Teamwork.loadAssets();
+                }
                 Teamwork.draw(batch);
                 CountManager.increaseTeamworkCount();
                 PowerupManager.checkCountdown(batch, PropManager.TEAMWORK_ACTIVATION_TIME);
